@@ -2,6 +2,12 @@
 
 Global instructions loaded on every opencode session start.
 
+## Verification before acting on second-hand advice
+
+- When another agent, the user, or a tool gives me a configuration recipe ("do X in file Y"), **verify against the official docs before executing**, especially for unfamiliar tools. The "other agent told me to" is not a substitute for checking the source of truth.
+- If docs aren't readily accessible, at minimum verify the recipe actually works (e.g. by reading the file it claims to create, or asking the user to confirm the file path on their system).
+- A user calling out "did you just hallucinate that i should have X" is a strong signal I trusted third-party guidance instead of primary sources.
+
 ## Shell / process management on Windows
 
 - **`cmd /c "start /B <command>"` BLOCKS the tool call** even though `start /B` is supposed to background the process. The shell waits for the backgrounded process to finish before returning control. This causes the agent to look "stuck" for tens of seconds.

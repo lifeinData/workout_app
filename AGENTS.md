@@ -74,6 +74,15 @@ backend/                       # FastAPI + SQLite + wger
 - **Dates are local YYYY-MM-DD on the client, UTC ISO 8601 on the server.** Conversion happens at the network boundary in `lib/dates.ts`.
 - **No auth yet** — device UUID in `X-User-Id` header. See `future_ideas.md` for the plan.
 
+## wger API quirks (Python seed)
+
+- The `/api/v2/exercise/` endpoint returns exercises WITHOUT English names — the names live in `/api/v2/exercise-translation/?language=2` keyed by translation id, with the exercise's own wger id in the `exercise` field.
+- Two-step paged fetch is required: page through `/exercise/` to get all records (muscles, equipment), separately page through `/exercise-translation/?language=2` to build a name index, then join by id.
+- wger's pagination occasionally yields duplicate rows across page boundaries. Always dedupe by wger's own `id` field, not array index.
+- Use the `uuid` field or the integer `id` from the `/exercise/` endpoint as the stable source-of-truth key, never the array index.
+- Cache the raw response to a `fixtures/wger_cache.json` file so subsequent runs work offline.
+- Save cache only when fetch succeeded (so `wger_cache.json` is only created when it can be populated). If both fetch and cache load fail, fall back to hand-curated seed data.
+
 ## Running locally
 
 1. Backend: `cd backend && run.bat` (or `./run.sh`). Listens on `0.0.0.0:8000`.

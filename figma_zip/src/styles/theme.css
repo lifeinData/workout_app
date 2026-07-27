@@ -1,0 +1,189 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-size: 16px;
+
+  /* Warm pastel palette — cream, peach, coral, blush, sage */
+  --background: #fdf6f0;          /* warm cream */
+  --foreground: #3d2b26;          /* deep cocoa */
+  --card: #ffffff;
+  --card-foreground: #3d2b26;
+  --popover: #ffffff;
+  --popover-foreground: #3d2b26;
+
+  --primary: #e87d6f;             /* coral */
+  --primary-foreground: #ffffff;
+  --secondary: #fce4d8;           /* blush */
+  --secondary-foreground: #6b3a30;
+  --muted: #faeadd;               /* soft peach wash */
+  --muted-foreground: #8b7268;    /* warm taupe */
+  --accent: #ffd5b8;              /* peach */
+  --accent-foreground: #5a3326;
+  --destructive: #d96a5a;
+  --destructive-foreground: #ffffff;
+
+  --border: #f0d9ce;
+  --input: #f7e3d4;
+  --input-background: #fff4ea;
+  --switch-background: #e8c9b8;
+
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --ring: #f4a29a;
+
+  /* Cronometer-style nutrient colors */
+  --chart-1: #e87d6f;             /* coral — protein */
+  --chart-2: #f0a868;             /* peach — carbs */
+  --chart-3: #c9a86f;             /* mustard — fat */
+  --chart-4: #9bb88a;             /* sage — fiber/veg */
+  --chart-5: #c98aa8;             /* dusty rose — extra */
+
+  --radius: 1rem;
+
+  --sidebar: #fff4ea;
+  --sidebar-foreground: #3d2b26;
+  --sidebar-primary: #e87d6f;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #fce4d8;
+  --sidebar-accent-foreground: #5a3326;
+  --sidebar-border: #f0d9ce;
+  --sidebar-ring: #f4a29a;
+}
+
+.dark {
+  --background: #2a1d1a;
+  --foreground: #fdf6f0;
+  --card: #36251f;
+  --card-foreground: #fdf6f0;
+  --popover: #36251f;
+  --popover-foreground: #fdf6f0;
+  --primary: #f4a29a;
+  --primary-foreground: #2a1d1a;
+  --secondary: #4a322a;
+  --secondary-foreground: #fce4d8;
+  --muted: #4a322a;
+  --muted-foreground: #d4b8a8;
+  --accent: #5a3a30;
+  --accent-foreground: #ffd5b8;
+  --destructive: #d96a5a;
+  --destructive-foreground: #ffffff;
+  --border: #4a322a;
+  --input: #4a322a;
+  --ring: #f4a29a;
+  --font-weight-medium: 500;
+  --font-weight-normal: 400;
+  --chart-1: #f4a29a;
+  --chart-2: #f0a868;
+  --chart-3: #d4b884;
+  --chart-4: #b5cfa3;
+  --chart-5: #d9a5be;
+  --sidebar: #36251f;
+  --sidebar-foreground: #fdf6f0;
+  --sidebar-primary: #f4a29a;
+  --sidebar-primary-foreground: #2a1d1a;
+  --sidebar-accent: #4a322a;
+  --sidebar-accent-foreground: #fce4d8;
+  --sidebar-border: #4a322a;
+  --sidebar-ring: #f4a29a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-input-background: var(--input-background);
+  --color-switch-background: var(--switch-background);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  html {
+    font-size: var(--font-size);
+  }
+
+  h1 {
+    font-size: 1.75rem;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+
+  h2 {
+    font-size: 1.375rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+
+  h3 {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+
+  h4 {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -0.005em;
+  }
+
+  label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  button {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.4;
+  }
+
+  input {
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-normal);
+    line-height: 1.4;
+  }
+}

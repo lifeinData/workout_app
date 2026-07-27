@@ -1,0 +1,154 @@
+import { useEffect } from "react";
+import { ActivityIndicator, Pressable, Text, View } from "react-native";
+import { NativeTabs } from "expo-router/unstable-native-tabs";
+import { router } from "expo-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { useMe, queryKeys } from "@/lib/queries";
+import { clearToken } from "@/lib/auth";
+
+/**
+ * (tabs) gate. If the user is not signed in, send them to /login.
+ * Once signed in we render the (iOS 18+) native tab bar. The admin
+ * trigger is only mounted for users with role === "admin".
+ *
+ * NOTE: NativeTabs is designed to be the root navigator; we are
+ * mounting it as a child of the root Stack so we can swap between
+ * (tabs) and (auth). If expo-router 5.x rejects this nesting, fall
+ * back to the regular `Tabs` component from "expo-router/tabs".
+ */
+export default function TabsLayout() {
+  const { data: me, isLoading, isError } = useMe();
+  const qc = useQueryClient();
+
+  const tintColor = "#e87d6f";
+  const labelColor = "#8b7268";
+  const bgColor = "#fdf6f0";
+
+  useEffect(() => {
+    if (!isLoading && me === null) {
+      router.replace("/login");
+    }
+  }, [isLoading, me]);
+
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#fdf6f0",
+        }}
+      >
+        <ActivityIndicator color="#e87d6f" />
+      </View>
+    );
+  }
+
+  if (me === null) {
+    /* Redirect pending. Render a blank loading state so we never
+     * briefly flash the tabs to an unauthenticated user. */
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#fdf6f0",
+        }}
+      >
+        <ActivityIndicator color="#e87d6f" />
+      </View>
+    );
+  }
+
+  if (isError) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#fdf6f0",
+          padding: 24,
+          gap: 16,
+        }}
+      >
+        <Text style={{ fontSize: 16, fontWeight: "600", color: "#3d2b26" }}>
+          Could not reach the server
+        </Text>
+        <Text style={{ fontSize: 13, color: "#8b7268", textAlign: "center" }}>
+          Check that the backend is running and your phone is on the same WiFi.
+        </Text>
+        <Pressable
+          onPress={() => qc.invalidateQueries({ queryKey: queryKeys.me })}
+          style={{
+            backgroundColor: "#e87d6f",
+            paddingHorizontal: 24,
+            paddingVertical: 12,
+            borderRadius: 12,
+          }}
+        >
+          <Text style={{ color: "#ffffff", fontWeight: "600" }}>Try again</Text>
+        </Pressable>
+        <Pressable
+          onPress={async () => {
+            await clearToken();
+            router.replace("/login");
+          }}
+        >
+          <Text style={{ color: "#8b7268", fontSize: 13 }}>Sign out and try again</Text>
+        </Pressable>
+      </View>
+    );
+  }
+
+  if (!me) {
+    return (
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#fdf6f0",
+        }}
+      >
+        <ActivityIndicator color="#e87d6f" />
+      </View>
+    );
+  }
+
+  return (
+    <NativeTabs
+      tintColor={tintColor}
+      backgroundColor={bgColor}
+      labelStyle={{
+        selected: { color: tintColor },
+        default: { color: labelColor },
+      }}
+    >
+      <NativeTabs.Trigger name="index">
+        <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon md="home" sf="house.fill" />
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="nutrition">
+        <NativeTabs.Trigger.Label>Nutrition</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon md="lunch_dining" sf="fork.knife" />
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="training">
+        <NativeTabs.Trigger.Label>Training</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon md="fitness_center" sf="figure.strengthtraining.traditional" />
+      </NativeTabs.Trigger>
+      <NativeTabs.Trigger name="community">
+        <NativeTabs.Trigger.Label>Community</NativeTabs.Trigger.Label>
+        <NativeTabs.Trigger.Icon md="groups" sf="person.3.fill" />
+      </NativeTabs.Trigger>
+      {me.role === "admin" && (
+        <NativeTabs.Trigger name="admin">
+          <NativeTabs.Trigger.Label>Admin</NativeTabs.Trigger.Label>
+          <NativeTabs.Trigger.Icon md="admin_panel_settings" sf="lock.shield.fill" />
+        </NativeTabs.Trigger>
+      )}
+    </NativeTabs>
+  );
+}

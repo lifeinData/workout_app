@@ -1,0 +1,1 @@
+the finalized plan is in plans/this-is-what-she-virtual-robin.md, read it and implement the plan

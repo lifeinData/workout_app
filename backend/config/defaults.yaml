@@ -1,0 +1,80 @@
+# Default config for workout_app. Overridable by env vars and local.yaml.
+# Section keys (app, auth, database, server, seed) map to the nested
+# Pydantic-Settings classes in backend/app/config.py.
+
+app:
+  name: workout_app
+  version: 0.2.0
+  schema_version: 3
+
+auth:
+  # Opaque session token lifetime in days. After expiry, the row is deleted
+  # and the client is forced to log in again.
+  session_ttl_days: 30
+
+  # bcrypt cost factor. 12 = ~200ms verify on phone. OWASP-acceptable.
+  # Higher = slower = more brute-force resistance. Max recommended: 14.
+  bcrypt_cost: 12
+
+  # Username validation. Lowercase, alnum + underscore, 3-32 chars.
+  # Enforced on both client (signup form) and server (Pydantic validator).
+  username_regex: "^[a-z0-9_]{3,32}$"
+
+  # Minimum password length. No other complexity requirements
+  # (NIST 800-63B: long passphrases > complex short passwords).
+  password_min_length: 8
+
+database:
+  # Resolved at config-load time to an absolute path so it's invariant to cwd.
+  # Override with DATABASE_URL env var (e.g. sqlite:///:memory: for tests).
+  path_template: "sqlite:///{backend_dir}/workout.db"
+  seed_on_startup: true
+  pool_size: 1
+  connect_args:
+    check_same_thread: false
+
+server:
+  host: 0.0.0.0
+  port: 8000
+  log_level: info
+  # CORS allowlist. Wildcards are NOT used. Each entry is a specific
+  # (scheme, host, port) tuple the browser/app will send as the
+  # `Origin` header. `localhost` and `10.0.2.2` cover dev on the
+  # laptop itself; the `192.168.7.41` entries cover a phone on the
+  # same LAN hitting the dev laptop's API. Add additional trusted
+  # dev-laptop IPs here if you move networks.
+  cors_origins:
+    - http://localhost:8081
+    - http://localhost:8000
+    - exp://127.0.0.1:8081
+    - http://10.0.2.2:8000
+    - http://192.168.7.41:8000
+    - exp://192.168.7.41:8081
+
+seed:
+  # The first time the DB is created (or whenever the schema_version in
+  # app.yaml is bumped), these two workouts are inserted as defaults.
+  # Admin can edit/add/delete from the UI; edits persist across restarts
+  # because the seed only fires on schema-version change.
+  default_workout_ids:
+    - w-upper-power
+    - w-home-bw
+
+  # Initial users. Passwords are bcrypt-hashed on first seed.
+  # Subsequent schema changes (i.e. manual DB wipes) will re-create them.
+  # In production, use a one-shot CLI to create the first admin instead.
+  initial_users:
+    # Note: password_min_length=8 is enforced by auth.yaml, so the dev
+    # passwords below are 9 chars (admin1234 / user11234) to keep the
+    # creds memorable while still passing the schema. Don't ship these
+    # to production — they live in this gitignored config for local dev only.
+    - username: admin
+      password: admin1234
+      role: admin
+      display_name: Admin
+      initials: AD
+    - username: user1
+      password: user11234
+      role: user
+      display_name: Test User
+      initials: U1

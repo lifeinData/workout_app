@@ -1,0 +1,24 @@
+stateDiagram-v2
+    [*] --> active : POST /me/sessions
+
+    active --> completed : PATCH status=completed<br/>user taps Finish
+    active --> abandoned : PATCH status=abandoned<br/>user taps Discard
+    active --> abandoned : auto after 24h stale<br/>on GET /sessions/active
+
+    active --> active : log / edit / delete sets
+
+    completed --> [*]
+    abandoned --> [*]
+
+    note right of active
+        AT MOST ONE per user.
+        Enforced in the router,
+        not the schema.
+    end note
+
+    note right of completed
+        Terminal. ended_at is set.
+        Sets become read-only —
+        POST /me/sets returns 409,
+        as does re-finishing.
+    end note

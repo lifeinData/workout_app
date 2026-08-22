@@ -34,6 +34,8 @@ export interface LoginRequest {
   password: string;
 }
 
+export type WeightUnit = "lb" | "kg";
+
 export interface ExerciseResponse {
   id: string;
   name: string;
@@ -45,6 +47,18 @@ export interface ExerciseResponse {
   pr_trackable: boolean;
 }
 
+/** `ExerciseResponse` plus this workout's per-exercise prescription.
+ * Additive over `ExerciseResponse` — any code that only reads the base
+ * fields (name, yt_id, ...) keeps working unchanged. */
+export interface WorkoutExerciseResponse extends ExerciseResponse {
+  order_index: number;
+  target_sets: number;
+  target_reps_low: number;
+  target_reps_high: number | null;
+  target_rest_sec: number;
+  prescription_notes: string | null;
+}
+
 export interface WorkoutSummaryResponse {
   id: string;
   name: string;
@@ -53,10 +67,13 @@ export interface WorkoutSummaryResponse {
   equipment: string[];
   duration_min: number;
   exercise_count: number;
+  // null = coach catalog ("Coach's Playbook"); set = a personal
+  // template owned by the caller ("My Workouts").
+  owner_id: string | null;
 }
 
 export interface WorkoutDetailResponse extends WorkoutSummaryResponse {
-  exercises: ExerciseResponse[];
+  exercises: WorkoutExerciseResponse[];
 }
 
 export interface PreferencesResponse {
@@ -65,35 +82,70 @@ export interface PreferencesResponse {
   equipment: string[];
   completed_workouts_today: string[];
   last_reset_date: string;
+  weight_unit: WeightUnit;
+  default_rest_sec: number;
 }
 
 export type PreferencesPatch = Partial<
-  Pick<PreferencesResponse, "mode" | "equipment" | "completed_workouts_today">
-> & { add_completed?: string[] };
+  Pick<
+    PreferencesResponse,
+    "mode" | "equipment" | "completed_workouts_today" | "weight_unit" | "default_rest_sec"
+  >
+> & { add_completed?: string[]; client_today?: string };
+
+/* ------------------------------------------------------------------ *
+ * Sets                                                               *
+ * ------------------------------------------------------------------ */
+
+export type SetKind = "working" | "warmup";
 
 export interface SetLogCreate {
+  session_id: string;
   exercise_id: string;
   weight: number;
+  weight_unit: WeightUnit;
   reps: number;
+  kind?: SetKind;
+  rpe?: number | null;
   timestamp?: string;
+}
+
+export interface SetLogPatch {
+  weight?: number;
+  weight_unit?: WeightUnit;
+  reps?: number;
+  kind?: SetKind;
+  rpe?: number | null;
 }
 
 export interface HistoricalSetResponse {
   id: number;
   user_id: string;
-  date: string;
+  session_id: string;
+  local_date: string;
   exercise_id: string;
+  set_index: number;
+  kind: SetKind;
   weight: number;
+  weight_unit: WeightUnit;
+  weight_kg: number;
   reps: number;
+  rpe: number | null;
+  was_pr: boolean;
   timestamp: string;
 }
 
 export interface PersonalRecordResponse {
   user_id: string;
   exercise_id: string;
-  weight: number;
-  reps: number;
-  date: string;
+  best_weight_kg: number;
+  best_weight_reps: number;
+  best_weight_date: string;
+  best_e1rm_kg: number;
+  best_e1rm_weight_kg: number;
+  best_e1rm_reps: number;
+  best_e1rm_date: string;
+  updated_at: string;
 }
 
 export interface SetLogCreatedResponse {
@@ -102,12 +154,80 @@ export interface SetLogCreatedResponse {
   pr: PersonalRecordResponse | null;
 }
 
-export type HistoryResponse = {
-  history: Record<string, Record<string, HistoricalSetResponse[]>>;
-};
+export interface ExerciseSessionRollup {
+  session_id: string;
+  local_date: string;
+  sets: number;
+  best_weight_kg: number;
+  best_e1rm_kg: number;
+  volume_kg: number;
+}
 
 /* ------------------------------------------------------------------ *
- * Admin request types (workout CRUD + exercise reorder)              *
+ * Sessions                                                           *
+ * ------------------------------------------------------------------ */
+
+export type SessionStatus = "active" | "completed" | "abandoned";
+
+export interface SessionCreate {
+  workout_id?: string | null;
+  local_date: string;
+  tz_offset_min: number;
+  name?: string | null;
+}
+
+export interface SessionPatch {
+  status?: "completed" | "abandoned";
+  notes?: string | null;
+  name?: string;
+}
+
+export interface SessionExerciseBlock {
+  exercise: ExerciseResponse;
+  order_index: number;
+  target_sets: number;
+  target_reps_low: number;
+  target_reps_high: number | null;
+  target_rest_sec: number;
+  prescription_notes: string | null;
+  sets: HistoricalSetResponse[];
+  last_time: HistoricalSetResponse[];
+}
+
+export interface SessionDetailResponse {
+  id: string;
+  user_id: string;
+  workout_id: string | null;
+  name: string;
+  local_date: string;
+  tz_offset_min: number;
+  started_at: string;
+  ended_at: string | null;
+  status: SessionStatus;
+  notes: string | null;
+  blocks: SessionExerciseBlock[];
+  total_sets: number;
+  total_volume_kg: number;
+  duration_sec: number | null;
+}
+
+export interface SessionSummaryResponse {
+  id: string;
+  workout_id: string | null;
+  name: string;
+  local_date: string;
+  started_at: string;
+  ended_at: string | null;
+  status: SessionStatus;
+  total_sets: number;
+  total_volume_kg: number;
+  duration_sec: number | null;
+  exercise_count: number;
+  pr_count: number;
+}
+
+/* ------------------------------------------------------------------ *
+ * Admin request types (workout CRUD + exercise reorder + prescriptions) *
  * ------------------------------------------------------------------ *
  * Mirrors backend/app/schemas.py. All fields are snake_case on the   *
  * wire; the field names line up 1:1 with the Pydantic models so the  *
@@ -144,6 +264,14 @@ export interface AddExerciseToWorkout {
 export interface ReorderExercises {
   /** Same set of ids as the workout's current links, in the new order. */
   exercise_ids: string[];
+}
+
+export interface PrescriptionPatch {
+  target_sets?: number;
+  target_reps_low?: number;
+  target_reps_high?: number;
+  target_rest_sec?: number;
+  prescription_notes?: string;
 }
 
 /* ------------------------------------------------------------------ *
@@ -282,22 +410,47 @@ export const api = {
       })}`
     ),
   getExercise: (id: string) => request<ExerciseResponse>("GET", `/exercises/${id}`),
+  getExerciseHistory: (id: string, limit?: number) =>
+    request<ExerciseSessionRollup[]>(
+      "GET",
+      `/me/exercises/${id}/history${toQuery({ limit })}`
+    ),
   listWorkouts: (q?: { location?: string; equipment?: string }) =>
     request<WorkoutSummaryResponse[]>(
       "GET",
       `/workouts${toQuery({ location: q?.location, equipment: q?.equipment })}`
     ),
   getWorkout: (id: string) => request<WorkoutDetailResponse>("GET", `/workouts/${id}`),
+  // The caller's own saved templates ("My Workouts").
+  listMyWorkouts: () => request<WorkoutSummaryResponse[]>("GET", "/me/workouts"),
+  // Fork a session into a reusable personal template ("Save as template").
+  createTemplateFromSession: (sessionId: string, body: { name?: string }) =>
+    request<WorkoutDetailResponse>(
+      "POST",
+      `/me/workouts/from-session/${sessionId}`,
+      { body }
+    ),
   getPreferences: () => request<PreferencesResponse>("GET", "/me/preferences"),
   patchPreferences: (body: PreferencesPatch) =>
     request<PreferencesResponse>("PATCH", "/me/preferences", { body }),
-  getHistory: (from?: string, to?: string) =>
-    request<HistoryResponse>(
+  /* ----- sessions --------------------------------------------------- */
+  startSession: (body: SessionCreate) =>
+    request<SessionDetailResponse>("POST", "/me/sessions", { body }),
+  getActiveSession: () => request<SessionDetailResponse | null>("GET", "/me/sessions/active"),
+  getSession: (id: string) => request<SessionDetailResponse>("GET", `/me/sessions/${id}`),
+  listSessions: (q?: { from?: string; to?: string; limit?: number; offset?: number }) =>
+    request<SessionSummaryResponse[]>(
       "GET",
-      `/me/history${toQuery({ from, to })}`
+      `/me/sessions${toQuery({ from: q?.from, to: q?.to, limit: q?.limit, offset: q?.offset })}`
     ),
+  patchSession: (id: string, body: SessionPatch) =>
+    request<SessionDetailResponse>("PATCH", `/me/sessions/${id}`, { body }),
+  deleteSession: (id: string) => request<void>("DELETE", `/me/sessions/${id}`),
+  /* ----- sets ---------------------------------------------------------- */
   logSet: (body: SetLogCreate) =>
     request<SetLogCreatedResponse>("POST", "/me/sets", { body }),
+  updateSet: (id: number, body: SetLogPatch) =>
+    request<SetLogCreatedResponse>("PATCH", `/me/sets/${id}`, { body }),
   deleteSet: (id: number) => request<void>("DELETE", `/me/sets/${id}`),
   getPRs: () => request<PersonalRecordResponse[]>("GET", "/me/prs"),
   /* ----- admin (workout CRUD) --------------------------------------
@@ -342,6 +495,12 @@ export const api = {
     request<WorkoutDetailResponse>(
       "PATCH",
       `/admin/workouts/${workoutId}/exercises/reorder`,
+      { body }
+    ),
+  adminUpdatePrescription: (workoutId: string, exerciseId: string, body: PrescriptionPatch) =>
+    request<WorkoutDetailResponse>(
+      "PATCH",
+      `/admin/workouts/${workoutId}/exercises/${exerciseId}/prescription`,
       { body }
     ),
 };

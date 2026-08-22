@@ -1,0 +1,9 @@
+graph LR
+    A["<b>S1</b> instant<br/><i>local</i>"] --> R["The client may<br/><b>guess</b>, but may<br/>never <b>decide</b>"]
+    B["<b>S5</b> durable<br/><i>remote</i>"] --> R
+    R --> C["Optimistic UI<br/>+ server authority<br/>+ rollback"]
+
+    style A fill:#fce4d8,stroke:#e87d6f,color:#3d2b26
+    style B fill:#ffd5b8,stroke:#8b7268,color:#3d2b26
+    style R fill:#e8f3e8,stroke:#5a8a5a,color:#3d2b26
+    style C fill:#fff,stroke:#5a8a5a,color:#3d2b26

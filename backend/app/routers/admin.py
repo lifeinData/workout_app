@@ -26,6 +26,7 @@ from app.models import Exercise, Workout, WorkoutExerciseLink
 from app.routers._helpers import build_workout_detail
 from app.schemas import (
     AddExerciseToWorkout,
+    PrescriptionPatch,
     ReorderExercises,
     WorkoutCreate,
     WorkoutDetailResponse,
@@ -98,7 +99,9 @@ def list_workouts(
     100 is enough for the v1 admin UI. `location` and `equipment` are
     pushed into SQL so filtering is O(returned) not O(catalog).
     """
-    stmt = select(Workout)
+    # Admins curate the coach catalog only — never users' personal
+    # templates (owner_id set), which are private to each user.
+    stmt = select(Workout).where(Workout.owner_id.is_(None))
     if location:
         # Treat "either" as a wildcard: a workout with `location="either"`
         # is valid for both home and gym filters, so we OR it in.
@@ -370,6 +373,59 @@ def remove_exercise_from_workout(
     _renormalize_order_indexes(session, workout_id)
     session.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+# ---------------------------------------------------------------------------
+# Edit a single exercise's prescription within a workout
+# ---------------------------------------------------------------------------
+
+
+@router.patch(
+    "/{workout_id}/exercises/{exercise_id}/prescription",
+    response_model=WorkoutDetailResponse,
+)
+def update_prescription(
+    workout_id: str,
+    exercise_id: str,
+    body: PrescriptionPatch,
+    session: SQLModelSession = Depends(get_session),
+) -> WorkoutDetailResponse:
+    w = _get_workout_or_404(session, workout_id)
+
+    link = session.get(WorkoutExerciseLink, (workout_id, exercise_id))
+    if link is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Exercise '{exercise_id}' is not in workout '{workout_id}'",
+        )
+
+    # Validate against the EFFECTIVE range (patched value if supplied,
+    # else the link's current value) — a patch that only touches one
+    # bound must not accidentally invert the other.
+    effective_low = body.target_reps_low if body.target_reps_low is not None else link.target_reps_low
+    effective_high = (
+        body.target_reps_high if body.target_reps_high is not None else link.target_reps_high
+    )
+    if effective_high is not None and effective_high < effective_low:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="target_reps_high must be >= target_reps_low",
+        )
+
+    if body.target_sets is not None:
+        link.target_sets = body.target_sets
+    if body.target_reps_low is not None:
+        link.target_reps_low = body.target_reps_low
+    if body.target_reps_high is not None:
+        link.target_reps_high = body.target_reps_high
+    if body.target_rest_sec is not None:
+        link.target_rest_sec = body.target_rest_sec
+    if body.prescription_notes is not None:
+        link.prescription_notes = body.prescription_notes
+
+    session.add(link)
+    session.commit()
+    return build_workout_detail(session, w)
 
 
 # ---------------------------------------------------------------------------

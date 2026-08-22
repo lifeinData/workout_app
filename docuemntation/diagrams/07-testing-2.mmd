@@ -1,0 +1,19 @@
+graph TB
+    subgraph proven["✅ Machine-verified"]
+        P1["<b>82 pytest tests</b><br/>API contracts · auth · PR rules<br/>session lifecycle · admin CRUD"]
+        P2["<b>tsc --noEmit</b><br/>every wire type matches its schema"]
+        P3["<b>eslint</b><br/>React correctness · unused code"]
+    end
+
+    subgraph unproven["⚠️ NOT verified by machine"]
+        U1["Does anything <i>render</i>?<br/><i>no component tests</i>"]
+        U2["Do optimistic updates<br/>roll back correctly?"]
+        U3["Does the rest timer fire?<br/><i>needs a real device</i>"]
+        U4["Does the tab badge appear?"]
+        U5["Does the app work end-to-end<br/>against a live backend?"]
+    end
+
+    proven -.->|"gap"| unproven
+
+    style proven fill:#e8f3e8,stroke:#5a8a5a,color:#3d2b26
+    style unproven fill:#fde4dc,stroke:#d96a5a,color:#3d2b26

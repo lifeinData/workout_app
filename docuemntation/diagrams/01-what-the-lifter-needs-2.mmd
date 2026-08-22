@@ -1,0 +1,13 @@
+graph LR
+    ROOT["❌ No 'training session' concept"]
+
+    ROOT --> B1["'Finish workout' didn't persist<br/><i>stored in a prefs list<br/>that reset at midnight</i><br/><b>breaks S7</b>"]
+    ROOT --> B2["Two separate logging screens<br/><i>writing to one flat table</i><br/><b>breaks S9</b>"]
+    ROOT --> B3["No resume — close the<br/>modal, lose everything<br/><b>breaks S5</b>"]
+    ROOT --> B4["Duration nonsense<br/><i>now − firstSet = '960 min'</i><br/><b>breaks S7</b>"]
+    ROOT --> B5["History couldn't name anything<br/><i>'you benched on Tuesday'</i><br/><b>breaks S7</b>"]
+    ROOT --> B6["No planned-vs-actual<br/><b>breaks S4, S9</b>"]
+    ROOT --> B7["Rest timer had nowhere to live<br/><i>nothing owned 'in progress'</i><br/><b>breaks S3</b>"]
+    ROOT --> B8["No 'last time' reference<br/><b>breaks S2</b>"]
+
+    style ROOT fill:#d96a5a,stroke:#a23a2a,color:#fff

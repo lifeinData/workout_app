@@ -20,9 +20,10 @@ export default function TabsLayout() {
   const { data: me, isLoading, isError } = useMe();
   const qc = useQueryClient();
 
-  const tintColor = "#e87d6f";
-  const labelColor = "#8b7268";
-  const bgColor = "#fdf6f0";
+  const tintColor = "#e87d6f"; // --primary (coral) — selected icon + label
+  const labelColor = "#8b7268"; // --muted-foreground — unselected icon + label
+  const bgColor = "#fdf6f0"; // app background — the tab bar sits on this
+  const indicatorColor = "#fce4d8"; // --secondary (peach) — active-tab pill, on-brand
 
   useEffect(() => {
     if (!isLoading && me === null) {
@@ -122,29 +123,37 @@ export default function TabsLayout() {
     <NativeTabs
       tintColor={tintColor}
       backgroundColor={bgColor}
+      // Without an explicit iconColor, UNSELECTED icons fall back to
+      // Material 3's `onSurfaceVariant`, which is near-white on this
+      // light background — effectively invisible. Set both states.
+      iconColor={{ default: labelColor, selected: tintColor }}
+      // Android's default `auto` hides labels on unselected tabs (with
+      // 4+ tabs), so only the active tab was labelled. `labeled` keeps
+      // every tab identifiable.
+      labelVisibilityMode="labeled"
       labelStyle={{
         selected: { color: tintColor },
         default: { color: labelColor },
       }}
     >
-      <NativeTabs.Trigger name="index">
+      <NativeTabs.Trigger name="index" indicatorColor={indicatorColor}>
         <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon md="home" sf="house.fill" />
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="nutrition">
+      <NativeTabs.Trigger name="nutrition" indicatorColor={indicatorColor}>
         <NativeTabs.Trigger.Label>Nutrition</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon md="lunch_dining" sf="fork.knife" />
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="training">
+      <NativeTabs.Trigger name="training" indicatorColor={indicatorColor}>
         <NativeTabs.Trigger.Label>Training</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon md="fitness_center" sf="figure.strengthtraining.traditional" />
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="community">
+      <NativeTabs.Trigger name="community" indicatorColor={indicatorColor}>
         <NativeTabs.Trigger.Label>Community</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon md="groups" sf="person.3.fill" />
       </NativeTabs.Trigger>
       {me.role === "admin" && (
-        <NativeTabs.Trigger name="admin">
+        <NativeTabs.Trigger name="admin" indicatorColor={indicatorColor}>
           <NativeTabs.Trigger.Label>Admin</NativeTabs.Trigger.Label>
           <NativeTabs.Trigger.Icon md="admin_panel_settings" sf="lock.shield.fill" />
         </NativeTabs.Trigger>

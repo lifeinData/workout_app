@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider, useQueryClient } from "@tanstack/react-query";
 import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { AppState } from "react-native";
 import Toast from "react-native-toast-message";
@@ -76,6 +77,10 @@ function LogoutRetryBridge() {
 export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
+      {/* The app uses a light warm-pastel background everywhere, so the
+       * OS status bar needs DARK icons/text to be legible. Android's
+       * default is light content, which is invisible on `#fdf6f0`. */}
+      <StatusBar style="dark" />
       <AuthBridge />
       <LogoutRetryBridge />
       <Stack screenOptions={{ headerShown: false }}>

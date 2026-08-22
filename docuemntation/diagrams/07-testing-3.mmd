@@ -1,0 +1,23 @@
+graph TD
+    A["1. Wipe DB<br/><code>rm backend/workout.db backend/.schema_version</code>"]
+    B["2. Start backend<br/><code>cd backend && run.bat</code>"]
+    C["3. Verify prescriptions<br/><code>curl .../workouts/w-upper-power</code>"]
+    D["4. Set LAN IP in app.json"]
+    E["5. <code>npx expo start --clear</code>"]
+    F["6. Log in — admin / admin1234"]
+
+    G["<b>The critical test</b><br/>Start session · log a set<br/>force-quit the app · reopen<br/>→ session still active with sets"]
+
+    H["Heavy vs light PR<br/>315×3 beats 135×20"]
+    I["Warmup excluded<br/>from volume + PRs"]
+    J["Evening set → correct<br/>local day on calendar"]
+    K["Switch to kg → all<br/>weights convert"]
+    L["Rest timer + haptic"]
+    M["Prescriptions show<br/>4×5–8 vs 3×10–15"]
+
+    A --> B --> C --> D --> E --> F --> G
+    G --> H & I & J & K & L & M
+
+    style A fill:#fde4dc,stroke:#d96a5a,color:#3d2b26
+    style G fill:#e8f3e8,stroke:#5a8a5a,color:#3d2b26
+    style C fill:#ffd5b8,stroke:#8b7268,color:#3d2b26

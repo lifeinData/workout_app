@@ -19,7 +19,12 @@ from app.seed.exercise_seeds import SEED_EXERCISES
 
 # Idempotent: existing rows are left untouched, even if their name differs from SEED_EXERCISES.
 
-# (id, name, tag, location, equipment, duration_min, [exercise_ids in order])
+# (id, name, tag, location, equipment, duration_min, [exercises in order])
+#
+# Each exercise entry carries a per-workout prescription
+# (target_sets/target_reps_low/target_reps_high/target_rest_sec) — the
+# same exercise can be prescribed differently in a different workout,
+# so this lives on the link, not on the Exercise row.
 SEED_WORKOUTS: list[dict] = [
     {
         "id": "w-upper-power",
@@ -28,7 +33,15 @@ SEED_WORKOUTS: list[dict] = [
         "location": "gym",
         "equipment": ["barbell", "dumbbells", "cable"],
         "duration_min": 60,
-        "exercise_ids": ["ex-bench", "ex-incline-db", "ex-cable-fly", "ex-ohp", "ex-lateral"],
+        "exercises": [
+            # Compounds: lower reps, longer rest.
+            {"id": "ex-bench", "target_sets": 4, "target_reps_low": 5, "target_reps_high": 8, "target_rest_sec": 150},
+            {"id": "ex-ohp", "target_sets": 4, "target_reps_low": 5, "target_reps_high": 8, "target_rest_sec": 150},
+            # Accessories: higher reps, shorter rest.
+            {"id": "ex-incline-db", "target_sets": 3, "target_reps_low": 10, "target_reps_high": 15, "target_rest_sec": 60},
+            {"id": "ex-cable-fly", "target_sets": 3, "target_reps_low": 10, "target_reps_high": 15, "target_rest_sec": 60},
+            {"id": "ex-lateral", "target_sets": 3, "target_reps_low": 10, "target_reps_high": 15, "target_rest_sec": 60},
+        ],
     },
     {
         "id": "w-home-bw",
@@ -37,7 +50,12 @@ SEED_WORKOUTS: list[dict] = [
         "location": "home",
         "equipment": ["bodyweight"],
         "duration_min": 25,
-        "exercise_ids": ["ex-pushup", "ex-airsquat", "ex-lunge", "ex-plank"],
+        "exercises": [
+            {"id": "ex-pushup", "target_sets": 3, "target_reps_low": 12, "target_reps_high": 20, "target_rest_sec": 45},
+            {"id": "ex-airsquat", "target_sets": 3, "target_reps_low": 12, "target_reps_high": 20, "target_rest_sec": 45},
+            {"id": "ex-lunge", "target_sets": 3, "target_reps_low": 12, "target_reps_high": 20, "target_rest_sec": 45},
+            {"id": "ex-plank", "target_sets": 3, "target_reps_low": 12, "target_reps_high": 20, "target_rest_sec": 45},
+        ],
     },
 ]
 
@@ -86,12 +104,16 @@ def seed_workouts(session: Session, settings: Settings) -> int:
             session.delete(link)
         session.flush()
 
-        for idx, ex_id in enumerate(w_def["exercise_ids"]):
+        for idx, ex_def in enumerate(w_def["exercises"]):
             session.add(
                 WorkoutExerciseLink(
                     workout_id=wid,
-                    exercise_id=ex_id,
+                    exercise_id=ex_def["id"],
                     order_index=idx,
+                    target_sets=ex_def["target_sets"],
+                    target_reps_low=ex_def["target_reps_low"],
+                    target_reps_high=ex_def["target_reps_high"],
+                    target_rest_sec=ex_def["target_rest_sec"],
                 )
             )
         count += 1

@@ -5,7 +5,7 @@
 app:
   name: workout_app
   version: 0.2.0
-  schema_version: 3
+  schema_version: 6
 
 auth:
   # Opaque session token lifetime in days. After expiry, the row is deleted
@@ -50,6 +50,10 @@ server:
     - http://10.0.2.2:8000
     - http://192.168.7.41:8000
     - exp://192.168.7.41:8081
+    - http://192.168.0.105:8000
+    - exp://192.168.0.105:8081
+    - http://192.168.0.102:8000
+    - exp://192.168.0.102:8081
 
 seed:
   # The first time the DB is created (or whenever the schema_version in
@@ -78,3 +82,18 @@ seed:
       role: user
       display_name: Test User
       initials: U1
+    # Ultra-short dev creds (a/a, ad/ad). These deliberately violate the
+    # username/password length rules enforced at signup — the seed path
+    # bypasses those validators, and LoginRequest's min_length was relaxed
+    # to 1 so they can actually log in. Local dev convenience only; never
+    # ship these.
+    - username: a
+      password: a
+      role: user
+      display_name: A
+      initials: A
+    - username: ad
+      password: ad
+      role: admin
+      display_name: Ad
+      initials: AD

@@ -16,6 +16,23 @@ class ExerciseResponse(BaseModel):
     pr_trackable: bool
 
 
+class WorkoutExerciseResponse(ExerciseResponse):
+    """`ExerciseResponse` plus this workout's per-exercise prescription.
+
+    Subclasses rather than replaces `ExerciseResponse` — every existing
+    consumer that only reads `.name` / `.yt_id` / etc. keeps compiling
+    unchanged; only code that needs the new prescription fields has to
+    change.
+    """
+
+    order_index: int
+    target_sets: int
+    target_reps_low: int
+    target_reps_high: Optional[int] = None
+    target_rest_sec: int
+    prescription_notes: Optional[str] = None
+
+
 class WorkoutSummaryResponse(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
@@ -26,6 +43,9 @@ class WorkoutSummaryResponse(BaseModel):
     equipment: list[str]
     duration_min: int
     exercise_count: int
+    # None = coach catalog ("Coach's Playbook"); set = a personal template
+    # owned by the caller ("My Workouts"). Lets the client segment the two.
+    owner_id: Optional[str] = None
 
 
 class WorkoutDetailResponse(BaseModel):
@@ -37,7 +57,8 @@ class WorkoutDetailResponse(BaseModel):
     location: str
     equipment: list[str]
     duration_min: int
-    exercises: list[ExerciseResponse]
+    owner_id: Optional[str] = None
+    exercises: list[WorkoutExerciseResponse]
 
 
 class PreferencesPatch(BaseModel):
@@ -57,6 +78,8 @@ class PreferencesPatch(BaseModel):
             "completed_workouts_today rollover boundary"
         ),
     )
+    weight_unit: Optional[str] = Field(default=None, pattern="^(lb|kg)$")
+    default_rest_sec: Optional[int] = Field(default=None, ge=0, le=1800)
 
 
 class PreferencesResponse(BaseModel):
@@ -65,13 +88,32 @@ class PreferencesResponse(BaseModel):
     equipment: list[str]
     completed_workouts_today: list[str]
     last_reset_date: str
+    weight_unit: str
+    default_rest_sec: int
+
+
+# ---------------------------------------------------------------------------
+# Sets
+# ---------------------------------------------------------------------------
 
 
 class SetLogCreate(BaseModel):
+    session_id: str = Field(min_length=1, max_length=64)
     exercise_id: str = Field(min_length=1, max_length=64)
     weight: float = Field(ge=0)
+    weight_unit: str = Field(default="lb", pattern="^(lb|kg)$")
     reps: int = Field(ge=1, le=1000)
+    kind: str = Field(default="working", pattern="^(working|warmup)$")
+    rpe: Optional[float] = Field(default=None, ge=1, le=10)
     timestamp: Optional[str] = None
+
+
+class SetLogPatch(BaseModel):
+    weight: Optional[float] = Field(default=None, ge=0)
+    weight_unit: Optional[str] = Field(default=None, pattern="^(lb|kg)$")
+    reps: Optional[int] = Field(default=None, ge=1, le=1000)
+    kind: Optional[str] = Field(default=None, pattern="^(working|warmup)$")
+    rpe: Optional[float] = Field(default=None, ge=1, le=10)
 
 
 class HistoricalSetResponse(BaseModel):
@@ -79,10 +121,17 @@ class HistoricalSetResponse(BaseModel):
 
     id: int
     user_id: str
-    date: str
+    session_id: str
+    local_date: str
     exercise_id: str
+    set_index: int
+    kind: str
     weight: float
+    weight_unit: str
+    weight_kg: float
     reps: int
+    rpe: Optional[float] = None
+    was_pr: bool
     timestamp: str
 
 
@@ -91,9 +140,14 @@ class PersonalRecordResponse(BaseModel):
 
     user_id: str
     exercise_id: str
-    weight: float
-    reps: int
-    date: str
+    best_weight_kg: float
+    best_weight_reps: int
+    best_weight_date: str
+    best_e1rm_kg: float
+    best_e1rm_weight_kg: float
+    best_e1rm_reps: int
+    best_e1rm_date: str
+    updated_at: str
 
 
 class SetLogCreatedResponse(BaseModel):
@@ -102,10 +156,86 @@ class SetLogCreatedResponse(BaseModel):
     pr: Optional[PersonalRecordResponse] = None
 
 
-class HistoryResponse(BaseModel):
-    """Map of date -> exercise_id -> list of sets."""
+class ExerciseSessionRollup(BaseModel):
+    """One row of the per-exercise progression series (`GET
+    /me/exercises/{id}/history`) — one entry per session that logged
+    working sets for this exercise."""
 
-    history: dict[str, dict[str, list[HistoricalSetResponse]]]
+    session_id: str
+    local_date: str
+    sets: int
+    best_weight_kg: float
+    best_e1rm_kg: float
+    volume_kg: float
+
+
+# ---------------------------------------------------------------------------
+# Sessions
+# ---------------------------------------------------------------------------
+
+
+class SessionCreate(BaseModel):
+    workout_id: Optional[str] = Field(default=None, max_length=64)
+    local_date: str = Field(pattern=r"^\d{4}-\d{2}-\d{2}$")
+    tz_offset_min: int = Field(default=0, ge=-1440, le=1440)
+    name: Optional[str] = Field(default=None, max_length=200)
+
+
+class SessionPatch(BaseModel):
+    status: Optional[str] = Field(default=None, pattern="^(completed|abandoned)$")
+    notes: Optional[str] = Field(default=None, max_length=2000)
+    name: Optional[str] = Field(default=None, min_length=1, max_length=200)
+
+
+class TemplateFromSessionCreate(BaseModel):
+    """Body for POST /me/workouts/from-session/{id}. `name` optional —
+    defaults to the source session's name when omitted."""
+
+    name: Optional[str] = Field(default=None, min_length=1, max_length=200)
+
+
+class SessionExerciseBlock(BaseModel):
+    exercise: ExerciseResponse
+    order_index: int
+    target_sets: int
+    target_reps_low: int
+    target_reps_high: Optional[int] = None
+    target_rest_sec: int
+    prescription_notes: Optional[str] = None
+    sets: list[HistoricalSetResponse]
+    last_time: list[HistoricalSetResponse]
+
+
+class SessionDetailResponse(BaseModel):
+    id: str
+    user_id: str
+    workout_id: Optional[str] = None
+    name: str
+    local_date: str
+    tz_offset_min: int
+    started_at: str
+    ended_at: Optional[str] = None
+    status: str
+    notes: Optional[str] = None
+    blocks: list[SessionExerciseBlock]
+    total_sets: int
+    total_volume_kg: float
+    duration_sec: Optional[int] = None
+
+
+class SessionSummaryResponse(BaseModel):
+    id: str
+    workout_id: Optional[str] = None
+    name: str
+    local_date: str
+    started_at: str
+    ended_at: Optional[str] = None
+    status: str
+    total_sets: int
+    total_volume_kg: float
+    duration_sec: Optional[int] = None
+    exercise_count: int
+    pr_count: int
 
 
 # ---------------------------------------------------------------------------
@@ -121,8 +251,11 @@ class SignupRequest(BaseModel):
 
 
 class LoginRequest(BaseModel):
-    username: str = Field(min_length=3, max_length=32)
-    password: str = Field(min_length=8, max_length=128)
+    # min_length=1 (not 3/8) so ultra-short dev seed creds (a/a, ad/ad) can
+    # log in. Login does not gate on length — the credential check is the
+    # only real guard — so this weakens nothing. SignupRequest stays strict.
+    username: str = Field(min_length=1, max_length=32)
+    password: str = Field(min_length=1, max_length=128)
 
 
 class UserResponse(BaseModel):
@@ -143,7 +276,7 @@ class SessionResponse(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Admin (workout CRUD + exercise reorder)
+# Admin (workout CRUD + exercise reorder + prescriptions)
 # ---------------------------------------------------------------------------
 
 
@@ -179,3 +312,13 @@ class AddExerciseToWorkout(BaseModel):
 
 class ReorderExercises(BaseModel):
     exercise_ids: list[str] = Field(min_length=1)
+
+
+class PrescriptionPatch(BaseModel):
+    """Edits a single exercise's target sets/reps/rest within one workout."""
+
+    target_sets: Optional[int] = Field(default=None, ge=1, le=20)
+    target_reps_low: Optional[int] = Field(default=None, ge=1, le=100)
+    target_reps_high: Optional[int] = Field(default=None, ge=1, le=100)
+    target_rest_sec: Optional[int] = Field(default=None, ge=0, le=1800)
+    prescription_notes: Optional[str] = Field(default=None, max_length=500)

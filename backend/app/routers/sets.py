@@ -1,82 +1,54 @@
+"""Logging individual sets against an active session, plus PR and
+per-exercise history reads.
+
+`/me/history` (the old free-floating-sets endpoint) is gone —
+`GET /me/sessions` (see `app.routers.sessions`) is the session-scoped
+replacement.
+"""
+
 from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
-from sqlmodel import Session, select
+from sqlmodel import Session, func, select
 
 from app.db import get_session
 from app.deps import get_current_user
-from app.models import Exercise, HistoricalSet, PersonalRecord, User
+from app.models import Exercise, HistoricalSet, PersonalRecord, User, WorkoutSession
+from app.prs import apply_set_to_pr, recompute_pr
 from app.schemas import (
+    ExerciseSessionRollup,
     HistoricalSetResponse,
-    HistoryResponse,
     PersonalRecordResponse,
     SetLogCreate,
     SetLogCreatedResponse,
+    SetLogPatch,
 )
 from app.timefmt import utc_now_iso
+from app.units import epley_e1rm_kg, to_kg
 
 router = APIRouter(prefix="/me", tags=["me"])
 
 
-def _recompute_pr(session: Session, user_id: str, exercise_id: str) -> None:
-    """After a delete, recompute PR from remaining sets.
-
-    Stages updates only — the caller commits. If no sets remain, the
-    PR row is staged for deletion; otherwise a single PR row is staged
-    for insert-or-update.
-    """
-    remaining = session.exec(
-        select(HistoricalSet)
-        .where(HistoricalSet.user_id == user_id)
+def _next_set_index(session: Session, session_id: str, exercise_id: str) -> int:
+    current_max = session.exec(
+        select(func.max(HistoricalSet.set_index))
+        .where(HistoricalSet.session_id == session_id)
         .where(HistoricalSet.exercise_id == exercise_id)
+    ).first()
+    return (current_max if current_max is not None else -1) + 1
+
+
+def _renumber_set_index(session: Session, session_id: str, exercise_id: str) -> None:
+    """Rewrite every remaining set's `set_index` to 0..N-1, in current
+    order. Stages only — caller commits."""
+    rows = session.exec(
+        select(HistoricalSet)
+        .where(HistoricalSet.session_id == session_id)
+        .where(HistoricalSet.exercise_id == exercise_id)
+        .order_by(HistoricalSet.set_index)
     ).all()
-    pr = session.get(PersonalRecord, (user_id, exercise_id))
-    if not remaining:
-        if pr is not None:
-            session.delete(pr)
-        return
-    # Tie-breaker: prefer higher weight first, then more reps. Without
-    # this, two sets with the same weight*reps score (e.g. 200*5 vs
-    # 100*10) resolve to whichever `max()` visits first — i.e. an
-    # effectively random pick.
-    best = max(remaining, key=lambda s: (s.weight * s.reps, s.weight, s.reps))
-    if pr is None:
-        session.add(
-            PersonalRecord(
-                user_id=user_id,
-                exercise_id=exercise_id,
-                weight=best.weight,
-                reps=best.reps,
-                date=best.date,
-            )
-        )
-    else:
-        pr.weight = best.weight
-        pr.reps = best.reps
-        pr.date = best.date
-        session.add(pr)
-
-
-@router.get("/history", response_model=HistoryResponse)
-def get_history(
-    user: User = Depends(get_current_user),
-    session: Session = Depends(get_session),
-    from_: str | None = Query(default=None, alias="from", pattern=r"^\d{4}-\d{2}-\d{2}$"),
-    to: str | None = Query(default=None, pattern=r"^\d{4}-\d{2}-\d{2}$"),
-) -> HistoryResponse:
-    stmt = select(HistoricalSet).where(HistoricalSet.user_id == user.id)
-    if from_:
-        stmt = stmt.where(HistoricalSet.date >= from_)
-    if to:
-        stmt = stmt.where(HistoricalSet.date <= to)
-    stmt = stmt.order_by(HistoricalSet.date.desc(), HistoricalSet.timestamp.desc())
-    rows = session.exec(stmt).all()
-
-    grouped: dict[str, dict[str, list[HistoricalSetResponse]]] = {}
-    for s in rows:
-        by_date = grouped.setdefault(s.date, {})
-        by_date.setdefault(s.exercise_id, []).append(
-            HistoricalSetResponse.model_validate(s)
-        )
-    return HistoryResponse(history=grouped)
+    for i, row in enumerate(rows):
+        if row.set_index != i:
+            row.set_index = i
+            session.add(row)
 
 
 @router.post("/sets", response_model=SetLogCreatedResponse, status_code=status.HTTP_201_CREATED)
@@ -85,60 +57,94 @@ def log_set(
     user: User = Depends(get_current_user),
     session: Session = Depends(get_session),
 ) -> SetLogCreatedResponse:
+    ws = session.get(WorkoutSession, body.session_id)
+    if ws is None or ws.user_id != user.id:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Session not found")
+    if ws.status != "active":
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Session is not active")
+
     ex = session.get(Exercise, body.exercise_id)
     if ex is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Exercise not found")
 
     ts = body.timestamp or utc_now_iso()
-    today = ts[:10]
+    weight_kg = to_kg(body.weight, body.weight_unit)
 
     new_set = HistoricalSet(
         user_id=user.id,
-        date=today,
+        session_id=body.session_id,
+        local_date=ws.local_date,
         exercise_id=body.exercise_id,
+        set_index=_next_set_index(session, body.session_id, body.exercise_id),
+        kind=body.kind,
         weight=body.weight,
+        weight_unit=body.weight_unit,
+        weight_kg=weight_kg,
         reps=body.reps,
+        rpe=body.rpe,
+        was_pr=False,
         timestamp=ts,
     )
+
+    is_pr, pr = apply_set_to_pr(session, user.id, body.exercise_id, new_set)
+    new_set.was_pr = is_pr
+
     session.add(new_set)
-    session.flush()  # get new_set.id
-
-    # PR detection: highest weight*reps
-    is_pr = False
-    pr_response: PersonalRecordResponse | None = None
-    existing = session.get(PersonalRecord, (user.id, body.exercise_id))
-    new_score = body.weight * body.reps
-    if existing is None or new_score > (existing.weight * existing.reps):
-        if existing is None:
-            new_pr = PersonalRecord(
-                user_id=user.id,
-                exercise_id=body.exercise_id,
-                weight=body.weight,
-                reps=body.reps,
-                date=today,
-            )
-            session.add(new_pr)
-        else:
-            existing.weight = body.weight
-            existing.reps = body.reps
-            existing.date = today
-            session.add(existing)
-        is_pr = True
-        pr_response = PersonalRecordResponse(
-            user_id=user.id,
-            exercise_id=body.exercise_id,
-            weight=body.weight,
-            reps=body.reps,
-            date=today,
-        )
-
     session.commit()
     session.refresh(new_set)
 
     return SetLogCreatedResponse(
         set=HistoricalSetResponse.model_validate(new_set),
         is_pr=is_pr,
-        pr=pr_response,
+        pr=PersonalRecordResponse.model_validate(pr) if pr else None,
+    )
+
+
+@router.patch("/sets/{set_id}", response_model=SetLogCreatedResponse)
+def update_set(
+    set_id: int,
+    body: SetLogPatch,
+    user: User = Depends(get_current_user),
+    session: Session = Depends(get_session),
+) -> SetLogCreatedResponse:
+    target = session.get(HistoricalSet, set_id)
+    if target is None or target.user_id != user.id:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Set not found")
+
+    if body.weight is not None:
+        target.weight = body.weight
+    if body.weight_unit is not None:
+        target.weight_unit = body.weight_unit
+    if body.reps is not None:
+        target.reps = body.reps
+    if body.kind is not None:
+        target.kind = body.kind
+    if body.rpe is not None:
+        target.rpe = body.rpe
+    # Any of the three fields above can change the canonical comparison
+    # value, so it's always re-derived rather than conditionally patched.
+    target.weight_kg = to_kg(target.weight, target.weight_unit)
+
+    session.add(target)
+    session.flush()  # so recompute_pr's scan sees the edited row
+
+    pr = recompute_pr(session, user.id, target.exercise_id)
+    # `was_pr` is a display snapshot, not the source of truth (the PR
+    # table is) — approximate "this row backs a current best" by value
+    # match rather than tracking set identity on PersonalRecord.
+    is_pr = target.kind == "working" and pr is not None and (
+        (target.weight_kg, target.reps) == (pr.best_weight_kg, pr.best_weight_reps)
+        or (target.weight_kg == pr.best_e1rm_weight_kg and target.reps == pr.best_e1rm_reps)
+    )
+    target.was_pr = is_pr
+    session.add(target)
+    session.commit()
+    session.refresh(target)
+
+    return SetLogCreatedResponse(
+        set=HistoricalSetResponse.model_validate(target),
+        is_pr=is_pr,
+        pr=PersonalRecordResponse.model_validate(pr) if pr else None,
     )
 
 
@@ -151,10 +157,15 @@ def delete_set(
     target = session.get(HistoricalSet, set_id)
     if target is None or target.user_id != user.id:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Set not found")
-    ex_id = target.exercise_id
+
+    session_id = target.session_id
+    exercise_id = target.exercise_id
     session.delete(target)
-    _recompute_pr(session, user.id, ex_id)
-    # Single commit at the end — stages the delete + any PR changes together.
+    session.flush()
+    _renumber_set_index(session, session_id, exercise_id)
+    recompute_pr(session, user.id, exercise_id)
+    # Single commit at the end — stages the delete + renumber + PR
+    # changes together.
     session.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
@@ -168,3 +179,44 @@ def get_prs(
         select(PersonalRecord).where(PersonalRecord.user_id == user.id)
     ).all()
     return [PersonalRecordResponse.model_validate(r) for r in rows]
+
+
+@router.get("/exercises/{exercise_id}/history", response_model=list[ExerciseSessionRollup])
+def get_exercise_history(
+    exercise_id: str,
+    user: User = Depends(get_current_user),
+    session: Session = Depends(get_session),
+    limit: int = Query(default=20, ge=1, le=200),
+) -> list[ExerciseSessionRollup]:
+    """Per-session rollup for the progress chart, most recent first.
+    Warmup sets are excluded from every aggregate here."""
+    rows = session.exec(
+        select(HistoricalSet)
+        .where(HistoricalSet.user_id == user.id)
+        .where(HistoricalSet.exercise_id == exercise_id)
+        .where(HistoricalSet.kind == "working")
+        .order_by(HistoricalSet.timestamp.desc())
+    ).all()
+
+    by_session: dict[str, list[HistoricalSet]] = {}
+    session_order: list[str] = []  # rows are DESC, so first-seen == most-recent-first
+    for r in rows:
+        if r.session_id not in by_session:
+            by_session[r.session_id] = []
+            session_order.append(r.session_id)
+        by_session[r.session_id].append(r)
+
+    rollups: list[ExerciseSessionRollup] = []
+    for sid in session_order[:limit]:
+        sets = by_session[sid]
+        rollups.append(
+            ExerciseSessionRollup(
+                session_id=sid,
+                local_date=sets[0].local_date,
+                sets=len(sets),
+                best_weight_kg=max(s.weight_kg for s in sets),
+                best_e1rm_kg=max(epley_e1rm_kg(s.weight_kg, s.reps) for s in sets),
+                volume_kg=sum(s.weight_kg * s.reps for s in sets),
+            )
+        )
+    return rollups

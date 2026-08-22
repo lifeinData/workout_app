@@ -27,7 +27,10 @@ def list_workouts(
     a JSON list stringified by SQLAlchemy); we re-verify in Python to
     guard against false positives in pathological cases.
     """
-    stmt = select(Workout)
+    # This public endpoint serves the "Coach's Playbook" — the owner-less
+    # seeded/admin catalog. Personal templates (owner_id set) are private
+    # and only reachable via the authed GET /me/workouts.
+    stmt = select(Workout).where(Workout.owner_id.is_(None))
     if location:
         # Treat "either" as a wildcard (a workout with `location="either"`
         # is valid for both home and gym filters).
@@ -58,6 +61,7 @@ def list_workouts(
             equipment=w.equipment,
             duration_min=w.duration_min,
             exercise_count=counts.get(w.id, 0),
+            owner_id=w.owner_id,
         )
         for w in rows
     ]

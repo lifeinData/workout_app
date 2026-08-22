@@ -24,12 +24,14 @@ import {
   useAdminCreateWorkout,
   useAdminReorderExercises,
   useAdminRemoveExercise,
+  useAdminUpdatePrescription,
   useAdminUpdateWorkout,
   useWorkout,
 } from "@/lib/queries";
 import type {
   ExerciseResponse,
   WorkoutCreate,
+  WorkoutExerciseResponse,
   WorkoutUpdate,
 } from "@/lib/api";
 import { ExercisePickerModal } from "./ExercisePickerModal";
@@ -561,69 +563,78 @@ export function WorkoutEditorModal({
                       return (
                         <View
                           key={ex.id}
-                          className="flex-row items-center gap-2.5 bg-card rounded-2xl p-3 border border-border"
+                          className="bg-card rounded-2xl p-3 border border-border gap-2"
                         >
-                          <View className="w-7 h-7 rounded-full bg-secondary items-center justify-center">
-                            <Text className="text-xs text-[#6b3a30] font-bold">
-                              {idx + 1}
-                            </Text>
+                          <View className="flex-row items-center gap-2.5">
+                            <View className="w-7 h-7 rounded-full bg-secondary items-center justify-center">
+                              <Text className="text-xs text-[#6b3a30] font-bold">
+                                {idx + 1}
+                              </Text>
+                            </View>
+                            <View className="flex-1 min-w-0">
+                              <Text
+                                className="text-sm text-foreground font-semibold"
+                                numberOfLines={1}
+                              >
+                                {ex.name}
+                              </Text>
+                              <Text
+                                className="text-[11px] text-muted-foreground mt-0.5"
+                                numberOfLines={1}
+                              >
+                                {ex.muscle_group}
+                              </Text>
+                            </View>
+                            <View className="flex-row gap-1">
+                              <Pressable
+                                onPress={() =>
+                                  handleReorder(currentExercises, idx, "up")
+                                }
+                                disabled={isFirst || reorderBusy}
+                                style={({ pressed }) => [
+                                  styles.smallIconBtn,
+                                  (isFirst || reorderBusy) && styles.disabled,
+                                  pressed && styles.pressed,
+                                ]}
+                                accessibilityLabel={`Move ${ex.name} up`}
+                              >
+                                <ArrowUp size={14} color="#3d2b26" />
+                              </Pressable>
+                              <Pressable
+                                onPress={() =>
+                                  handleReorder(currentExercises, idx, "down")
+                                }
+                                disabled={isLast || reorderBusy}
+                                style={({ pressed }) => [
+                                  styles.smallIconBtn,
+                                  (isLast || reorderBusy) && styles.disabled,
+                                  pressed && styles.pressed,
+                                ]}
+                                accessibilityLabel={`Move ${ex.name} down`}
+                              >
+                                <ArrowDown size={14} color="#3d2b26" />
+                              </Pressable>
+                              <Pressable
+                                onPress={() => handleRemoveExercise(ex.id)}
+                                disabled={reorderBusy}
+                                style={({ pressed }) => [
+                                  styles.smallIconBtnDanger,
+                                  reorderBusy && styles.disabled,
+                                  pressed && styles.pressed,
+                                ]}
+                                accessibilityLabel={`Remove ${ex.name}`}
+                              >
+                                <Trash2 size={14} color="#a23a2a" />
+                              </Pressable>
+                            </View>
                           </View>
-                          <View className="flex-1 min-w-0">
-                            <Text
-                              className="text-sm text-foreground font-semibold"
-                              numberOfLines={1}
-                            >
-                              {ex.name}
-                            </Text>
-                            <Text
-                              className="text-[11px] text-muted-foreground mt-0.5"
-                              numberOfLines={1}
-                            >
-                              {ex.muscle_group}
-                            </Text>
-                          </View>
-                          <View className="flex-row gap-1">
-                            <Pressable
-                              onPress={() =>
-                                handleReorder(currentExercises, idx, "up")
-                              }
-                              disabled={isFirst || reorderBusy}
-                              style={({ pressed }) => [
-                                styles.smallIconBtn,
-                                (isFirst || reorderBusy) && styles.disabled,
-                                pressed && styles.pressed,
-                              ]}
-                              accessibilityLabel={`Move ${ex.name} up`}
-                            >
-                              <ArrowUp size={14} color="#3d2b26" />
-                            </Pressable>
-                            <Pressable
-                              onPress={() =>
-                                handleReorder(currentExercises, idx, "down")
-                              }
-                              disabled={isLast || reorderBusy}
-                              style={({ pressed }) => [
-                                styles.smallIconBtn,
-                                (isLast || reorderBusy) && styles.disabled,
-                                pressed && styles.pressed,
-                              ]}
-                              accessibilityLabel={`Move ${ex.name} down`}
-                            >
-                              <ArrowDown size={14} color="#3d2b26" />
-                            </Pressable>
-                            <Pressable
-                              onPress={() => handleRemoveExercise(ex.id)}
-                              disabled={reorderBusy}
-                              style={({ pressed }) => [
-                                styles.smallIconBtnDanger,
-                                reorderBusy && styles.disabled,
-                                pressed && styles.pressed,
-                              ]}
-                              accessibilityLabel={`Remove ${ex.name}`}
-                            >
-                              <Trash2 size={14} color="#a23a2a" />
-                            </Pressable>
-                          </View>
+                          {isEdit && detail ? (
+                            <PrescriptionEditor
+                              key={`${ex.id}-${(ex as WorkoutExerciseResponse).target_sets}-${(ex as WorkoutExerciseResponse).target_reps_low}-${(ex as WorkoutExerciseResponse).target_reps_high}-${(ex as WorkoutExerciseResponse).target_rest_sec}`}
+                              workoutId={detail.id}
+                              exercise={ex as WorkoutExerciseResponse}
+                            />
+                          ) : null}
                         </View>
                       );
                     })
@@ -688,6 +699,125 @@ export function WorkoutEditorModal({
         />
       </View>
     </Modal>
+  );
+}
+
+/* ------------------------------------------------------------------ *
+ * Per-exercise prescription editor (target sets/reps/rest)            *
+ * ------------------------------------------------------------------ *
+ * Only shown in edit mode — a workout being created has no id yet to
+ * PATCH a prescription against, so new links get the schema's
+ * defaults (3 sets, 8-12 reps, 90s rest) until the workout is saved
+ * and reopened for editing. Each field commits on blur, only when it
+ * actually changed, mirroring the pattern in
+ * `training/SetRow.tsx::LoggedSetRow`.                                */
+
+function PrescriptionEditor({
+  workoutId,
+  exercise,
+}: {
+  workoutId: string;
+  exercise: WorkoutExerciseResponse;
+}) {
+  const update = useAdminUpdatePrescription();
+
+  const [setsText, setSetsText] = useState(String(exercise.target_sets));
+  const [lowText, setLowText] = useState(String(exercise.target_reps_low));
+  const [highText, setHighText] = useState(
+    exercise.target_reps_high != null ? String(exercise.target_reps_high) : "",
+  );
+  const [restText, setRestText] = useState(String(exercise.target_rest_sec));
+
+  // Re-syncing this local text state when the server value changes
+  // underneath us (another admin's edit, or our own mutation
+  // resolving) is handled by the caller passing a `key` derived from
+  // those same values — React then remounts this component with a
+  // fresh initial state instead of needing an effect to reach in and
+  // overwrite it.
+
+  const commit = () => {
+    const sets = Number(setsText);
+    const low = Number(lowText);
+    const high = highText.trim() === "" ? null : Number(highText);
+    const rest = Number(restText);
+
+    if (!Number.isFinite(sets) || sets < 1) return;
+    if (!Number.isFinite(low) || low < 1) return;
+    if (!Number.isFinite(rest) || rest < 0) return;
+    if (high !== null && (!Number.isFinite(high) || high < low)) {
+      Toast.show({
+        type: "error",
+        text1: "Invalid rep range",
+        text2: "Reps high must be greater than or equal to reps low.",
+      });
+      setHighText(exercise.target_reps_high != null ? String(exercise.target_reps_high) : "");
+      return;
+    }
+
+    const unchanged =
+      sets === exercise.target_sets &&
+      low === exercise.target_reps_low &&
+      high === exercise.target_reps_high &&
+      rest === exercise.target_rest_sec;
+    if (unchanged) return;
+
+    update.mutate(
+      {
+        workoutId,
+        exerciseId: exercise.id,
+        body: {
+          target_sets: sets,
+          target_reps_low: low,
+          // `undefined` (omitted) means "leave unchanged" server-side —
+          // matches the rest of the app's PATCH convention, so an
+          // already-null reps_high can't be explicitly re-cleared here.
+          target_reps_high: high ?? undefined,
+          target_rest_sec: rest,
+        },
+      },
+      {
+        onError: (err) =>
+          Toast.show({
+            type: "error",
+            text1: "Could not update prescription",
+            text2: err.message,
+          }),
+      },
+    );
+  };
+
+  return (
+    <View className="flex-row gap-2 pt-1 border-t border-border">
+      <PrescriptionInput label="Sets" value={setsText} onChangeText={setSetsText} onEndEditing={commit} />
+      <PrescriptionInput label="Reps low" value={lowText} onChangeText={setLowText} onEndEditing={commit} />
+      <PrescriptionInput label="Reps high" value={highText} onChangeText={setHighText} onEndEditing={commit} />
+      <PrescriptionInput label="Rest (s)" value={restText} onChangeText={setRestText} onEndEditing={commit} />
+    </View>
+  );
+}
+
+function PrescriptionInput({
+  label,
+  value,
+  onChangeText,
+  onEndEditing,
+}: {
+  label: string;
+  value: string;
+  onChangeText: (v: string) => void;
+  onEndEditing: () => void;
+}) {
+  return (
+    <View className="flex-1 gap-1 mt-2">
+      <Text className="text-[9px] uppercase tracking-[1px] text-muted-foreground">{label}</Text>
+      <TextInput
+        value={value}
+        onChangeText={onChangeText}
+        onEndEditing={onEndEditing}
+        keyboardType="number-pad"
+        style={styles.prescriptionInput}
+      />
+    </View>
   );
 }
 
@@ -760,6 +890,17 @@ const styles = StyleSheet.create({
     color: "#3d2b26",
   },
   inputError: { borderColor: "#e87d6f" },
+  prescriptionInput: {
+    backgroundColor: "#ffffff",
+    borderWidth: 1,
+    borderColor: "#f0d9ce",
+    borderRadius: 10,
+    paddingHorizontal: 8,
+    paddingVertical: 8,
+    fontSize: 13,
+    color: "#3d2b26",
+    textAlign: "center",
+  },
   segBtn: {
     flex: 1,
     paddingVertical: 10,

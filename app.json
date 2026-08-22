@@ -45,7 +45,7 @@
       ]
     ],
     "extra": {
-      "apiBaseUrl": "http://192.168.7.41:8000/api/v1"
+      "apiBaseUrl": "http://192.168.0.102:8000/api/v1"
     },
     "experiments": {
       "typedRoutes": true,

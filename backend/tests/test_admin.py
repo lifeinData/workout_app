@@ -205,7 +205,9 @@ def test_admin_remove_exercise_from_workout(seeded_client, admin_bearer_headers)
     original_ids = [e["id"] for e in r0.json()["exercises"]]
     assert "ex-cable-fly" in original_ids
 
-    # Remove ex-cable-fly (originally at index 2).
+    # Remove ex-cable-fly (originally at index 3 — seed order is
+    # compounds [bench, ohp] then accessories [incline-db, cable-fly,
+    # lateral]).
     r = seeded_client.delete(
         "/api/v1/admin/workouts/w-upper-power/exercises/ex-cable-fly",
         headers=admin_bearer_headers,
@@ -216,7 +218,7 @@ def test_admin_remove_exercise_from_workout(seeded_client, admin_bearer_headers)
     after_ids = [e["id"] for e in after["exercises"]]
     assert "ex-cable-fly" not in after_ids
     # order_index should be renormed to 0..N-1.
-    assert after_ids == ["ex-bench", "ex-incline-db", "ex-ohp", "ex-lateral"]
+    assert after_ids == ["ex-bench", "ex-ohp", "ex-incline-db", "ex-lateral"]
 
 
 def test_admin_reorder_exercises(seeded_client, admin_bearer_headers):

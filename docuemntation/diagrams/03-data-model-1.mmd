@@ -1,0 +1,101 @@
+erDiagram
+    users ||--o{ sessions : "has login tokens"
+    users ||--o{ workout_sessions : "trains"
+    users ||--o| user_preferences : "configures"
+    users ||--o{ personal_records : "achieves"
+
+    workouts ||--o{ workout_exercise_link : "prescribes"
+    exercises ||--o{ workout_exercise_link : "appears in"
+
+    workouts |o--o{ workout_sessions : "templates (nullable)"
+    workout_sessions ||--o{ historical_sets : "contains"
+    exercises ||--o{ historical_sets : "logged as"
+    exercises ||--o{ personal_records : "tracked for"
+
+    users {
+        string id PK "usr-uuid4"
+        string username UK "lowercase"
+        string password_hash "bcrypt"
+        string role "user | admin"
+    }
+
+    sessions {
+        string token PK "opaque, 43 chars"
+        string user_id FK
+        string expires_at "30-day TTL"
+    }
+
+    exercises {
+        string id PK "ex-bench | wger-9-..."
+        string name
+        string muscle_group
+        json equipment
+        string yt_id "nullable"
+        bool pr_trackable
+    }
+
+    workouts {
+        string id PK "w-upper-power"
+        string name
+        string tag
+        string location "home|gym|either"
+        json equipment
+        int duration_min
+    }
+
+    workout_exercise_link {
+        string workout_id PK "also FK to workouts"
+        string exercise_id PK "also FK to exercises"
+        int order_index "canonical 0..N-1"
+        int target_sets "PRESCRIPTION"
+        int target_reps_low "PRESCRIPTION"
+        int target_reps_high "nullable"
+        int target_rest_sec "PRESCRIPTION"
+    }
+
+    workout_sessions {
+        string id PK "ses-uuid4 truncated"
+        string user_id FK
+        string workout_id FK "NULLABLE = ad-hoc"
+        string name "SNAPSHOT"
+        string local_date "user-local day"
+        int tz_offset_min
+        string started_at "UTC ISO"
+        string ended_at "nullable"
+        string status "active|completed|abandoned"
+    }
+
+    historical_sets {
+        int id PK "autoincrement"
+        string user_id FK
+        string session_id FK "REQUIRED"
+        string local_date "denormalized"
+        string exercise_id FK
+        int set_index "0-based per session+exercise"
+        string kind "working | warmup"
+        float weight "AS ENTERED"
+        string weight_unit "lb | kg"
+        float weight_kg "CANONICAL"
+        int reps
+        float rpe "nullable"
+        bool was_pr "display snapshot"
+        string timestamp "UTC ISO"
+    }
+
+    personal_records {
+        string user_id PK
+        string exercise_id PK
+        float best_weight_kg "heaviest single"
+        int best_weight_reps
+        float best_e1rm_kg "Epley estimate"
+        float best_e1rm_weight_kg
+        int best_e1rm_reps
+    }
+
+    user_preferences {
+        string user_id PK
+        string mode "home|gym|all"
+        json equipment
+        string weight_unit "lb | kg"
+        int default_rest_sec
+    }

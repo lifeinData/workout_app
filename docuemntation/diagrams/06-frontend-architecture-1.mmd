@@ -1,0 +1,42 @@
+graph TD
+    ROOT["<b>src/app/_layout.tsx</b><br/>QueryClientProvider · AuthBridge<br/>LogoutRetryBridge · Toast"]
+
+    ROOT --> AUTHG["<b>(auth)/_layout.tsx</b>"]
+    ROOT --> TABSG["<b>(tabs)/_layout.tsx</b><br/><i>gate: useMe() → /login if null</i><br/>NativeTabs"]
+
+    AUTHG --> LOGIN["login.tsx"]
+    AUTHG --> SIGNUP["signup.tsx"]
+
+    TABSG --> T1["index.tsx<br/>Home"]
+    TABSG --> T2["nutrition.tsx"]
+    TABSG --> T3["<b>training.tsx</b>"]
+    TABSG --> T4["community.tsx"]
+    TABSG --> T5["admin.tsx<br/><i>only if role==='admin'</i>"]
+
+    T3 --> TT["<b>TrainingTab.tsx</b><br/>thin router"]
+
+    TT --> SEG{"segment?"}
+    SEG -->|Train| Q{"useActiveSession()"}
+    SEG -->|History| HV["HistoryView<br/><i>+ ActiveSessionBar if live</i>"]
+
+    Q -->|"session exists"| SS["<b>SessionScreen</b>"]
+    Q -->|"null"| ST["<b>StartScreen</b>"]
+
+    SS --> EB["ExerciseBlock ×N"]
+    SS --> RTB["RestTimerBar"]
+    SS --> SUM["SessionSummarySheet"]
+    SS --> PICK["ExercisePicker<br/><i>debounced server search</i>"]
+
+    EB --> SR1["LoggedSetRow ×N"]
+    EB --> SR2["PlaceholderSetRow ×N"]
+
+    ST --> WL["Workout list"]
+    ST --> TR["TrophyRoom"]
+
+    TT --> SET["SettingsSheet<br/><i>units · rest · sign out</i>"]
+
+    style ROOT fill:#faeadd,stroke:#8b7268,color:#3d2b26
+    style TT fill:#fce4d8,stroke:#e87d6f,color:#3d2b26
+    style SS fill:#e8f3e8,stroke:#5a8a5a,color:#3d2b26
+    style ST fill:#ffd5b8,stroke:#8b7268,color:#3d2b26
+    style Q fill:#fff,stroke:#e87d6f,color:#3d2b26

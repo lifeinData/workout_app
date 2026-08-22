@@ -1,0 +1,14 @@
+graph LR
+    subgraph proven["✅ Proven by test"]
+        P["S2 beat last time<br/>S4 what do I do today<br/>S6 that was a warmup<br/>S7 did I do Push Day A<br/>S8 am I stronger<br/>S9 I deviated<br/>S10 show me pounds<br/>S11 per-workout prescriptions"]
+    end
+    subgraph partial["🧪 Server proven, client unverified"]
+        Q["S5 don't lose my workout"]
+    end
+    subgraph unproven["⚠️ Not verified at all"]
+        R["S1 log it fast<br/>S3 rest timer"]
+    end
+
+    style proven fill:#e8f3e8,stroke:#5a8a5a,color:#3d2b26
+    style partial fill:#ffd5b8,stroke:#8b7268,color:#3d2b26
+    style unproven fill:#fde4dc,stroke:#d96a5a,color:#3d2b26

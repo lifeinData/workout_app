@@ -1,0 +1,20 @@
+graph TB
+    subgraph transport["api.ts — no React dependency"]
+        REQ["request()"]
+        H401{"401?"}
+        CB["unauthorizedHandler()"]
+        REQ --> H401 -->|yes| CT["clearToken()"] --> CB
+    end
+
+    subgraph react["_layout.tsx"]
+        AB["<b>AuthBridge</b><br/>registers the handler"]
+        INV["invalidateQueries(['auth','me'])"]
+        GATE["(tabs)/_layout gate<br/>useMe() === null"]
+        NAV["router.replace('/login')"]
+        AB --> INV --> GATE --> NAV
+    end
+
+    CB -.->|"calls into React land"| INV
+
+    style transport fill:#faeadd,stroke:#8b7268,color:#3d2b26
+    style react fill:#fce4d8,stroke:#e87d6f,color:#3d2b26

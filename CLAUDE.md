@@ -55,8 +55,10 @@ Backend tests: **167 passing**.
 
 **2026-10-04 (late night) — remote-tester setup + mock tabs disabled**
 - Home / Nutrition / Community triggers are `disabled` (still visible; tap → "Coming soon"
-  info toast via `listeners.tabPress`). The app opens on Training
-  (`unstable_settings.initialRouteName`); every `router.replace("/")` → `"/training"`.
+  info toast via `listeners.tabPress`). The app opens on Training: Home moved
+  `(tabs)/index.tsx` → `(tabs)/home.tsx` (route `/home`), and a root `src/app/index.tsx`
+  `<Redirect href="/training">` catches every cold start (`initialRouteName` alone did NOT
+  work — `/` *was* the Home tab). Every post-login `router.replace` targets `"/training"`.
 - `share.ps1` (repo root) lets a remote tester use Expo Go: Cloudflare quick tunnel to :8000
   (no account; `cloudflared` installed via winget) → `EXPO_PUBLIC_API_BASE_URL` (now the
   top-priority override in `getBaseUrl()`) → `npx expo start --tunnel --clear`

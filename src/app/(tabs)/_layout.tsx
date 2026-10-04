@@ -183,7 +183,7 @@ export default function TabsLayout() {
       }}
     >
       <NativeTabs.Trigger
-        name="index"
+        name="home"
         indicatorColor={indicatorColor}
         disabled
         listeners={comingSoon}

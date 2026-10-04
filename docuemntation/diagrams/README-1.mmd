@@ -1,0 +1,24 @@
+graph LR
+    subgraph client["📱 Expo / React Native"]
+        UI[Screens & Components]
+        RQ[(React Query cache)]
+        UI <--> RQ
+    end
+
+    subgraph server["🐍 FastAPI"]
+        R[Routers]
+        L[Domain logic<br/>prs.py · units.py]
+        R --> L
+    end
+
+    DB[(SQLite)]
+    W[wger.de API]
+
+    RQ <-->|"JSON over HTTP<br/>Bearer token"| R
+    L <--> DB
+    W -.->|"seeded once<br/>1,072 exercises"| DB
+
+    style client fill:#fce4d8,stroke:#e87d6f,color:#3d2b26
+    style server fill:#faeadd,stroke:#8b7268,color:#3d2b26
+    style DB fill:#ffd5b8,stroke:#8b7268,color:#3d2b26
+    style W fill:#f0f0f0,stroke:#999,color:#333

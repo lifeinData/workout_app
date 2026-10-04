@@ -1,0 +1,25 @@
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant PR as PlaceholderSetRow
+    participant EB as ExerciseBlock
+    participant SS as SessionScreen
+    participant H as useLogSet
+    participant RT as useRestTimer
+    participant S as Server
+
+    U->>PR: types 185 / 8, taps ✓
+    PR->>PR: validate > 0
+    PR->>EB: onCommit(185, 8)
+    EB->>EB: handleLogWorking
+    EB->>SS: onLogSet(185, 8, "working")
+    EB->>SS: onSetLogged()
+    SS->>RT: start(target_rest_sec)
+    RT-->>U: ⏱️ timer bar appears
+    SS->>H: mutate({session_id, weight, unit, reps, kind})
+    H->>H: optimistic append → cache
+    H-->>U: ✨ row appears
+    H->>S: POST /me/sets
+    S-->>H: 201 {set, is_pr, pr}
+    H-->>U: 🎉 toast "New PR!" / "Set logged"
+    H->>H: invalidate 3 caches

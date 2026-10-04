@@ -7,7 +7,7 @@ export default function AuthLayout() {
 
   useEffect(() => {
     if (!isLoading && me) {
-      router.replace("/");
+      router.replace("/training");
     }
   }, [me, isLoading]);
 

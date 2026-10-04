@@ -1,0 +1,29 @@
+flowchart TD
+    A["HTTP request<br/><code>POST /api/v1/me/sets</code>"]
+    B{"CORS middleware<br/><i>is this origin allowlisted?</i>"}
+    C{"SlowAPI<br/><i>rate limit exceeded?</i>"}
+    D{"Pydantic<br/><i>does the body match SetLogCreate?</i>"}
+    E{"<code>get_current_user</code><br/><i>valid, unexpired Bearer session?</i>"}
+    F["Router handler<br/><code>sets.log_set()</code>"]
+    G["Domain logic<br/><code>units.to_kg()</code><br/><code>prs.apply_set_to_pr()</code>"]
+    H[("Commit")]
+    I["Serialize via response_model"]
+
+    A --> B
+    B -->|"❌"| B1["blocked"]
+    B -->|"✓"| C
+    C -->|"❌"| C1["429"]
+    C -->|"✓"| D
+    D -->|"❌"| D1["422 + field errors"]
+    D -->|"✓"| E
+    E -->|"❌"| E1["401"]
+    E -->|"✓"| F
+    F --> G --> H --> I
+
+    style A fill:#fce4d8,stroke:#e87d6f,color:#3d2b26
+    style B1 fill:#fde4dc,stroke:#d96a5a,color:#3d2b26
+    style C1 fill:#fde4dc,stroke:#d96a5a,color:#3d2b26
+    style D1 fill:#fde4dc,stroke:#d96a5a,color:#3d2b26
+    style E1 fill:#fde4dc,stroke:#d96a5a,color:#3d2b26
+    style I fill:#e8f3e8,stroke:#5a8a5a,color:#3d2b26
+    style G fill:#ffd5b8,stroke:#8b7268,color:#3d2b26

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ClaudeCodeTabState">
+    <option name="tabSessions">
+      <map>
+        <entry key="0">
+          <value>
+            <TabSessionState>
+              <option name="projectPath" value="C:\Python Projects\react_native_projects\workout_app" />
+              <option name="provider" value="claude" />
+              <option name="sessionId" value="85a311ea-aae6-42fd-9179-bcc62dae3a0d" />
+              <option name="cwd" value="C:\Python Projects\react_native_projects\workout_app" />
+              <option name="model" value="claude-opus-5-5" />
+              <option name="permissionMode" value="bypassPermissions" />
+            </TabSessionState>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

@@ -5,7 +5,7 @@
 app:
   name: workout_app
   version: 0.2.0
-  schema_version: 3
+  schema_version: 8
 
 auth:
   # Opaque session token lifetime in days. After expiry, the row is deleted
@@ -50,6 +50,14 @@ server:
     - http://10.0.2.2:8000
     - http://192.168.7.41:8000
     - exp://192.168.7.41:8081
+    - http://192.168.0.105:8000
+    - exp://192.168.0.105:8081
+    - http://192.168.0.102:8000
+    - exp://192.168.0.102:8081
+    - http://192.168.0.111:8000
+    - exp://192.168.0.111:8081
+    - http://192.168.0.104:8000
+    - exp://192.168.0.104:8081
 
 seed:
   # The first time the DB is created (or whenever the schema_version in
@@ -70,7 +78,7 @@ seed:
     # to production — they live in this gitignored config for local dev only.
     - username: admin
       password: admin1234
-      role: admin
+      role: coach
       display_name: Admin
       initials: AD
     - username: user1
@@ -78,3 +86,32 @@ seed:
       role: user
       display_name: Test User
       initials: U1
+    # Ultra-short dev creds (a/a, ad/ad). These deliberately violate the
+    # username/password length rules enforced at signup — the seed path
+    # bypasses those validators, and LoginRequest's min_length was relaxed
+    # to 1 so they can actually log in. Local dev convenience only; never
+    # ship these.
+    - username: a
+      password: a
+      role: user
+      display_name: A
+      initials: A
+    - username: ad
+      password: ad
+      role: coach
+      display_name: Ad
+      initials: AD
+
+  # Coaching seed (runs after users + workouts). `ad` coaches `a` and `user1`
+  # (links are seeded as accepted), seeded workouts are created by `ad` and
+  # assigned to every seeded athlete, and `ad` sends `a` a welcome DM.
+  coaching:
+    default_workout_creator: ad
+    links:
+      - {coach: ad, athlete: a}
+      - {coach: ad, athlete: user1}
+    assign_all_seed_workouts: true
+    welcome_messages:
+      - from: ad
+        to: a
+        body: "Welcome aboard! Tell me what you're training for and I'll send you your first workout."

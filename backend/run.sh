@@ -30,4 +30,4 @@ echo "Starting uvicorn on $HOST:$PORT ..."
 echo "  Swagger UI: http://localhost:$PORT/docs"
 echo "  Health:     http://localhost:$PORT/api/v1/health"
 echo
-exec uvicorn app.main:app --host "$HOST" --port "$PORT" --reload
+exec uvicorn app.main:app --host "$HOST" --port "$PORT" --reload --timeout-graceful-shutdown 2

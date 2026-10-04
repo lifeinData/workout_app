@@ -1,0 +1,13 @@
+flowchart TD
+    A["GET /me/sessions/active"] --> B{"active session<br/>exists?"}
+    B -->|no| C["return null"]
+    B -->|yes| D{"started_at older<br/>than 24h?"}
+    D -->|no| E["return SessionDetail"]
+    D -->|yes| F["status = 'abandoned'<br/>ended_at = now"]
+    F --> G["commit"]
+    G --> H["return null"]
+
+    style C fill:#faeadd,stroke:#8b7268,color:#3d2b26
+    style E fill:#e8f3e8,stroke:#5a8a5a,color:#3d2b26
+    style F fill:#ffd5b8,stroke:#8b7268,color:#3d2b26
+    style H fill:#faeadd,stroke:#8b7268,color:#3d2b26

@@ -1,0 +1,31 @@
+flowchart LR
+    subgraph client["Client"]
+        IN["User types<br/><b>135</b>"]
+        PREF["prefs.weight_unit<br/><b>'lb'</b>"]
+    end
+
+    subgraph server["Server — units.py"]
+        CONV["to_kg(135, 'lb')<br/>= 61.234968"]
+    end
+
+    subgraph db["historical_sets"]
+        W["weight = 135.0"]
+        WU["weight_unit = 'lb'"]
+        WK["weight_kg = 61.234968"]
+    end
+
+    subgraph out["Reads"]
+        CMP["Comparisons<br/>PRs · volume · sorting<br/><i>use weight_kg</i>"]
+        DISP["Display<br/>fmtWeight(kg, unit)<br/><i>→ '135'</i>"]
+    end
+
+    IN --> CONV
+    PREF --> CONV
+    CONV --> W & WU & WK
+    WK --> CMP
+    WK --> DISP
+
+    style client fill:#fce4d8,stroke:#e87d6f,color:#3d2b26
+    style server fill:#faeadd,stroke:#8b7268,color:#3d2b26
+    style db fill:#ffd5b8,stroke:#8b7268,color:#3d2b26
+    style out fill:#e8f3e8,stroke:#5a8a5a,color:#3d2b26

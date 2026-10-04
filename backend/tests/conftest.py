@@ -30,7 +30,7 @@ from app import db as db_module
 from app.db import get_session
 from app.main import create_app
 from app.seed.exercise_seeds import SEED_EXERCISES
-from app.seed.initial_users import seed_initial_users
+from app.seed.initial_users import seed_coaching, seed_initial_users
 from app.seed.workout_seeds import seed_workouts
 from app.models import Exercise
 
@@ -52,7 +52,7 @@ def seeded_engine(engine):
 
     The hand-curated `SEED_EXERCISES` are inserted first (so the seed
     workouts can link to them), then `seed_workouts` adds the two default
-    workouts, then `seed_initial_users` adds admin + user1 (from
+    workouts, then `seed_initial_users` adds the seed users (from
     `config/defaults.yaml`). Admin uses the dev creds `admin` / `admin1234`.
     """
     config_module.get_settings.cache_clear()
@@ -61,8 +61,10 @@ def seeded_engine(engine):
         for ex in SEED_EXERCISES:
             s.add(Exercise(**ex))
         s.commit()
-        seed_workouts(s, settings)
+        # Order matters: users -> workouts (created_by) -> coaching.
         seed_initial_users(s, settings)
+        seed_workouts(s, settings)
+        seed_coaching(s, settings)
     return engine
 
 
@@ -129,8 +131,8 @@ def _login(client: TestClient, username: str, password: str) -> str:
 
 
 @pytest.fixture
-def admin_bearer_headers(seeded_client) -> dict[str, str]:
-    """Bearer token for the YAML-seeded admin user (login: admin / admin1234)."""
+def coach_bearer_headers(seeded_client) -> dict[str, str]:
+    """Bearer token for the YAML-seeded coach user (login: admin / admin1234)."""
     token = _login(seeded_client, "admin", "admin1234")
     return {"Authorization": f"Bearer {token}"}
 
@@ -142,8 +144,8 @@ def user_bearer_headers(seeded_client) -> dict[str, str]:
     The user is created via /auth/signup (not pulled from the YAML seed
     user1) so test isolation is exact: each test that needs a regular
     user gets its own fresh user with its own fresh session. Use this
-    for "non-admin attempts an admin action" tests and for any test
-    that needs an authenticated non-admin caller.
+    for "non-coach attempts a coach action" tests and for any test
+    that needs an authenticated non-coach caller.
     """
     r = seeded_client.post(
         "/api/v1/auth/signup",

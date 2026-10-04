@@ -1,0 +1,14 @@
+graph LR
+    A["🏋️ Tue 8:00 PM<br/>local (UTC−5)"]
+    B["stored timestamp<br/><code>2026-08-05T01:00:00Z</code><br/><i>Wednesday in UTC</i>"]
+    C["date column<br/><code>2026-08-05</code><br/><b>Wednesday</b>"]
+    D["📅 calendar looks up<br/><code>2026-08-04</code><br/><b>Tuesday</b>"]
+    E["❌ no match<br/>Tuesday appears empty<br/>dot shows on Wednesday"]
+
+    A --> B --> C
+    A --> D
+    C --> E
+    D --> E
+
+    style A fill:#fce4d8,stroke:#e87d6f,color:#3d2b26
+    style E fill:#fde4dc,stroke:#d96a5a,color:#3d2b26

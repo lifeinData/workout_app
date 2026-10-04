@@ -1,0 +1,37 @@
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant M as useLogSet
+    participant C as React Query cache
+    participant S as Server
+
+    U->>M: commit set (185 × 8)
+    
+    rect rgb(252, 228, 216)
+    Note over M,C: onMutate — before the request
+    M->>C: cancelQueries(activeSession)
+    M->>C: snapshot = getQueryData(activeSession)
+    M->>C: setQueryData — append optimistic set<br/>id = −1 (negative sentinel)
+    end
+    
+    C-->>U: ✨ row visible immediately
+    
+    M->>S: POST /me/sets
+    
+    alt success
+        S-->>M: 201 + real set (id = 42)
+        rect rgb(232, 243, 232)
+        Note over M,C: onSettled
+        M->>C: invalidateQueries(activeSession)
+        C->>S: GET /me/sessions/active
+        S-->>C: authoritative state
+        end
+        C-->>U: row now has real id
+    else failure
+        S-->>M: 4xx / network error
+        rect rgb(253, 228, 220)
+        Note over M,C: onError
+        M->>C: setQueryData(snapshot)
+        end
+        C-->>U: 🔄 row vanishes + error toast
+    end

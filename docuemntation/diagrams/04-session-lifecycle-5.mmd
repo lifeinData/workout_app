@@ -1,0 +1,15 @@
+sequenceDiagram
+    autonumber
+    participant R as Router
+    participant DB as Session (uncommitted)
+
+    R->>DB: SELECT sets WHERE session_id=?
+    DB-->>R: [set1, set2, set3]
+    Note over R: capture {ex-bench, ex-ohp}
+    R->>DB: DELETE set1, set2, set3
+    R->>DB: DELETE workout_session
+    R->>DB: flush() — deletes now visible
+    R->>DB: recompute_pr(ex-bench)
+    Note over DB: SELECT sees post-delete state ✓
+    R->>DB: recompute_pr(ex-ohp)
+    R->>DB: COMMIT (atomic)

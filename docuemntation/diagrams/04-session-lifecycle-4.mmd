@@ -1,0 +1,26 @@
+flowchart TD
+    START["_build_blocks(session)"]
+    Q1{"session.workout_id<br/>is set?"}
+
+    P1["Load workout_exercise_link<br/>ORDER BY order_index"]
+    P2["For each link:<br/>build block with prescription<br/>+ any logged sets<br/>+ last_time"]
+    P3["mark exercise_id as 'seen'"]
+
+    A1["Find exercises WITH sets<br/>NOT in 'seen'"]
+    A2["Order by first-logged<br/><i>(by autoincrement id)</i>"]
+    A3["Build with ad-hoc defaults<br/>3 × 8–12 @ 90s"]
+
+    OUT["blocks[]<br/><i>prescribed first, ad-hoc appended</i>"]
+
+    START --> Q1
+    Q1 -->|yes| P1 --> P2 --> P3 --> A1
+    Q1 -->|"no (ad-hoc session)"| A1
+    A1 --> A2 --> A3 --> OUT
+
+    style P1 fill:#fce4d8,stroke:#e87d6f,color:#3d2b26
+    style P2 fill:#fce4d8,stroke:#e87d6f,color:#3d2b26
+    style P3 fill:#fce4d8,stroke:#e87d6f,color:#3d2b26
+    style A1 fill:#ffd5b8,stroke:#8b7268,color:#3d2b26
+    style A2 fill:#ffd5b8,stroke:#8b7268,color:#3d2b26
+    style A3 fill:#ffd5b8,stroke:#8b7268,color:#3d2b26
+    style OUT fill:#e8f3e8,stroke:#5a8a5a,color:#3d2b26

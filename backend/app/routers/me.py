@@ -60,6 +60,8 @@ def get_preferences(
             equipment=[],
             completed_workouts_today=[],
             last_reset_date=today,
+            weight_unit="lb",
+            default_rest_sec=90,
         )
     # Roll over "completed today" at midnight
     if pref.last_reset_date != today:
@@ -74,6 +76,8 @@ def get_preferences(
         equipment=pref.equipment,
         completed_workouts_today=pref.completed_workouts_today,
         last_reset_date=pref.last_reset_date,
+        weight_unit=pref.weight_unit,
+        default_rest_sec=pref.default_rest_sec,
     )
 
 
@@ -94,6 +98,8 @@ def patch_preferences(
             equipment=body.equipment or [],
             completed_workouts_today=body.completed_workouts_today or [],
             last_reset_date=today,
+            weight_unit=body.weight_unit or "lb",
+            default_rest_sec=body.default_rest_sec if body.default_rest_sec is not None else 90,
         )
         session.add(pref)
     else:
@@ -103,6 +109,10 @@ def patch_preferences(
             pref.equipment = body.equipment
         if body.completed_workouts_today is not None:
             pref.completed_workouts_today = body.completed_workouts_today
+        if body.weight_unit is not None:
+            pref.weight_unit = body.weight_unit
+        if body.default_rest_sec is not None:
+            pref.default_rest_sec = body.default_rest_sec
         # `add_completed` is the additive patch: append without
         # overwriting. This is the safe pattern for multi-device use
         # (last-write-wins PATCHes would otherwise drop the other
@@ -123,4 +133,6 @@ def patch_preferences(
         equipment=pref.equipment,
         completed_workouts_today=pref.completed_workouts_today,
         last_reset_date=pref.last_reset_date,
+        weight_unit=pref.weight_unit,
+        default_rest_sec=pref.default_rest_sec,
     )

@@ -1,0 +1,23 @@
+sequenceDiagram
+    autonumber
+    participant U as User
+    participant C as Client
+    participant S as Server
+    participant DB as SQLite
+
+    U->>C: tap "Start workout"
+    C->>S: POST /me/sessions
+    S->>DB: SELECT WHERE user_id=? AND status='active'
+    DB-->>S: (none)
+    S->>DB: INSERT WorkoutSession(status='active')
+    S-->>C: 201 Created + SessionDetail
+    C->>C: setQueryData(activeSession, data)
+
+    Note over U,C: user impatiently taps again
+
+    U->>C: tap "Start workout"
+    C->>S: POST /me/sessions
+    S->>DB: SELECT WHERE user_id=? AND status='active'
+    DB-->>S: ses-abc123 (the one we just made)
+    S-->>C: 200 OK + the SAME session
+    Note right of S: No new row.<br/>Note the status code<br/>difference: 201 vs 200.

@@ -24,7 +24,7 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "usesCleartextTraffic": true
+      "softwareKeyboardLayoutMode": "resize"
     },
     "web": {
       "bundler": "metro",
@@ -42,10 +42,22 @@
             "imageWidth": 76
           }
         }
+      ],
+      "expo-font",
+      "expo-image",
+      "expo-status-bar",
+      "expo-web-browser",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
       ]
     ],
     "extra": {
-      "apiBaseUrl": "http://192.168.7.41:8000/api/v1"
+      "apiBaseUrl": "http://192.168.0.102:8000/api/v1"
     },
     "experiments": {
       "typedRoutes": true,

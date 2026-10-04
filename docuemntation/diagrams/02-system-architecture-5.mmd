@@ -1,0 +1,15 @@
+graph TB
+    subgraph ref["📚 Reference data — serves S4, S11"]
+        R1["exercises — 1,072 rows<br/>workouts + prescriptions"]
+        R2["Changes: at deploy time<br/>Owner: coach/admin<br/>Auth: not needed to read<br/>Strategy: <b>seed it, cache hard</b>"]
+        R1 --- R2
+    end
+
+    subgraph usr["✍️ User data — serves S1, S5, S7, S8"]
+        U1["workout_sessions<br/>historical_sets<br/>personal_records<br/>user_preferences"]
+        U2["Changes: constantly<br/>Owner: Jordan<br/>Auth: required<br/>Strategy: <b>server is truth,<br/>invalidate on write</b>"]
+        U1 --- U2
+    end
+
+    style ref fill:#e8f3e8,stroke:#5a8a5a,color:#3d2b26
+    style usr fill:#fce4d8,stroke:#e87d6f,color:#3d2b26

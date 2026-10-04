@@ -1,0 +1,11 @@
+graph LR
+    Q["'What's my best<br/>on this lift?'"]
+    Q --> Q1["<b>Heaviest single</b><br/>What can I actually lift?<br/><i>→ best_weight_kg</i>"]
+    Q --> Q2["<b>Best estimated 1RM</b><br/>How strong am I really?<br/><i>→ best_e1rm_kg</i>"]
+
+    Q1 --> A1["315 × 3"]
+    Q2 --> A2["225 × 8<br/><i>e1RM = 285</i>"]
+
+    style Q fill:#fce4d8,stroke:#e87d6f,color:#3d2b26
+    style Q1 fill:#e8f3e8,stroke:#5a8a5a,color:#3d2b26
+    style Q2 fill:#e8f3e8,stroke:#5a8a5a,color:#3d2b26

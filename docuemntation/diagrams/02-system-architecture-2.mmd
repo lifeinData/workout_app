@@ -1,0 +1,39 @@
+graph TB
+    subgraph phone["📱 Device — Expo Go / React Native 0.85"]
+        direction TB
+        SCREENS["<b>Screens</b><br/>expo-router file-based routes<br/><code>src/app/</code>"]
+        COMP["<b>Components</b><br/><code>src/components/fitness/</code>"]
+        HOOKS["<b>Hooks / data layer</b><br/><code>src/lib/queries.ts</code>"]
+        CACHE[("<b>React Query cache</b><br/>the only client state")]
+        XPORT["<b>Transport</b><br/><code>src/lib/api.ts</code><br/>typed fetch + auth + 401 handling"]
+
+        SCREENS --> COMP --> HOOKS <--> CACHE
+        HOOKS --> XPORT
+    end
+
+    subgraph api["🐍 Backend — FastAPI + Uvicorn :8000"]
+        direction TB
+        MW["<b>Middleware</b><br/>CORS allowlist · SlowAPI rate limit"]
+        DEPS["<b>Dependencies</b><br/><code>deps.py</code> — Bearer → User"]
+        ROUTES["<b>Routers</b><br/>auth · exercises · workouts<br/>me · sessions · sets · admin"]
+        DOMAIN["<b>Domain logic</b><br/><code>prs.py</code> — PR rules<br/><code>units.py</code> — lb/kg + Epley<br/><code>_helpers.py</code> — response builders"]
+        ORM["<b>SQLModel</b><br/><code>models.py</code>"]
+
+        MW --> DEPS --> ROUTES --> DOMAIN --> ORM
+    end
+
+    DB[("<b>SQLite</b><br/>backend/workout.db")]
+    SEED["<b>Seeder</b><br/><code>seed/wger_import.py</code>"]
+    WGER["wger.de<br/>public API"]
+
+    XPORT <==>|"HTTPS-less LAN HTTP<br/>snake_case JSON"| MW
+    ORM <--> DB
+    WGER -.->|"fetch once,<br/>cache to fixtures/"| SEED
+    SEED -.->|"on schema_version bump"| DB
+
+    style phone fill:#fce4d8,stroke:#e87d6f,color:#3d2b26
+    style api fill:#faeadd,stroke:#8b7268,color:#3d2b26
+    style DB fill:#ffd5b8,stroke:#8b7268,color:#3d2b26
+    style WGER fill:#eee,stroke:#999,color:#333
+    style SEED fill:#fff,stroke:#8b7268,color:#3d2b26
+    style CACHE fill:#fff,stroke:#e87d6f,color:#3d2b26

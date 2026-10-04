@@ -24,7 +24,11 @@ export function InterventionModal({ onClose }: InterventionModalProps) {
       onRequestClose={onClose}
     >
       <View className="flex-1 justify-end">
-        <Pressable className="absolute inset-0 bg-foreground/40" onPress={onClose} />
+        <Pressable
+          className="absolute inset-0"
+          style={{ backgroundColor: 'rgba(61, 43, 38, 0.4)' }}
+          onPress={onClose}
+        />
 
         <View className="w-full bg-card rounded-t-3xl border-t border-x border-border shadow-2xl">
           <View className="absolute top-3 right-3">

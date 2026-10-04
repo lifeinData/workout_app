@@ -13,7 +13,17 @@ from app import __version__
 from app.config import get_settings
 from app.db import init_db
 from app.rate_limit import limiter
-from app.routers import admin, auth, exercises, me, sets, workouts
+from app.routers import (
+    auth,
+    coach,
+    coaching,
+    exercises,
+    me,
+    messages,
+    sessions,
+    sets,
+    workouts,
+)
 from app.seed import wger_import
 
 logger = logging.getLogger(__name__)
@@ -77,9 +87,12 @@ def create_app() -> FastAPI:
     app.include_router(exercises.router, prefix="/api/v1")
     app.include_router(workouts.router, prefix="/api/v1")
     app.include_router(me.router, prefix="/api/v1")
+    app.include_router(sessions.router, prefix="/api/v1")
     app.include_router(sets.router, prefix="/api/v1")
     app.include_router(auth.router, prefix="/api/v1")
-    app.include_router(admin.router, prefix="/api/v1/admin")
+    app.include_router(coach.router, prefix="/api/v1/coach")
+    app.include_router(coaching.router, prefix="/api/v1")
+    app.include_router(messages.router, prefix="/api/v1")
 
     @app.get("/api/v1/health", tags=["health"])
     def health() -> dict:

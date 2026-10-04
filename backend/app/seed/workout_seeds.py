@@ -14,30 +14,46 @@ just bumping `schema_version` and adding the id to the config.
 from sqlmodel import Session, select
 
 from app.config import Settings
-from app.models import Exercise, Workout, WorkoutExerciseLink
+from app.models import Exercise, User, Workout, WorkoutExerciseLink
+from app.routers._helpers import recompute_equipment
+from app.timefmt import utc_now_iso
 from app.seed.exercise_seeds import SEED_EXERCISES
 
 # Idempotent: existing rows are left untouched, even if their name differs from SEED_EXERCISES.
 
-# (id, name, tag, location, equipment, duration_min, [exercise_ids in order])
+# (id, name, equipment, duration_min, [exercises in order])
+#
+# Each exercise entry carries a per-workout prescription
+# (target_sets/target_reps/target_rest_sec) — the
+# same exercise can be prescribed differently in a different workout,
+# so this lives on the link, not on the Exercise row.
 SEED_WORKOUTS: list[dict] = [
     {
         "id": "w-upper-power",
         "name": "Upper Body Power",
-        "tag": "Push",
-        "location": "gym",
         "equipment": ["barbell", "dumbbells", "cable"],
         "duration_min": 60,
-        "exercise_ids": ["ex-bench", "ex-incline-db", "ex-cable-fly", "ex-ohp", "ex-lateral"],
+        "exercises": [
+            # Compounds: lower reps, longer rest.
+            {"id": "ex-bench", "target_sets": 4, "target_reps": 5, "target_rest_sec": 150},
+            {"id": "ex-ohp", "target_sets": 4, "target_reps": 5, "target_rest_sec": 150},
+            # Accessories: higher reps, shorter rest.
+            {"id": "ex-incline-db", "target_sets": 3, "target_reps": 10, "target_rest_sec": 60},
+            {"id": "ex-cable-fly", "target_sets": 3, "target_reps": 10, "target_rest_sec": 60},
+            {"id": "ex-lateral", "target_sets": 3, "target_reps": 10, "target_rest_sec": 60},
+        ],
     },
     {
         "id": "w-home-bw",
         "name": "No-Equipment Burner",
-        "tag": "Full Body",
-        "location": "home",
         "equipment": ["bodyweight"],
         "duration_min": 25,
-        "exercise_ids": ["ex-pushup", "ex-airsquat", "ex-lunge", "ex-plank"],
+        "exercises": [
+            {"id": "ex-pushup", "target_sets": 3, "target_reps": 12, "target_rest_sec": 45},
+            {"id": "ex-airsquat", "target_sets": 3, "target_reps": 12, "target_rest_sec": 45},
+            {"id": "ex-lunge", "target_sets": 3, "target_reps": 12, "target_rest_sec": 45},
+            {"id": "ex-plank", "target_sets": 3, "target_reps": 12, "target_rest_sec": 45},
+        ],
     },
 ]
 
@@ -47,7 +63,7 @@ def seed_workouts(session: Session, settings: Settings) -> int:
 
     Only inserts workouts whose ID appears in
     `settings.seed.default_workout_ids`. Skips silently if a workout
-    with the same ID already exists (so admin edits survive re-seed).
+    with the same ID already exists (so coach edits survive re-seed).
 
     Ensures the referenced exercises exist first by upserting from
     SEED_EXERCISES (so seed workouts work even if wger import failed).
@@ -59,6 +75,13 @@ def seed_workouts(session: Session, settings: Settings) -> int:
 
     wanted_ids = settings.seed.default_workout_ids
     by_id = {w["id"]: w for w in SEED_WORKOUTS}
+
+    # Attribution: the creator user must already be seeded (users run first).
+    creator_name = settings.seed.coaching.default_workout_creator
+    creator_id: str | None = None
+    if creator_name:
+        creator = session.exec(select(User).where(User.username == creator_name.lower())).first()
+        creator_id = creator.id if creator else None
 
     count = 0
     for wid in wanted_ids:
@@ -72,10 +95,10 @@ def seed_workouts(session: Session, settings: Settings) -> int:
             Workout(
                 id=w_def["id"],
                 name=w_def["name"],
-                tag=w_def["tag"],
-                location=w_def["location"],
                 equipment=w_def["equipment"],
                 duration_min=w_def["duration_min"],
+                created_by=creator_id,
+                created_at=utc_now_iso(),
             )
         )
 
@@ -86,14 +109,19 @@ def seed_workouts(session: Session, settings: Settings) -> int:
             session.delete(link)
         session.flush()
 
-        for idx, ex_id in enumerate(w_def["exercise_ids"]):
+        for idx, ex_def in enumerate(w_def["exercises"]):
             session.add(
                 WorkoutExerciseLink(
                     workout_id=wid,
-                    exercise_id=ex_id,
+                    exercise_id=ex_def["id"],
                     order_index=idx,
+                    target_sets=ex_def["target_sets"],
+                    target_reps=ex_def["target_reps"],
+                    target_rest_sec=ex_def["target_rest_sec"],
                 )
             )
+        session.flush()
+        recompute_equipment(session, session.get(Workout, wid))
         count += 1
 
     session.commit()

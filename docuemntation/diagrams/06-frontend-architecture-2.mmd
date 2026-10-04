@@ -1,0 +1,17 @@
+graph TB
+    subgraph keys["queryKeys — the entire client state namespace"]
+        direction TB
+        K1["<code>['auth','me']</code><br/>current user · staleTime 60s"]
+        K2["<code>['exercises', filter]</code><br/>catalog · staleTime <b>1 hour</b>"]
+        K3["<code>['workouts', filter]</code><br/>templates · staleTime 5 min"]
+        K4["<code>['me','preferences']</code><br/>units · rest · staleTime 5 min"]
+        K5["<code>['me','sessions','active']</code><br/><b>staleTime 0</b> — the hot one"]
+        K6["<code>['me','sessions','list',from,to]</code><br/>history calendar"]
+        K7["<code>['me','sessions', id]</code><br/>one session detail"]
+        K8["<code>['me','prs']</code><br/>personal records"]
+        K9["<code>['admin','workouts', …]</code><br/>staleTime 30s"]
+    end
+
+    style keys fill:#faeadd,stroke:#8b7268,color:#3d2b26
+    style K5 fill:#fce4d8,stroke:#e87d6f,color:#3d2b26
+    style K2 fill:#e8f3e8,stroke:#5a8a5a,color:#3d2b26

@@ -1,0 +1,23 @@
+graph LR
+    subgraph pub["🌐 Public"]
+        P1["GET /exercises<br/>GET /exercises/{id}"]
+        P2["GET /workouts<br/>GET /workouts/{id}"]
+        P3["POST /auth/signup<br/>POST /auth/login"]
+    end
+
+    subgraph auth["🔒 Authenticated — Bearer"]
+        A1["GET /auth/me<br/>POST /auth/logout<br/>POST /auth/logout-all"]
+        A2["GET·PATCH /me/preferences"]
+        A3["<b>Sessions</b><br/>POST /me/sessions<br/>GET /me/sessions/active<br/>GET /me/sessions<br/>GET /me/sessions/{id}<br/>PATCH /me/sessions/{id}<br/>DELETE /me/sessions/{id}"]
+        A4["<b>Sets</b><br/>POST /me/sets<br/>PATCH /me/sets/{id}<br/>DELETE /me/sets/{id}"]
+        A5["GET /me/prs<br/>GET /me/exercises/{id}/history"]
+    end
+
+    subgraph adm["👑 Admin — role check"]
+        AD1["GET·POST /admin/workouts<br/>PATCH·DELETE /admin/workouts/{id}"]
+        AD2["POST·DELETE .../exercises<br/>PATCH .../exercises/reorder<br/>PATCH .../exercises/{id}/prescription"]
+    end
+
+    style pub fill:#e8f3e8,stroke:#5a8a5a,color:#3d2b26
+    style auth fill:#fce4d8,stroke:#e87d6f,color:#3d2b26
+    style adm fill:#ffd5b8,stroke:#8b7268,color:#3d2b26

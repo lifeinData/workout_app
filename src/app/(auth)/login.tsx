@@ -34,7 +34,7 @@ export default function LoginScreen() {
     login.mutate(
       { username: trimmed, password },
       {
-        onSuccess: () => router.replace("/"),
+        onSuccess: () => router.replace("/training"),
         onError: (err) => {
           if (err instanceof ApiError && err.status === 401) {
             setLocalError("Invalid username or password.");

@@ -18,7 +18,7 @@ export default function CoachRoute() {
 
   useEffect(() => {
     if (!isLoading && me?.role !== "coach") {
-      router.replace("/");
+      router.replace("/training");
     }
   }, [me, isLoading]);
 

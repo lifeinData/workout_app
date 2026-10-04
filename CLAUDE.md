@@ -53,6 +53,16 @@ Schema is at **version 8**. Bumping `app.schema_version` in `backend/config/defa
 **wipes + reseeds `backend/workout.db`** on next backend start (the dev "migration").
 Backend tests: **167 passing**.
 
+**2026-10-04 (late night) — remote-tester setup + mock tabs disabled**
+- Home / Nutrition / Community triggers are `disabled` (still visible; tap → "Coming soon"
+  info toast via `listeners.tabPress`). The app opens on Training
+  (`unstable_settings.initialRouteName`); every `router.replace("/")` → `"/training"`.
+- `share.ps1` (repo root) lets a remote tester use Expo Go: Cloudflare quick tunnel to :8000
+  (no account; `cloudflared` installed via winget) → `EXPO_PUBLIC_API_BASE_URL` (now the
+  top-priority override in `getBaseUrl()`) → `npx expo start --tunnel --clear`
+  (`@expo/ngrok` installed globally). This PC's DNS (NordVPN) is slow to resolve new
+  trycloudflare hosts, so the script health-checks via 1.1.1.1.
+
 **2026-10-04 (night) — smooth toasts** (frontend only)
 - `react-native-toast-message` animated with `useNativeDriver: false` on Android, i.e. on
   the JS thread — the same moment a set log floods it (optimistic write + refetches +

@@ -420,7 +420,13 @@ function getDevServerBaseUrl(): string | null {
 
 function getBaseUrl(): string {
   const extra = (Constants.expoConfig?.extra as { apiBaseUrl?: string } | undefined);
-  const url = getDevServerBaseUrl() ?? extra?.apiBaseUrl ?? `http://10.0.2.2:${API_PORT}/api/v1`;
+  // EXPO_PUBLIC_API_BASE_URL (inlined at bundle time) wins: share.ps1 sets it
+  // to a public backend tunnel so a remote tester's phone can reach us.
+  const url =
+    process.env.EXPO_PUBLIC_API_BASE_URL ||
+    getDevServerBaseUrl() ||
+    extra?.apiBaseUrl ||
+    `http://10.0.2.2:${API_PORT}/api/v1`;
   return url.replace(/\/$/, "");
 }
 

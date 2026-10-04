@@ -6,6 +6,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMe, queryKeys } from "@/lib/queries";
 import { api } from "@/lib/api";
 import { clearToken } from "@/lib/auth";
+import Toast from "@/components/ui/Toast";
 
 /**
  * (tabs) gate. If the user is not signed in, send them to /login.
@@ -26,6 +27,22 @@ import { clearToken } from "@/lib/auth";
  * (tabs) and (auth). If expo-router 5.x rejects this nesting, fall
  * back to the regular `Tabs` component from "expo-router/tabs".
  */
+// Training is the only built-out tab, so the app opens on it.
+export const unstable_settings = { initialRouteName: "training" };
+
+/** Home / Nutrition / Community are still mock data, so they're shown but
+ * inert: `disabled` blocks the native tap, and the still-emitted `tabPress`
+ * says why. (The native bar can't colour one tab differently, so they keep
+ * the normal unselected colour.) */
+const comingSoon = {
+  tabPress: () =>
+    Toast.show({
+      type: "info",
+      text1: "Coming soon",
+      text2: "Training is ready to use for now.",
+    }),
+};
+
 export default function TabsLayout() {
   const { data: me, isLoading, isError } = useMe();
   const qc = useQueryClient();
@@ -125,7 +142,9 @@ export default function TabsLayout() {
             router.replace("/login");
           }}
         >
-          <Text style={{ color: "#8b7268", fontSize: 13 }}>Sign out and try again</Text>
+          <Text style={{ color: "#8b7268", fontSize: 13 }}>
+            Sign out and try again
+          </Text>
         </Pressable>
       </View>
     );
@@ -163,19 +182,37 @@ export default function TabsLayout() {
         default: { color: labelColor },
       }}
     >
-      <NativeTabs.Trigger name="index" indicatorColor={indicatorColor}>
+      <NativeTabs.Trigger
+        name="index"
+        indicatorColor={indicatorColor}
+        disabled
+        listeners={comingSoon}
+      >
         <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon md="home" sf="house.fill" />
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="nutrition" indicatorColor={indicatorColor}>
+      <NativeTabs.Trigger
+        name="nutrition"
+        indicatorColor={indicatorColor}
+        disabled
+        listeners={comingSoon}
+      >
         <NativeTabs.Trigger.Label>Nutrition</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon md="lunch_dining" sf="fork.knife" />
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="training" indicatorColor={indicatorColor}>
         <NativeTabs.Trigger.Label>Training</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon md="fitness_center" sf="figure.strengthtraining.traditional" />
+        <NativeTabs.Trigger.Icon
+          md="fitness_center"
+          sf="figure.strengthtraining.traditional"
+        />
       </NativeTabs.Trigger>
-      <NativeTabs.Trigger name="community" indicatorColor={indicatorColor}>
+      <NativeTabs.Trigger
+        name="community"
+        indicatorColor={indicatorColor}
+        disabled
+        listeners={comingSoon}
+      >
         <NativeTabs.Trigger.Label>Community</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon md="groups" sf="person.3.fill" />
       </NativeTabs.Trigger>

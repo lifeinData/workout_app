@@ -55,7 +55,7 @@ export default function SignupScreen() {
     };
 
     signup.mutate(body, {
-      onSuccess: () => router.replace("/"),
+      onSuccess: () => router.replace("/training"),
       onError: (err) => {
         if (err instanceof ApiError) {
           if (err.status === 409) {

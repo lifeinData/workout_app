@@ -1,10 +1,13 @@
-import { View, Text, Pressable, ActivityIndicator, Modal, ScrollView } from 'react-native';
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Trophy, Clock, X } from 'lucide-react-native';
+import { View, Text, Pressable, ActivityIndicator, ScrollView } from 'react-native';
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Trophy, Clock } from 'lucide-react-native';
 import { useMemo, useState } from 'react';
 import { usePreferences, useSession, useSessions } from '@/lib/queries';
 import { localDateKey } from '@/lib/dates';
 import { fmtWeight, type WeightUnit } from '@/lib/units';
 import type { SessionSummaryResponse } from '@/lib/api';
+import { Card } from '@/components/ui/Card';
+import { Sheet } from '@/components/ui/Sheet';
+import { colors } from '@/lib/theme';
 
 /**
  * Calendar marks and the day list both come from `GET /me/sessions`,
@@ -25,15 +28,24 @@ export function HistoryView() {
   const monthEnd = localDateKey(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 0));
   const { data: monthSessions, isLoading } = useSessions(monthStart, monthEnd);
 
-  const datesWithHistory = useMemo(
-    () => new Set((monthSessions ?? []).map((s) => s.local_date)),
+  // History shows FINISHED workouts only. Active (in-progress) and
+  // abandoned/discarded sessions are intentionally excluded — an
+  // unfinished workout should never appear here (and used to show up
+  // uselessly as "Abandoned").
+  const completedSessions = useMemo(
+    () => (monthSessions ?? []).filter((s) => s.status === 'completed'),
     [monthSessions]
+  );
+
+  const datesWithHistory = useMemo(
+    () => new Set(completedSessions.map((s) => s.local_date)),
+    [completedSessions]
   );
 
   const selectedDaySessions = useMemo(() => {
     if (!selectedDate) return [];
-    return (monthSessions ?? []).filter((s) => s.local_date === selectedDate);
-  }, [monthSessions, selectedDate]);
+    return completedSessions.filter((s) => s.local_date === selectedDate);
+  }, [completedSessions, selectedDate]);
 
   const calendarDays = useMemo(() => {
     const year = currentMonth.getFullYear();
@@ -62,40 +74,44 @@ export function HistoryView() {
     date.getFullYear() === today.getFullYear();
 
   return (
-    <View className="space-y-4">
-      <View className="bg-card rounded-3xl p-4 border border-border shadow-sm">
+    <View style={{ gap: 20 }}>
+      <Card>
         <View className="flex-row items-center justify-between mb-4">
           <View className="flex-row items-center gap-2">
-            <CalendarIcon size={20} color="#e87d6f" />
-            <Text className="text-base font-semibold text-card-foreground">
+            <CalendarIcon size={20} color={colors.mutedForeground} />
+            <Text maxFontSizeMultiplier={1.3} className="text-heading font-semibold text-card-foreground">
               {currentMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
             </Text>
           </View>
           <View className="flex-row gap-2">
             <Pressable
               onPress={prevMonth}
-              className="w-8 h-8 rounded-lg bg-muted items-center justify-center"
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+              className="w-8 h-8 rounded-full bg-muted items-center justify-center"
             >
-              <ChevronLeft size={16} color="#3d2b26" />
+              <ChevronLeft size={16} color={colors.foreground} />
             </Pressable>
             <Pressable
               onPress={nextMonth}
-              className="w-8 h-8 rounded-lg bg-muted items-center justify-center"
+              hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+              className="w-8 h-8 rounded-full bg-muted items-center justify-center"
             >
-              <ChevronRight size={16} color="#3d2b26" />
+              <ChevronRight size={16} color={colors.foreground} />
             </Pressable>
           </View>
         </View>
 
-        <View className="flex-row flex-wrap gap-1 mb-2">
+        <View className="flex-row flex-wrap mb-2">
           {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
             <View key={day} style={{ width: '14.28%' }} className="items-center py-1">
-              <Text className="text-xs text-muted-foreground">{day}</Text>
+              <Text maxFontSizeMultiplier={1.3} className="text-caption text-muted-foreground">
+                {day}
+              </Text>
             </View>
           ))}
         </View>
 
-        <View className="flex-row flex-wrap gap-1">
+        <View className="flex-row flex-wrap">
           {calendarDays.map((day, idx) => {
             if (!day) {
               return <View key={`empty-${idx}`} style={{ width: '14.28%', aspectRatio: 1 }} />;
@@ -105,42 +121,42 @@ export function HistoryView() {
             const isSelected = dateStr === selectedDate;
             const isTodayDate = isToday(day);
             return (
-              <Pressable
-                key={dateStr}
-                onPress={() => setSelectedDate(isSelected ? null : dateStr)}
-                style={{
-                  width: '14.28%',
-                  aspectRatio: 1,
-                  borderWidth: isTodayDate && !isSelected ? 2 : 0,
-                  borderColor: isTodayDate && !isSelected ? '#e87d6f' : 'transparent',
-                }}
-                className={`rounded-lg items-center justify-center ${
-                  isSelected
-                    ? 'bg-primary'
-                    : hasHistory
-                    ? 'bg-accent'
-                    : ''
-                }`}
-              >
-                <Text
-                  className={`text-sm ${
-                    isSelected
-                      ? 'text-primary-foreground'
+              <View key={dateStr} style={{ width: '14.28%', aspectRatio: 1, padding: 2 }}>
+                <Pressable
+                  onPress={() => setSelectedDate(isSelected ? null : dateStr)}
+                  style={{
+                    flex: 1,
+                    borderRadius: 10,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: isSelected
+                      ? colors.primary
                       : hasHistory
-                      ? 'text-accent-foreground'
-                      : 'text-muted-foreground'
-                  }`}
+                      ? colors.accent
+                      : 'transparent',
+                    borderWidth: isTodayDate && !isSelected ? 2 : 0,
+                    borderColor: colors.primary,
+                  }}
                 >
-                  {day.getDate()}
-                </Text>
-                {hasHistory && !isSelected && (
-                  <View className="absolute bottom-1 w-1 h-1 rounded-full bg-primary" style={{ left: '50%', marginLeft: -2 }} />
-                )}
-              </Pressable>
+                  <Text
+                    maxFontSizeMultiplier={1.3}
+                    style={{ fontVariant: ['tabular-nums'] }}
+                    className={`text-body ${
+                      isSelected
+                        ? 'text-primary-foreground'
+                        : hasHistory
+                        ? 'text-accent-foreground'
+                        : 'text-muted-foreground'
+                    }`}
+                  >
+                    {day.getDate()}
+                  </Text>
+                </Pressable>
+              </View>
             );
           })}
         </View>
-      </View>
+      </Card>
 
       {isLoading && (
         <View className="py-10 items-center">
@@ -149,7 +165,7 @@ export function HistoryView() {
       )}
 
       {selectedDate && !isLoading && selectedDaySessions.length > 0 && (
-        <View className="space-y-3">
+        <View style={{ gap: 12 }}>
           {selectedDaySessions.map((s) => (
             <SessionCard
               key={s.id}
@@ -163,13 +179,15 @@ export function HistoryView() {
 
       {selectedDate && !isLoading && selectedDaySessions.length === 0 && (
         <View className="bg-muted/50 rounded-3xl p-8 items-center border border-dashed border-border">
-          <Text className="text-sm text-muted-foreground text-center">No sessions logged this day</Text>
+          <Text maxFontSizeMultiplier={1.3} className="text-body text-muted-foreground text-center">
+            No sessions logged this day
+          </Text>
         </View>
       )}
 
       {!selectedDate && !isLoading && (
         <View className="bg-muted/50 rounded-3xl p-8 items-center border border-dashed border-border">
-          <Text className="text-sm text-muted-foreground text-center">
+          <Text maxFontSizeMultiplier={1.3} className="text-body text-muted-foreground text-center">
             Select a date to view your workout history
           </Text>
         </View>
@@ -197,30 +215,52 @@ function SessionCard({
 }) {
   const statusLabel =
     session.status === 'abandoned' ? 'Abandoned' : session.status === 'active' ? 'In progress' : null;
+  const metaParts = [
+    session.duration_sec ? `${Math.round(session.duration_sec / 60)} min` : null,
+    `${session.total_sets} sets`,
+    `${fmtWeight(session.total_volume_kg, weightUnit)} ${weightUnit}`,
+  ].filter(Boolean);
   return (
-    <Pressable onPress={onPress} className="bg-card rounded-3xl p-5 border border-border shadow-sm">
-      <View className="flex-row items-center justify-between mb-2">
-        <Text className="text-base font-semibold text-card-foreground">{session.name}</Text>
-        {statusLabel && <Text className="text-xs text-muted-foreground">{statusLabel}</Text>}
-      </View>
-      <View className="flex-row items-center gap-4">
-        <View className="flex-row items-center gap-1">
-          <Clock size={12} color="#8b7268" />
-          <Text className="text-xs text-muted-foreground">
-            {session.duration_sec ? `${Math.round(session.duration_sec / 60)} min` : '—'}
+    <Pressable onPress={onPress}>
+      <Card padded={false} style={{ padding: 14 }}>
+        <View className="flex-row items-center justify-between mb-1">
+          <Text
+            maxFontSizeMultiplier={1.3}
+            className="text-heading font-semibold text-card-foreground"
+            numberOfLines={1}
+            style={{ flexShrink: 1 }}
+          >
+            {session.name}
           </Text>
+          {statusLabel && (
+            <Text maxFontSizeMultiplier={1.3} className="text-caption text-muted-foreground">
+              {statusLabel}
+            </Text>
+          )}
         </View>
-        <Text className="text-xs text-muted-foreground">{session.total_sets} sets</Text>
-        <Text className="text-xs text-muted-foreground">
-          {fmtWeight(session.total_volume_kg, weightUnit)} {weightUnit}
-        </Text>
-        {session.pr_count > 0 && (
-          <View className="flex-row items-center gap-1">
-            <Trophy size={12} color="#e87d6f" />
-            <Text className="text-xs text-primary">{session.pr_count} PR{session.pr_count > 1 ? 's' : ''}</Text>
-          </View>
-        )}
-      </View>
+        <View className="flex-row items-center gap-1">
+          <Clock size={12} color={colors.mutedForeground} />
+          <Text
+            maxFontSizeMultiplier={1.3}
+            style={{ fontVariant: ['tabular-nums'] }}
+            className="text-caption text-muted-foreground"
+          >
+            {metaParts.join(' · ')}
+          </Text>
+          {session.pr_count > 0 && (
+            <View className="flex-row items-center gap-1 ml-2">
+              <Trophy size={12} color={colors.primary} />
+              <Text
+                maxFontSizeMultiplier={1.3}
+                style={{ fontVariant: ['tabular-nums'] }}
+                className="text-caption text-primary"
+              >
+                {session.pr_count} PR{session.pr_count > 1 ? 's' : ''}
+              </Text>
+            </View>
+          )}
+        </View>
+      </Card>
     </Pressable>
   );
 }
@@ -237,63 +277,56 @@ function SessionDetailSheet({
   const { data: session, isLoading } = useSession(sessionId);
 
   return (
-    <Modal visible animationType="slide" transparent>
-      <View className="flex-1 justify-end">
-        <Pressable className="absolute inset-0 bg-foreground/40" onPress={onClose} />
-        <View className="bg-card rounded-t-3xl border-t border-x border-border" style={{ maxHeight: '85%' }}>
-          <View className="flex-row items-center justify-between p-5 border-b border-border">
-            <Text className="text-lg font-semibold text-card-foreground">{session?.name ?? 'Session'}</Text>
-            <Pressable onPress={onClose} className="w-9 h-9 rounded-full bg-muted items-center justify-center">
-              <X size={18} color="#8b7268" />
-            </Pressable>
-          </View>
-          {isLoading || !session ? (
-            <View className="py-10 items-center">
-              <ActivityIndicator />
-            </View>
-          ) : (
-            <ScrollView className="px-5 pt-4 pb-6">
-              {session.blocks.map((block, i) => (
-                <View
-                  key={block.exercise.id}
-                  className="py-4"
-                  style={i > 0 ? { borderTopWidth: 1, borderTopColor: '#f0d9ce' } : undefined}
-                >
-                  <View className="flex-row items-center gap-2 mb-2">
-                    <Text className="text-base font-semibold text-card-foreground">
-                      {block.exercise.name}
-                    </Text>
-                    {block.exercise.pr_trackable && block.sets.some((s) => s.was_pr) && (
-                      <Trophy size={14} color="#e87d6f" />
-                    )}
-                  </View>
-                  <View className="space-y-1">
-                    {block.sets.map((set, idx) => (
-                      <View
-                        key={set.id}
-                        className="flex-row items-center justify-between bg-muted/40 rounded-lg px-3 py-2"
-                      >
-                        <Text className="text-sm text-muted-foreground">
-                          Set {idx + 1}
-                          {set.kind === 'warmup' ? ' · warmup' : ''}
-                        </Text>
-                        <Text className="text-sm text-card-foreground">
-                          {fmtWeight(set.weight_kg, weightUnit)} {weightUnit} × {set.reps} reps
-                        </Text>
-                      </View>
-                    ))}
-                  </View>
-                </View>
-              ))}
-              {session.blocks.length === 0 && (
-                <Text className="text-sm text-muted-foreground text-center py-8">
-                  No sets were logged in this session.
-                </Text>
-              )}
-            </ScrollView>
-          )}
+    <Sheet visible onClose={onClose} title={session?.name ?? 'Session'} heightPercent={85}>
+      {isLoading || !session ? (
+        <View className="py-10 items-center">
+          <ActivityIndicator />
         </View>
-      </View>
-    </Modal>
+      ) : (
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {session.blocks.map((block, i) => (
+            <View
+              key={block.exercise.id}
+              className="py-4"
+              style={i > 0 ? { borderTopWidth: 1, borderTopColor: colors.border } : undefined}
+            >
+              <View className="flex-row items-center gap-2 mb-2">
+                <Text maxFontSizeMultiplier={1.3} className="text-heading font-semibold text-card-foreground">
+                  {block.exercise.name}
+                </Text>
+                {block.exercise.pr_trackable && block.sets.some((s) => s.was_pr) && (
+                  <Trophy size={14} color={colors.primary} />
+                )}
+              </View>
+              <View style={{ gap: 4 }}>
+                {block.sets.map((set, idx) => (
+                  <View
+                    key={set.id}
+                    className="flex-row items-center justify-between bg-muted rounded-md px-3 py-2"
+                  >
+                    <Text maxFontSizeMultiplier={1.3} className="text-body text-muted-foreground">
+                      Set {idx + 1}
+                      {set.kind === 'warmup' ? ' · warmup' : ''}
+                    </Text>
+                    <Text
+                      maxFontSizeMultiplier={1.3}
+                      style={{ fontVariant: ['tabular-nums'] }}
+                      className="text-body text-card-foreground"
+                    >
+                      {fmtWeight(set.weight_kg, weightUnit)} {weightUnit} × {set.reps} reps
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+          ))}
+          {session.blocks.length === 0 && (
+            <Text maxFontSizeMultiplier={1.3} className="text-body text-muted-foreground text-center py-8">
+              No sets were logged in this session.
+            </Text>
+          )}
+        </ScrollView>
+      )}
+    </Sheet>
   );
 }

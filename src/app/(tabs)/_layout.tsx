@@ -2,14 +2,24 @@ import { useEffect } from "react";
 import { ActivityIndicator, Pressable, Text, View } from "react-native";
 import { NativeTabs } from "expo-router/unstable-native-tabs";
 import { router } from "expo-router";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useMe, queryKeys } from "@/lib/queries";
+import { api } from "@/lib/api";
 import { clearToken } from "@/lib/auth";
 
 /**
  * (tabs) gate. If the user is not signed in, send them to /login.
- * Once signed in we render the (iOS 18+) native tab bar. The admin
- * trigger is only mounted for users with role === "admin".
+ * Once signed in we render the (iOS 18+) native tab bar. The Coach
+ * trigger is only mounted for users with role === "coach", and carries a
+ * count badge = pending athlete requests + unread DMs.
+ *
+ * The badge queries live HERE (not in the coach screen, unlike Training's
+ * dot badge in training.tsx) because the layout is always mounted, so the
+ * badge is live even before the coach has opened the tab. They share the
+ * `queryKeys.coachAthletes` / `queryKeys.unread` cache entries with
+ * `useCoachAthletes()` / `useUnread()`, so the Coach screen reuses the same
+ * data; they're written inline only to gate them with `enabled` (a
+ * non-coach would 403 on /coach/athletes).
  *
  * NOTE: NativeTabs is designed to be the root navigator; we are
  * mounting it as a child of the root Stack so we can swap between
@@ -19,6 +29,23 @@ import { clearToken } from "@/lib/auth";
 export default function TabsLayout() {
   const { data: me, isLoading, isError } = useMe();
   const qc = useQueryClient();
+  const isCoach = me?.role === "coach";
+
+  const { data: athletes } = useQuery({
+    queryKey: queryKeys.coachAthletes,
+    queryFn: () => api.coachListAthletes(),
+    enabled: isCoach,
+    staleTime: 30_000,
+    refetchInterval: 30_000,
+  });
+  const { data: unread } = useQuery({
+    queryKey: queryKeys.unread,
+    queryFn: () => api.getUnread(),
+    enabled: isCoach,
+    staleTime: 30_000,
+    refetchInterval: 30_000,
+  });
+  const coachBadge = (athletes?.requests.length ?? 0) + (unread?.total ?? 0);
 
   const tintColor = "#e87d6f"; // --primary (coral) — selected icon + label
   const labelColor = "#8b7268"; // --muted-foreground — unselected icon + label
@@ -152,10 +179,14 @@ export default function TabsLayout() {
         <NativeTabs.Trigger.Label>Community</NativeTabs.Trigger.Label>
         <NativeTabs.Trigger.Icon md="groups" sf="person.3.fill" />
       </NativeTabs.Trigger>
-      {me.role === "admin" && (
-        <NativeTabs.Trigger name="admin" indicatorColor={indicatorColor}>
-          <NativeTabs.Trigger.Label>Admin</NativeTabs.Trigger.Label>
-          <NativeTabs.Trigger.Icon md="admin_panel_settings" sf="lock.shield.fill" />
+      {me.role === "coach" && (
+        <NativeTabs.Trigger name="coach" indicatorColor={indicatorColor}>
+          <NativeTabs.Trigger.Label>Coach</NativeTabs.Trigger.Label>
+          {/* md "sports" is Material's referee whistle. */}
+          <NativeTabs.Trigger.Icon md="sports" sf="person.2.fill" />
+          <NativeTabs.Trigger.Badge hidden={coachBadge === 0}>
+            {coachBadge > 9 ? "9+" : String(coachBadge)}
+          </NativeTabs.Trigger.Badge>
         </NativeTabs.Trigger>
       )}
     </NativeTabs>

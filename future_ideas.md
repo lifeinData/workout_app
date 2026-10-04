@@ -155,6 +155,71 @@ This document tracks features and improvements that were **intentionally deferre
 
 ---
 
+## Workout filtering — mode (home/gym/all) + equipment
+
+**Status:** Removed from the Start screen on 2026-08-21 (bug report
+`bugs/bug_reports_2026_08_21/`). The Start screen carried three filter/decoration cards
+— "Hypertrophy Phase", "Available equipment", and a "Your intake says…" coach blurb
+wrapping a home/gym/all mode toggle. All were cut to declutter the screen. The equipment
+chips were relocated into the Add-exercise sheet; **the mode toggle was dropped entirely**
+and deferred here.
+
+**Why deferred:** The toggle was real, working UI — it drove `PATCH /me/preferences`
+(`mode`) which in turn filters `GET /workouts` server-side — but it sat inside a card the
+redesign removed, and there was no obvious new home for it. `prefs.mode` still exists and
+still filters; the user just can't change it from the UI anymore, so it's pinned to
+whatever value is currently stored (default `gym`).
+
+**What it would take:**
+- Decide where it lives. Candidates: a filter icon in the Training header opening a small
+  sheet; a segmented control above the My Workouts / Coach's Playbook tabs; or fold it
+  into the same sheet as the equipment chips (note: mode filters the *workout* list while
+  equipment now filters the *exercise* list, so co-locating them is slightly incoherent).
+- Re-add the `setMode` handler — `usePatchPreferences().mutate({ mode })`. The mutation
+  already invalidates `["workouts"]` (`src/lib/queries.ts` ~L500), so the list refreshes.
+- `filterWorkouts()` in `StartScreen.tsx` already handles mode; nothing else to rebuild.
+- Consider whether "all" should be the default instead of `gym` — with no UI to change it,
+  a user seeded to `gym` silently never sees home workouts.
+
+**Related:** the equipment filter that *did* survive is capped by the Add-exercise sheet's
+page size (client-side filter over the ≤50 fetched rows). A proper fix is a
+multi-equipment query param on `GET /exercises` — see the same bug report's plan.
+
+---
+
+## Trophy Room carousel — hardcoded 300dp slide width (responsive bug)
+
+**Status:** Broken on essentially every device. Found 2026-08-22 while auditing the UI for
+screen-size independence; deliberately left unfixed to keep the Session 2 scope tight.
+
+`src/components/fitness/training/StartScreen.tsx`:
+- `trophySlide: { paddingHorizontal: 8, width: 300 }` (~L501) — each carousel slide is a
+  fixed **300dp** wide.
+- The parent `ScrollView` uses `pagingEnabled`, which snaps to the **ScrollView's own width**
+  (the screen — roughly 411dp on a Galaxy S23 Ultra, ~360dp on a smaller phone), *not* 300dp.
+- The active-dot math does `Math.round(e.nativeEvent.contentOffset.x / 300)` — a second,
+  independent assumption of 300dp.
+
+**Symptoms:** slides don't come to rest centered, and the dot indicator drifts out of sync
+with the visible trophy the further you page. Only a device that happens to be exactly 300dp
+wide behaves correctly.
+
+**What it would take (~15 lines):**
+- `const { width } = useWindowDimensions();` (no `Dimensions.get()` — it doesn't re-evaluate
+  on rotation or split-screen).
+- Compute a real slide width from the container: screen width minus the screen's horizontal
+  padding (`TrainingTab`'s `container: { padding: 20 }`) and the card padding.
+- Use that value for BOTH `trophySlide.width` and the `contentOffset.x / slideWidth` divisor
+  so the two can never disagree again.
+- Alternative: drop `pagingEnabled` for `snapToInterval={slideWidth}` +
+  `decelerationRate="fast"`, which snaps to the slide rather than the viewport.
+
+**Related:** the responsive ground rules added in
+`agent_plans/agent_agenda_2026_08_22_session2.md` (phones-only portrait, ~320–440dp,
+font scaling capped at 1.3×) — this fix should follow those rules when it happens.
+
+---
+
 ## How to add an item
 
 When you decide to work on one of these:

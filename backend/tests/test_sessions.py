@@ -141,23 +141,44 @@ def test_patch_already_finished_session_409(seeded_client, user_bearer_headers):
     assert r.status_code == 409
 
 
-def test_log_set_into_finished_session_409(seeded_client, user_bearer_headers):
-    session_id = seeded_client.post(
+def test_log_set_into_finished_session_succeeds_but_not_abandoned(
+    seeded_client, user_bearer_headers
+):
+    # A1's "no more templates" rework: re-opening a past (completed)
+    # session for editing must work; only `abandoned` sessions 409.
+    completed_id = seeded_client.post(
         "/api/v1/me/sessions",
         json={"local_date": _today(), "tz_offset_min": 0},
         headers=user_bearer_headers,
     ).json()["id"]
     seeded_client.patch(
-        f"/api/v1/me/sessions/{session_id}",
+        f"/api/v1/me/sessions/{completed_id}",
         json={"status": "completed"},
         headers=user_bearer_headers,
     )
     r = seeded_client.post(
         "/api/v1/me/sets",
-        json={"session_id": session_id, "exercise_id": "ex-bench", "weight": 100, "reps": 5},
+        json={"session_id": completed_id, "exercise_id": "ex-bench", "weight": 100, "reps": 5},
         headers=user_bearer_headers,
     )
-    assert r.status_code == 409
+    assert r.status_code == 201
+
+    abandoned_id = seeded_client.post(
+        "/api/v1/me/sessions",
+        json={"local_date": _today(), "tz_offset_min": 0},
+        headers=user_bearer_headers,
+    ).json()["id"]
+    seeded_client.patch(
+        f"/api/v1/me/sessions/{abandoned_id}",
+        json={"status": "abandoned"},
+        headers=user_bearer_headers,
+    )
+    r2 = seeded_client.post(
+        "/api/v1/me/sets",
+        json={"session_id": abandoned_id, "exercise_id": "ex-bench", "weight": 100, "reps": 5},
+        headers=user_bearer_headers,
+    )
+    assert r2.status_code == 409
 
 
 def test_other_users_session_is_404(seeded_client):
@@ -256,6 +277,9 @@ def test_blocks_ordering_prescribed_then_adhoc(seeded_client, user_bearer_header
     assert ids == ["ex-bench", "ex-ohp", "ex-incline-db", "ex-cable-fly", "ex-lateral", "ex-pushup"]
     adhoc = detail["blocks"][-1]
     assert adhoc["target_sets"] == 3  # ad-hoc default, not a real prescription
+    # The client hides target_* on blocks that aren't prescribed.
+    assert adhoc["is_prescribed"] is False
+    assert all(b["is_prescribed"] for b in detail["blocks"][:-1])
 
 
 def test_blocks_ad_hoc_session_ordered_by_first_logged(seeded_client, user_bearer_headers):
@@ -426,8 +450,12 @@ def test_client_supplied_session_name_wins(seeded_client, user_bearer_headers):
 
 
 # ---------------------------------------------------------------------------
-# Personal templates ("My Workouts") — save-as-template + ownership
+# "My Workouts" — the caller's own past (completed) sessions
 # ---------------------------------------------------------------------------
+# Personal `Workout` templates ("save as template") were removed in the
+# 2026-08-22 "no more templates" rework. `GET /me/workouts` now returns
+# the user's own completed WorkoutSessions instead — see
+# `app/routers/sessions.py::list_my_workouts`.
 
 
 def _log_working_set(seeded_client, headers, session_id, exercise_id, weight, reps):
@@ -439,74 +467,94 @@ def _log_working_set(seeded_client, headers, session_id, exercise_id, weight, re
     assert r.status_code == 201, r.text
 
 
-def test_save_session_as_template_and_list(seeded_client, user_bearer_headers):
-    session_id = seeded_client.post(
-        "/api/v1/me/sessions",
-        json={"local_date": _today(), "tz_offset_min": 0},
-        headers=user_bearer_headers,
-    ).json()["id"]
-    # 3 working sets of bench @ 8 / 8 / 6 → sets=3, reps 6–8.
-    for reps in (8, 8, 6):
-        _log_working_set(seeded_client, user_bearer_headers, session_id, "ex-bench", 185, reps)
-    # An accessory too, logged second → appears after bench in the template.
-    _log_working_set(seeded_client, user_bearer_headers, session_id, "ex-ohp", 95, 10)
-
-    r = seeded_client.post(
-        f"/api/v1/me/workouts/from-session/{session_id}",
-        json={"name": "My Push Day"},
-        headers=user_bearer_headers,
-    )
-    assert r.status_code == 201, r.text
-    tmpl = r.json()
-    assert tmpl["name"] == "My Push Day"
-    assert tmpl["owner_id"] is not None
-    assert tmpl["id"].startswith("w-usr-")
-
-    ids = [e["id"] for e in tmpl["exercises"]]
-    assert ids == ["ex-bench", "ex-ohp"]  # first-logged order preserved
-    bench = next(e for e in tmpl["exercises"] if e["id"] == "ex-bench")
-    assert bench["target_sets"] == 3
-    assert bench["target_reps_low"] == 6
-    assert bench["target_reps_high"] == 8
-
-    # Appears in My Workouts, NOT in the public coach catalog.
-    mine = seeded_client.get("/api/v1/me/workouts", headers=user_bearer_headers).json()
-    assert any(w["id"] == tmpl["id"] for w in mine)
-    coach = seeded_client.get("/api/v1/workouts").json()
-    assert all(w["id"] != tmpl["id"] for w in coach)
-
-
-def test_save_as_template_requires_working_set(seeded_client, user_bearer_headers):
-    session_id = seeded_client.post(
-        "/api/v1/me/sessions",
-        json={"local_date": _today(), "tz_offset_min": 0},
-        headers=user_bearer_headers,
-    ).json()["id"]
-    # Only a warmup — must not be templatable.
-    seeded_client.post(
-        "/api/v1/me/sets",
-        json={
-            "session_id": session_id,
-            "exercise_id": "ex-bench",
-            "weight": 95,
-            "reps": 10,
-            "kind": "warmup",
-        },
-        headers=user_bearer_headers,
-    )
-    r = seeded_client.post(
-        f"/api/v1/me/workouts/from-session/{session_id}",
-        json={},
-        headers=user_bearer_headers,
-    )
-    assert r.status_code == 422
-
-
 def test_coach_catalog_excludes_personal_templates(seeded_client, user_bearer_headers):
     # Baseline: the coach catalog is the 2 seeded workouts, none owned.
+    # Personal Workout rows never get created (no writer remains after
+    # the "no more templates" rework), so this stays trivially true.
     coach = seeded_client.get("/api/v1/workouts").json()
     assert {w["id"] for w in coach} == {"w-upper-power", "w-home-bw"}
     assert all(w["owner_id"] is None for w in coach)
+
+
+def test_my_workouts_returns_completed_sessions_newest_first(seeded_client, user_bearer_headers):
+    # Distinct local_dates (rather than relying on `started_at`'s
+    # second-resolution tiebreak within the same second) make the
+    # expected order unambiguous.
+    dates = ["2026-01-10", "2026-01-11", "2026-01-12"]
+    ids = []
+    for local_date, reps in zip(dates, (5, 6, 7)):
+        sid = seeded_client.post(
+            "/api/v1/me/sessions",
+            json={"local_date": local_date, "tz_offset_min": 0},
+            headers=user_bearer_headers,
+        ).json()["id"]
+        _log_working_set(seeded_client, user_bearer_headers, sid, "ex-bench", 185, reps)
+        seeded_client.patch(
+            f"/api/v1/me/sessions/{sid}",
+            json={"status": "completed"},
+            headers=user_bearer_headers,
+        )
+        ids.append(sid)
+
+    mine = seeded_client.get("/api/v1/me/workouts", headers=user_bearer_headers).json()
+    mine_ids = [w["id"] for w in mine]
+    # Newest local_date first.
+    assert mine_ids[: len(ids)] == list(reversed(ids))
+    for w in mine:
+        assert w["status"] == "completed"
+
+
+def test_my_workouts_excludes_active_and_abandoned(seeded_client, user_bearer_headers):
+    active_id = seeded_client.post(
+        "/api/v1/me/sessions",
+        json={"local_date": _today(), "tz_offset_min": 0},
+        headers=user_bearer_headers,
+    ).json()["id"]
+
+    abandoned_id = seeded_client.post(
+        "/api/v1/me/sessions",
+        json={"local_date": _today(), "tz_offset_min": 0},
+        headers=user_bearer_headers,
+    )
+    # `create_session` is idempotent — abandon the currently-active one
+    # first so a second session can actually be created.
+    seeded_client.patch(
+        f"/api/v1/me/sessions/{active_id}", json={"status": "abandoned"}, headers=user_bearer_headers
+    )
+    second_id = seeded_client.post(
+        "/api/v1/me/sessions",
+        json={"local_date": _today(), "tz_offset_min": 0},
+        headers=user_bearer_headers,
+    ).json()["id"]
+
+    mine = seeded_client.get("/api/v1/me/workouts", headers=user_bearer_headers).json()
+    mine_ids = {w["id"] for w in mine}
+    assert active_id not in mine_ids  # abandoned now, not completed
+    assert second_id not in mine_ids  # still active
+
+
+def test_my_workouts_respects_limit_and_offset(seeded_client, user_bearer_headers):
+    for _ in range(3):
+        sid = seeded_client.post(
+            "/api/v1/me/sessions",
+            json={"local_date": _today(), "tz_offset_min": 0},
+            headers=user_bearer_headers,
+        ).json()["id"]
+        seeded_client.patch(
+            f"/api/v1/me/sessions/{sid}",
+            json={"status": "completed"},
+            headers=user_bearer_headers,
+        )
+
+    page1 = seeded_client.get(
+        "/api/v1/me/workouts?limit=2&offset=0", headers=user_bearer_headers
+    ).json()
+    page2 = seeded_client.get(
+        "/api/v1/me/workouts?limit=2&offset=2", headers=user_bearer_headers
+    ).json()
+    assert len(page1) == 2
+    assert len(page2) == 1
+    assert {w["id"] for w in page1}.isdisjoint({w["id"] for w in page2})
 
 
 def test_my_workouts_is_per_user(seeded_client):
@@ -518,61 +566,108 @@ def test_my_workouts_is_per_user(seeded_client):
         headers=h_a,
     ).json()["id"]
     _log_working_set(seeded_client, h_a, session_id, "ex-bench", 185, 5)
-    tmpl_id = seeded_client.post(
-        f"/api/v1/me/workouts/from-session/{session_id}",
-        json={"name": "A's template"},
-        headers=h_a,
-    ).json()["id"]
-
-    # B does not see A's template.
-    assert seeded_client.get("/api/v1/me/workouts", headers=h_b).json() == []
-    # And B cannot start a session from it → 404 (no existence leak).
-    r = seeded_client.post(
-        "/api/v1/me/sessions",
-        json={"workout_id": tmpl_id, "local_date": _today(), "tz_offset_min": 0},
-        headers=h_b,
+    seeded_client.patch(
+        f"/api/v1/me/sessions/{session_id}", json={"status": "completed"}, headers=h_a
     )
+
+    mine_a = seeded_client.get("/api/v1/me/workouts", headers=h_a).json()
+    assert any(w["id"] == session_id for w in mine_a)
+
+    # B does not see A's session.
+    mine_b = seeded_client.get("/api/v1/me/workouts", headers=h_b).json()
+    assert mine_b == []
+    # And B cannot open it directly either → 404 (no existence leak).
+    r = seeded_client.get(f"/api/v1/me/sessions/{session_id}", headers=h_b)
     assert r.status_code == 404
 
 
-def test_start_session_from_own_and_coach_template(seeded_client, user_bearer_headers):
-    # Coach template → ok.
+def test_start_session_from_coach_template(seeded_client, user_bearer_headers):
+    # Personal templates no longer exist to start from — only the coach
+    # catalog remains a valid `workout_id` source.
     r_coach = seeded_client.post(
         "/api/v1/me/sessions",
         json={"workout_id": "w-upper-power", "local_date": _today(), "tz_offset_min": 0},
         headers=user_bearer_headers,
     )
     assert r_coach.status_code in (200, 201)
-    # finish it so the next create isn't the idempotent same-session return
+    assert r_coach.json()["name"] == "Upper Body Power"
+    assert r_coach.json()["workout_id"] == "w-upper-power"
+
+
+# ---------------------------------------------------------------------------
+# Editing a past (completed) session in place
+# ---------------------------------------------------------------------------
+
+
+def test_set_added_to_past_session_inherits_its_local_date(seeded_client, user_bearer_headers):
+    past_date = "2026-01-15"
+    session_id = seeded_client.post(
+        "/api/v1/me/sessions",
+        json={"local_date": past_date, "tz_offset_min": 0},
+        headers=user_bearer_headers,
+    ).json()["id"]
     seeded_client.patch(
-        f"/api/v1/me/sessions/{r_coach.json()['id']}",
+        f"/api/v1/me/sessions/{session_id}",
         json={"status": "completed"},
         headers=user_bearer_headers,
     )
 
-    # Build a personal template, then start from it → ok, name snapshots.
-    sid = seeded_client.post(
-        "/api/v1/me/sessions",
-        json={"local_date": _today(), "tz_offset_min": 0},
+    # Logging a set "today" against an old session must NOT re-date it —
+    # the set inherits the session's local_date, never utc_today_iso().
+    r = seeded_client.post(
+        "/api/v1/me/sets",
+        json={"session_id": session_id, "exercise_id": "ex-bench", "weight": 100, "reps": 5},
         headers=user_bearer_headers,
-    ).json()["id"]
-    _log_working_set(seeded_client, user_bearer_headers, sid, "ex-bench", 185, 5)
-    tmpl_id = seeded_client.post(
-        f"/api/v1/me/workouts/from-session/{sid}",
-        json={"name": "My Push Day"},
+    )
+    assert r.status_code == 201
+    assert r.json()["set"]["local_date"] == past_date
+    assert r.json()["set"]["local_date"] != _today()
+
+    detail = seeded_client.get(
+        f"/api/v1/me/sessions/{session_id}", headers=user_bearer_headers
+    ).json()
+    assert detail["local_date"] == past_date
+
+
+def test_editing_past_session_does_not_move_started_or_ended_at(
+    seeded_client, user_bearer_headers
+):
+    session_id = seeded_client.post(
+        "/api/v1/me/sessions",
+        json={"local_date": "2026-01-15", "tz_offset_min": 0},
         headers=user_bearer_headers,
     ).json()["id"]
     seeded_client.patch(
-        f"/api/v1/me/sessions/{sid}",
+        f"/api/v1/me/sessions/{session_id}",
         json={"status": "completed"},
         headers=user_bearer_headers,
     )
+    before = seeded_client.get(
+        f"/api/v1/me/sessions/{session_id}", headers=user_bearer_headers
+    ).json()
 
-    r_own = seeded_client.post(
-        "/api/v1/me/sessions",
-        json={"workout_id": tmpl_id, "local_date": _today(), "tz_offset_min": 0},
+    # Add, edit, and delete a set on the old session.
+    r = seeded_client.post(
+        "/api/v1/me/sets",
+        json={"session_id": session_id, "exercise_id": "ex-bench", "weight": 100, "reps": 5},
         headers=user_bearer_headers,
     )
-    assert r_own.status_code in (200, 201)
-    assert r_own.json()["name"] == "My Push Day"
-    assert r_own.json()["workout_id"] == tmpl_id
+    set_id = r.json()["set"]["id"]
+    seeded_client.patch(
+        f"/api/v1/me/sets/{set_id}", json={"weight": 120}, headers=user_bearer_headers
+    )
+    seeded_client.delete(f"/api/v1/me/sets/{set_id}", headers=user_bearer_headers)
+    # Also rename the session — still shouldn't touch dates.
+    seeded_client.patch(
+        f"/api/v1/me/sessions/{session_id}",
+        json={"name": "Renamed Later"},
+        headers=user_bearer_headers,
+    )
+
+    after = seeded_client.get(
+        f"/api/v1/me/sessions/{session_id}", headers=user_bearer_headers
+    ).json()
+    assert after["started_at"] == before["started_at"]
+    assert after["ended_at"] == before["ended_at"]
+    assert after["local_date"] == before["local_date"] == "2026-01-15"
+    assert after["name"] == "Renamed Later"

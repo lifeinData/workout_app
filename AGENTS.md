@@ -1,6 +1,6 @@
 # Project: workout_app
 
-React Native (Expo SDK 56) fitness app + FastAPI/SQLite backend. Warm-pastel design
+React Native (Expo SDK 57) fitness app + FastAPI/SQLite backend. Warm-pastel design
 converted from Figma. Tabs: Home / Nutrition / Training / Community (+ Admin for admins).
 
 **The Training tab is the built-out, backend-wired feature.** Nutrition and Community are

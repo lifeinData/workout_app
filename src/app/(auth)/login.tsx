@@ -1,21 +1,27 @@
-import { useState } from "react";
+import { forwardRef, useRef, useState, type ReactNode } from "react";
 import {
-  ActivityIndicator,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   View,
+  type TextInputProps,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import { AlertCircle, Dumbbell, Eye, EyeOff } from "lucide-react-native";
 import { useLogin } from "@/lib/queries";
 import { ApiError } from "@/lib/api";
+import { Button } from "@/components/ui/Button";
+import { colors, elevation, radius, space, type } from "@/lib/theme";
 
 export default function LoginScreen() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [localError, setLocalError] = useState<string | null>(null);
+  const passwordRef = useRef<TextInput>(null);
   const login = useLogin();
 
   const onSubmit = () => {
@@ -42,108 +48,224 @@ export default function LoginScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
-      <View style={styles.content}>
+      <ScrollView
+        contentContainerStyle={styles.content}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.header}>
-          <Text style={styles.title}>Sign in</Text>
-          <Text style={styles.subtitle}>Welcome back. Let's get moving.</Text>
+          <View style={styles.mark}>
+            <Dumbbell size={26} color={colors.secondaryForeground} strokeWidth={2} />
+          </View>
+          <Text maxFontSizeMultiplier={1.3} style={styles.title} accessibilityRole="header">
+            Welcome back
+          </Text>
+          <Text maxFontSizeMultiplier={1.3} style={styles.subtitle}>
+            Sign in to pick up where you left off.
+          </Text>
         </View>
 
-        <View style={styles.field}>
-          <Text style={styles.label}>Username</Text>
-          <TextInput
+        <View style={styles.form}>
+          <AuthField
+            label="Username"
             value={username}
             onChangeText={setUsername}
-            placeholder="username"
-            placeholderTextColor="#8b7268"
+            placeholder="your username"
             autoCapitalize="none"
             autoCorrect={false}
-            style={styles.input}
+            autoComplete="username"
+            textContentType="username"
             returnKeyType="next"
-            onSubmitEditing={onSubmit}
+            submitBehavior="submit"
+            onSubmitEditing={() => passwordRef.current?.focus()}
           />
-        </View>
 
-        <View style={styles.field}>
-          <Text style={styles.label}>Password</Text>
-          <TextInput
+          <AuthField
+            ref={passwordRef}
+            label="Password"
             value={password}
             onChangeText={setPassword}
-            placeholder="••••••••"
-            placeholderTextColor="#8b7268"
-            secureTextEntry
-            style={styles.input}
+            placeholder="your password"
+            secureTextEntry={!showPassword}
+            autoCapitalize="none"
+            autoCorrect={false}
+            autoComplete="password"
+            textContentType="password"
             returnKeyType="go"
             onSubmitEditing={onSubmit}
+            trailing={
+              <Pressable
+                onPress={() => setShowPassword((v) => !v)}
+                accessibilityRole="button"
+                accessibilityLabel={showPassword ? "Hide password" : "Show password"}
+                hitSlop={8}
+                style={styles.reveal}
+              >
+                {showPassword ? (
+                  <EyeOff size={18} color={colors.mutedForeground} />
+                ) : (
+                  <Eye size={18} color={colors.mutedForeground} />
+                )}
+              </Pressable>
+            }
+          />
+
+          {localError ? <ErrorNote message={localError} /> : null}
+
+          <Button
+            label="Sign in"
+            onPress={onSubmit}
+            loading={login.isPending}
+            disabled={login.isPending}
+            style={styles.submit}
           />
         </View>
-
-        {localError ? <Text style={styles.error}>{localError}</Text> : null}
-
-        <Pressable
-          onPress={onSubmit}
-          disabled={login.isPending}
-          style={({ pressed }) => [
-            styles.submit,
-            login.isPending && styles.submitDisabled,
-            pressed && !login.isPending && styles.submitPressed,
-          ]}
-        >
-          {login.isPending ? (
-            <ActivityIndicator color="#ffffff" />
-          ) : (
-            <Text style={styles.submitText}>Sign in</Text>
-          )}
-        </Pressable>
 
         <Pressable
           onPress={() => router.push("/signup")}
+          accessibilityRole="link"
           style={styles.linkBtn}
         >
-          <Text style={styles.linkText}>
-            Don't have an account?{" "}
-            <Text style={styles.linkTextBold}>Create one</Text>
+          <Text maxFontSizeMultiplier={1.3} style={styles.linkText}>
+            New here? <Text style={styles.linkTextStrong}>Create an account</Text>
           </Text>
         </Pressable>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
 
+interface AuthFieldProps extends TextInputProps {
+  label: string;
+  hint?: string;
+  trailing?: ReactNode;
+}
+
+/**
+ * Filled input, no idle border; focus swaps in a 1.5dp `ring` outline
+ * (DESIGN.md §3.1 field grammar). Border width is constant so focus never
+ * shifts layout.
+ */
+const AuthField = forwardRef<TextInput, AuthFieldProps>(function AuthField(
+  { label, hint, trailing, onFocus, onBlur, ...inputProps },
+  ref
+) {
+  const [focused, setFocused] = useState(false);
+  return (
+    <View style={styles.field}>
+      <Text maxFontSizeMultiplier={1.3} style={styles.label}>
+        {label}
+      </Text>
+      <View style={[styles.inputWrap, focused && styles.inputWrapFocused]}>
+        <TextInput
+          ref={ref}
+          {...inputProps}
+          maxFontSizeMultiplier={1.3}
+          placeholderTextColor={colors.mutedForeground}
+          selectionColor={colors.primary}
+          cursorColor={colors.primary}
+          style={styles.input}
+          onFocus={(e) => {
+            setFocused(true);
+            onFocus?.(e);
+          }}
+          onBlur={(e) => {
+            setFocused(false);
+            onBlur?.(e);
+          }}
+        />
+        {trailing}
+      </View>
+      {hint ? (
+        <Text maxFontSizeMultiplier={1.3} style={styles.hint}>
+          {hint}
+        </Text>
+      ) : null}
+    </View>
+  );
+});
+
+function ErrorNote({ message }: { message: string }) {
+  return (
+    <View style={styles.error} accessibilityLiveRegion="polite" accessibilityRole="alert">
+      <AlertCircle size={16} color={colors.destructive} />
+      <Text maxFontSizeMultiplier={1.3} style={styles.errorText}>
+        {message}
+      </Text>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fdf6f0" },
-  content: { flex: 1, padding: 24, justifyContent: "center", gap: 16 },
-  header: { marginBottom: 8 },
-  title: { fontSize: 32, fontWeight: "700", color: "#3d2b26" },
-  subtitle: { fontSize: 14, color: "#8b7268", marginTop: 4 },
-  field: { gap: 6 },
-  label: {
-    fontSize: 12,
-    color: "#8b7268",
-    textTransform: "uppercase",
-    letterSpacing: 1,
+  container: { flex: 1, backgroundColor: colors.background },
+  content: {
+    flexGrow: 1,
+    justifyContent: "center",
+    paddingHorizontal: space.xxl,
+    paddingVertical: space.xxxl,
+    gap: space.xxl,
   },
-  input: {
-    backgroundColor: "#fdf6f0",
-    borderWidth: 1,
-    borderColor: "#f0d9ce",
-    borderRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    fontSize: 16,
-    color: "#3d2b26",
-  },
-  error: { color: "#d96a5a", fontSize: 13 },
-  submit: {
-    backgroundColor: "#e87d6f",
-    paddingVertical: 16,
-    borderRadius: 12,
+  header: { gap: space.sm },
+  mark: {
+    width: 56,
+    height: 56,
+    borderRadius: radius.lg,
+    backgroundColor: colors.secondary,
     alignItems: "center",
-    marginTop: 8,
+    justifyContent: "center",
+    marginBottom: space.md,
   },
-  submitDisabled: { opacity: 0.6 },
-  submitPressed: { opacity: 0.85 },
-  submitText: { color: "#ffffff", fontSize: 16, fontWeight: "600" },
-  linkBtn: { alignItems: "center", paddingVertical: 8 },
-  linkText: { color: "#8b7268", fontSize: 14 },
-  linkTextBold: { color: "#e87d6f", fontWeight: "600" },
+  title: { ...type.display, color: colors.foreground },
+  subtitle: { ...type.body, fontWeight: "400", color: colors.mutedForeground },
+  form: {
+    backgroundColor: colors.card,
+    borderRadius: radius.lg,
+    padding: space.xl,
+    gap: space.lg,
+    ...elevation.e1,
+  },
+  field: { gap: space.sm },
+  label: { ...type.label, fontWeight: "600", color: colors.foreground },
+  hint: { ...type.caption, color: colors.mutedForeground },
+  inputWrap: {
+    flexDirection: "row",
+    alignItems: "center",
+    minHeight: 48,
+    backgroundColor: colors.inputBackground,
+    borderRadius: radius.sm,
+    borderWidth: 1.5,
+    borderColor: colors.inputBackground,
+    paddingHorizontal: space.md,
+  },
+  inputWrapFocused: { borderColor: colors.ring, backgroundColor: colors.card },
+  input: {
+    flex: 1,
+    ...type.body,
+    color: colors.foreground,
+    paddingVertical: space.md,
+  },
+  reveal: {
+    width: 32,
+    height: 32,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  error: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: space.sm,
+    backgroundColor: colors.secondary,
+    borderRadius: radius.sm,
+    paddingHorizontal: space.md,
+    paddingVertical: space.sm,
+  },
+  errorText: { ...type.label, color: colors.secondaryForeground, flex: 1 },
+  submit: { marginTop: space.xs, alignSelf: "stretch" },
+  linkBtn: {
+    minHeight: 44,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  linkText: { ...type.label, color: colors.mutedForeground },
+  linkTextStrong: { fontWeight: "600", color: colors.foreground },
 });

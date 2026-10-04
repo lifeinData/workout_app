@@ -2,7 +2,7 @@
 
 The header-based `X-User-Id` scheme is gone. Clients now send
 `Authorization: Bearer <opaque-session-token>` and we look up the row in
-the `sessions` table. Role-gated endpoints add `Depends(require_admin)`.
+the `sessions` table. Role-gated endpoints add `Depends(require_coach)`.
 """
 
 from __future__ import annotations
@@ -24,7 +24,7 @@ _settings = get_settings()
 __all__ = [
     "get_current_user",
     "parse_authorization_header",
-    "require_admin",
+    "require_coach",
     "revoke_all_user_sessions",
 ]
 
@@ -74,10 +74,10 @@ def get_current_user(
     return user
 
 
-def require_admin(user: User = Depends(get_current_user)) -> User:
-    """Gate admin-only endpoints. 403 (not 401) — caller is known but lacks role."""
-    if user.role != "admin":
-        raise HTTPException(403, "Admin role required")
+def require_coach(user: User = Depends(get_current_user)) -> User:
+    """Gate coach-only endpoints. 403 (not 401) — caller is known but lacks role."""
+    if user.role != "coach":
+        raise HTTPException(403, "Coach role required")
     return user
 
 

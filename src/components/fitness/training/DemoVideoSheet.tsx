@@ -1,5 +1,6 @@
-import { View, Text, Pressable, Modal, Linking } from 'react-native';
-import { X } from 'lucide-react-native';
+import { View, Text, Pressable, Linking } from 'react-native';
+import { Sheet } from '@/components/ui/Sheet';
+import { colors, radius, space, type } from '@/lib/theme';
 
 const youtubeUrl = (id: string) => `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
 
@@ -21,36 +22,48 @@ interface Props {
 export function DemoVideoSheet({ ytId, exerciseName, onClose }: Props) {
   const valid = isValidYtId(ytId);
   return (
-    <Modal visible animationType="fade" transparent>
-      <View className="flex-1 items-center justify-center p-4">
-        <Pressable className="absolute inset-0 bg-foreground/60" onPress={onClose} />
-        <View className="w-full bg-card rounded-3xl border border-border shadow-lg overflow-hidden">
-          <View className="flex-row items-center justify-between p-4 border-b border-border">
-            <View>
-              <Text className="text-xs text-muted-foreground">Demo</Text>
-              <Text className="text-base font-semibold text-card-foreground">{exerciseName}</Text>
-            </View>
-            <Pressable onPress={onClose} className="w-10 h-10 rounded-full bg-muted items-center justify-center">
-              <X size={20} color="#8b7268" />
+    <Sheet visible onClose={onClose} title={exerciseName}>
+      <View
+        style={{
+          aspectRatio: 16 / 9,
+          backgroundColor: '#000',
+          borderRadius: radius.md,
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: space.xxl,
+          gap: space.lg,
+        }}
+      >
+        {valid ? (
+          <>
+            <Text
+              maxFontSizeMultiplier={1.3}
+              style={{ ...type.body, color: '#ffffff', textAlign: 'center' }}
+            >
+              Demo video: {exerciseName}
+            </Text>
+            <Pressable
+              onPress={() => Linking.openURL(youtubeUrl(ytId))}
+              // Static style (not the `({ pressed }) => …` form) — NativeWind v4
+              // drops function-form styles on its wrapped Pressable. See Button.tsx.
+              style={{
+                paddingHorizontal: space.xxl,
+                paddingVertical: space.md,
+                borderRadius: radius.sm,
+                backgroundColor: colors.primary,
+              }}
+            >
+              <Text maxFontSizeMultiplier={1.3} style={{ ...type.label, fontWeight: '600', color: colors.primaryForeground }}>
+                Watch on YouTube
+              </Text>
             </Pressable>
-          </View>
-          <View className="p-8 items-center" style={{ aspectRatio: 16 / 9, backgroundColor: '#000' }}>
-            {valid ? (
-              <>
-                <Text className="text-white text-base mb-4 text-center">Demo video: {exerciseName}</Text>
-                <Pressable
-                  onPress={() => Linking.openURL(youtubeUrl(ytId))}
-                  className="px-6 py-3 bg-primary rounded-xl"
-                >
-                  <Text className="text-primary-foreground font-semibold">Watch on YouTube</Text>
-                </Pressable>
-              </>
-            ) : (
-              <Text className="text-white text-base text-center">No demo video available</Text>
-            )}
-          </View>
-        </View>
+          </>
+        ) : (
+          <Text maxFontSizeMultiplier={1.3} style={{ ...type.body, color: '#ffffff', textAlign: 'center' }}>
+            No demo video available
+          </Text>
+        )}
       </View>
-    </Modal>
+    </Sheet>
   );
 }

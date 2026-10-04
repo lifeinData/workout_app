@@ -12,7 +12,7 @@ class User(SQLModel, table=True):
     id: str = Field(primary_key=True, max_length=64)
     username: str = Field(max_length=32, unique=True, index=True)  # stored lowercase
     password_hash: str = Field(max_length=120)  # bcrypt ~60 chars + headroom
-    role: str = Field(default="user", max_length=10)  # "user" | "admin"
+    role: str = Field(default="user", max_length=10)  # "user" | "coach"
     display_name: Optional[str] = Field(default=None, max_length=80)
     initials: Optional[str] = Field(default=None, max_length=4)
     created_at: str = Field(max_length=32)  # ISO 8601 UTC
@@ -50,17 +50,19 @@ class Workout(SQLModel, table=True):
 
     id: str = Field(primary_key=True, max_length=64)
     name: str = Field(max_length=200)
-    tag: str = Field(max_length=40, index=True)
-    location: str = Field(max_length=20, index=True)  # "home" | "gym" | "either"
+    # Auto-computed from the workout's exercises (see coach router).
     equipment: list[str] = Field(default_factory=list, sa_column=Column(JSON))
-    duration_min: int = Field(default=45)
-    # None  = "Coach's Playbook": the seeded / admin-created owner-less catalog
+    duration_min: Optional[int] = Field(default=None)  # optional
+    # None  = "Coach's Playbook": the seeded / coach-created owner-less catalog
     #         everyone can start from.
     # set   = a personal template owned by that user ("My Workouts"), created via
     #         POST /me/workouts/from-session. Only the owner may list or start it.
     owner_id: Optional[str] = Field(
         default=None, max_length=64, foreign_key="users.id", index=True
     )
+    # The coach who created it (attribution only; the library is shared).
+    created_by: Optional[str] = Field(default=None, max_length=64, foreign_key="users.id")
+    created_at: str = Field(default="", max_length=32)  # ISO 8601 UTC
 
 
 class WorkoutExerciseLink(SQLModel, table=True):
@@ -78,9 +80,9 @@ class WorkoutExerciseLink(SQLModel, table=True):
     exercise_id: str = Field(foreign_key="exercises.id", primary_key=True, max_length=64)
     order_index: int = Field(default=0)
     target_sets: int = Field(default=3, ge=1, le=20)
-    target_reps_low: int = Field(default=8, ge=1, le=100)
-    target_reps_high: Optional[int] = Field(default=12, ge=1, le=100)
-    target_rest_sec: int = Field(default=90, ge=0, le=1800)
+    target_reps: int = Field(default=10, ge=1, le=100)
+    target_weight_kg: Optional[float] = Field(default=None, ge=0)
+    target_rest_sec: int = Field(default=60, ge=0, le=1800)
     prescription_notes: Optional[str] = Field(default=None, max_length=500)
 
 
@@ -167,3 +169,43 @@ class UserPreference(SQLModel, table=True):
     last_reset_date: str = Field(default="", max_length=10)
     weight_unit: str = Field(default="lb", max_length=2)  # "lb" | "kg"
     default_rest_sec: int = Field(default=90, ge=0, le=1800)
+
+
+class CoachLink(SQLModel, table=True):
+    """Coach <-> athlete relationship. At most one *active* (pending or
+    accepted) link per athlete — enforced in the router."""
+
+    __tablename__ = "coach_links"
+
+    id: str = Field(primary_key=True, max_length=64)  # "cl-<hex12>"
+    coach_id: str = Field(max_length=64, foreign_key="users.id", index=True)
+    athlete_id: str = Field(max_length=64, foreign_key="users.id", index=True)
+    # pending | accepted | declined | cancelled | ended
+    status: str = Field(default="pending", max_length=12, index=True)
+    created_at: str = Field(max_length=32)  # ISO 8601 UTC
+    responded_at: Optional[str] = Field(default=None, max_length=32)
+
+
+class WorkoutAssignment(SQLModel, table=True):
+    """A library workout a coach has sent to one athlete."""
+
+    __tablename__ = "workout_assignments"
+
+    workout_id: str = Field(foreign_key="workouts.id", primary_key=True, max_length=64)
+    athlete_id: str = Field(foreign_key="users.id", primary_key=True, max_length=64)
+    sent_by: str = Field(max_length=64, foreign_key="users.id")
+    sent_at: str = Field(max_length=32)  # ISO 8601 UTC
+
+
+class Message(SQLModel, table=True):
+    """Direct message inside a coach/athlete thread. Order by `id`, never
+    by timestamp (second resolution)."""
+
+    __tablename__ = "messages"
+
+    id: Optional[int] = Field(default=None, primary_key=True)
+    sender_id: str = Field(max_length=64, foreign_key="users.id")
+    recipient_id: str = Field(max_length=64, foreign_key="users.id", index=True)
+    body: str = Field(max_length=2000)
+    created_at: str = Field(max_length=32)  # ISO 8601 UTC
+    read_at: Optional[str] = Field(default=None, max_length=32)

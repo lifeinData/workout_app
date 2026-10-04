@@ -5,7 +5,7 @@ import { clearToken, getToken } from "./auth";
  * Types — mirrors backend/app/schemas.py, snake_case on the wire    *
  * ------------------------------------------------------------------ */
 
-export type UserRole = "user" | "admin";
+export type UserRole = "user" | "coach";
 
 export interface User {
   id: string;
@@ -47,28 +47,50 @@ export interface ExerciseResponse {
   pr_trackable: boolean;
 }
 
+/** One page of `GET /exercises`. The response body is still a plain
+ * `ExerciseResponse[]` (see `api.listExercises`) — `total` comes from the
+ * `X-Total-Count` response header (filtered count, applied before
+ * limit/offset), not the body. Used by `api.listExercisesPage` for
+ * paginated browsing (the exercise picker). */
+export interface ExercisePageResponse {
+  items: ExerciseResponse[];
+  total: number;
+}
+
 /** `ExerciseResponse` plus this workout's per-exercise prescription.
  * Additive over `ExerciseResponse` — any code that only reads the base
  * fields (name, yt_id, ...) keeps working unchanged. */
 export interface WorkoutExerciseResponse extends ExerciseResponse {
-  order_index: number;
+  order_index?: number;
   target_sets: number;
-  target_reps_low: number;
-  target_reps_high: number | null;
+  target_reps: number;
+  /** Canonical kg; null = no target weight. */
+  target_weight_kg: number | null;
   target_rest_sec: number;
   prescription_notes: string | null;
+}
+
+/** Minimal public view of a user (coach/athlete cards, "Added by"). */
+export interface UserPublic {
+  id: string;
+  username: string;
+  display_name: string | null;
+  initials: string | null;
+}
+
+export interface CoachPublic extends UserPublic {
+  athlete_count: number;
 }
 
 export interface WorkoutSummaryResponse {
   id: string;
   name: string;
-  tag: string;
-  location: string;
   equipment: string[];
-  duration_min: number;
+  duration_min: number | null;
   exercise_count: number;
-  // null = coach catalog ("Coach's Playbook"); set = a personal
-  // template owned by the caller ("My Workouts").
+  created_by: UserPublic | null;
+  created_at: string;
+  // null = coach library; (legacy) set = personal template.
   owner_id: string | null;
 }
 
@@ -186,10 +208,13 @@ export interface SessionExerciseBlock {
   exercise: ExerciseResponse;
   order_index: number;
   target_sets: number;
-  target_reps_low: number;
-  target_reps_high: number | null;
+  target_reps: number;
+  target_weight_kg: number | null;
   target_rest_sec: number;
   prescription_notes: string | null;
+  /** True only for blocks from the session's workout prescription. Ad-hoc
+   * blocks carry placeholder target_* values that must not be displayed. */
+  is_prescribed: boolean;
   sets: HistoricalSetResponse[];
   last_time: HistoricalSetResponse[];
 }
@@ -227,37 +252,27 @@ export interface SessionSummaryResponse {
 }
 
 /* ------------------------------------------------------------------ *
- * Admin request types (workout CRUD + exercise reorder + prescriptions) *
+ * Coach request types (workout CRUD + exercise reorder + prescriptions) *
  * ------------------------------------------------------------------ *
  * Mirrors backend/app/schemas.py. All fields are snake_case on the   *
  * wire; the field names line up 1:1 with the Pydantic models so the  *
  * admin UI can build payloads with no client-side aliasing.          */
 
 export interface WorkoutCreate {
-  /** Optional — server auto-generates a slug-shaped id when omitted. */
-  id?: string;
   name: string;
-  tag: string;
-  location: "home" | "gym" | "either";
-  equipment: string[];
-  duration_min: number;
-  /** Must contain at least one id; every id must exist on the server. */
-  exercise_ids: string[];
+  /** Optional; null/omitted = no duration. */
+  duration_min?: number | null;
+  exercise_ids?: string[];
 }
 
 export interface WorkoutUpdate {
-  /** Every field is optional; only present keys are patched. */
+  /** Only present keys are patched. `duration_min: null` clears it. */
   name?: string;
-  tag?: string;
-  location?: "home" | "gym" | "either";
-  equipment?: string[];
-  duration_min?: number;
+  duration_min?: number | null;
 }
 
 export interface AddExerciseToWorkout {
   exercise_id: string;
-  /** Append at the end when omitted. Currently a presence check; the
-   * server always appends at max(order_index) + 1 regardless. */
   after_exercise_id?: string;
 }
 
@@ -268,10 +283,77 @@ export interface ReorderExercises {
 
 export interface PrescriptionPatch {
   target_sets?: number;
-  target_reps_low?: number;
-  target_reps_high?: number;
+  target_reps?: number;
+  /** In `target_weight_unit`; null clears the target. Requires a unit. */
+  target_weight?: number | null;
+  target_weight_unit?: WeightUnit;
   target_rest_sec?: number;
   prescription_notes?: string;
+}
+
+/* ------------------------------------------------------------------ *
+ * Coaching + messages                                                *
+ * ------------------------------------------------------------------ */
+
+export type CoachLinkStatus = "pending" | "accepted";
+
+export interface LastMessage {
+  body: string;
+  created_at: string;
+  from_me: boolean;
+}
+
+export interface AthleteRow {
+  link_id: string;
+  status: CoachLinkStatus;
+  user: UserPublic;
+  created_at: string;
+  unread_count: number;
+  last_message: LastMessage | null;
+  assigned_workout_count: number;
+}
+
+export interface AthletesResponse {
+  requests: AthleteRow[];
+  athletes: AthleteRow[];
+}
+
+export interface CoachLinkResponse {
+  id: string;
+  status: CoachLinkStatus;
+  coach: CoachPublic;
+  created_at: string;
+  responded_at: string | null;
+  unread_count: number;
+}
+
+export interface CoachRequestCreate {
+  coach_id: string;
+  message?: string;
+}
+
+export interface AssignmentsBody {
+  athlete_ids: string[];
+}
+
+export interface PlaybookResponse {
+  is_coach: boolean;
+  coach_link: CoachLinkResponse | null;
+  workouts: WorkoutSummaryResponse[];
+}
+
+export interface MessageResponse {
+  id: number;
+  sender_id: string;
+  recipient_id: string;
+  body: string;
+  created_at: string;
+  read_at: string | null;
+}
+
+export interface UnreadResponse {
+  total: number;
+  by_user: Record<string, number>;
 }
 
 /* ------------------------------------------------------------------ *
@@ -321,17 +403,36 @@ export function setUnauthorizedHandler(handler: UnauthorizedHandler | null): voi
 
 const REQUEST_TIMEOUT_MS = 15_000;
 
+const API_PORT = 8000;
+
+/** In dev, the backend runs on the same machine as Metro, so reuse the host
+ * the bundle was served from (`hostUri`, e.g. "192.168.0.102:8081"). This
+ * tracks DHCP changes automatically — no more hand-editing the LAN IP in
+ * app.json. Tunnel hosts (*.exp.direct) can't reach :8000, so skip those. */
+function getDevServerBaseUrl(): string | null {
+  if (!__DEV__) return null;
+  const hostUri = Constants.expoConfig?.hostUri;
+  if (!hostUri) return null;
+  const host = hostUri.split(":")[0];
+  if (!host || host.endsWith(".exp.direct")) return null;
+  return `http://${host}:${API_PORT}/api/v1`;
+}
+
 function getBaseUrl(): string {
   const extra = (Constants.expoConfig?.extra as { apiBaseUrl?: string } | undefined);
-  const url = extra?.apiBaseUrl ?? "http://10.0.2.2:8000/api/v1";
+  const url = getDevServerBaseUrl() ?? extra?.apiBaseUrl ?? `http://10.0.2.2:${API_PORT}/api/v1`;
   return url.replace(/\/$/, "");
 }
 
-async function request<T>(
+/** Same transport as `request`, but also returns the raw `Response.headers`
+ * for callers that need a response header (e.g. `X-Total-Count`). `request`
+ * is implemented on top of this and just discards the headers — this keeps
+ * every existing call site (which only wants the parsed body) unchanged. */
+async function requestRaw<T>(
   method: string,
   path: string,
   init: { body?: unknown; signal?: AbortSignal } = {}
-): Promise<T> {
+): Promise<{ data: T; headers: Headers }> {
   const token = await getToken();
   const ctrl = new AbortController();
   const timeout = setTimeout(() => ctrl.abort(), REQUEST_TIMEOUT_MS);
@@ -376,8 +477,17 @@ async function request<T>(
     throw new ApiError(res.status, body, `${method} ${path} → ${res.status}`);
   }
 
-  if (res.status === 204) return undefined as T;
-  return (await res.json()) as T;
+  if (res.status === 204) return { data: undefined as T, headers: res.headers };
+  return { data: (await res.json()) as T, headers: res.headers };
+}
+
+async function request<T>(
+  method: string,
+  path: string,
+  init: { body?: unknown; signal?: AbortSignal } = {}
+): Promise<T> {
+  const { data } = await requestRaw<T>(method, path, init);
+  return data;
 }
 
 /* ------------------------------------------------------------------ *
@@ -409,26 +519,48 @@ export const api = {
         offset: q?.offset,
       })}`
     ),
+  /** Same query params as `listExercises`, but also reads the
+   * `X-Total-Count` response header (the filtered total, before
+   * limit/offset) so callers can paginate — e.g. "Showing 50 of 614" and
+   * knowing when to stop requesting further pages. */
+  listExercisesPage: async (q?: {
+    muscle_group?: string;
+    equipment?: string;
+    search?: string;
+    limit?: number;
+    offset?: number;
+  }): Promise<ExercisePageResponse> => {
+    const { data, headers } = await requestRaw<ExerciseResponse[]>(
+      "GET",
+      `/exercises${toQuery({
+        muscle_group: q?.muscle_group,
+        equipment: q?.equipment,
+        q: q?.search,
+        limit: q?.limit,
+        offset: q?.offset,
+      })}`
+    );
+    const totalHeader = headers.get("X-Total-Count");
+    const total = totalHeader !== null ? Number(totalHeader) : data.length;
+    return { items: data, total: Number.isFinite(total) ? total : data.length };
+  },
   getExercise: (id: string) => request<ExerciseResponse>("GET", `/exercises/${id}`),
   getExerciseHistory: (id: string, limit?: number) =>
     request<ExerciseSessionRollup[]>(
       "GET",
       `/me/exercises/${id}/history${toQuery({ limit })}`
     ),
-  listWorkouts: (q?: { location?: string; equipment?: string }) =>
+  listWorkouts: (q?: { equipment?: string }) =>
     request<WorkoutSummaryResponse[]>(
       "GET",
-      `/workouts${toQuery({ location: q?.location, equipment: q?.equipment })}`
+      `/workouts${toQuery({ equipment: q?.equipment })}`
     ),
   getWorkout: (id: string) => request<WorkoutDetailResponse>("GET", `/workouts/${id}`),
-  // The caller's own saved templates ("My Workouts").
-  listMyWorkouts: () => request<WorkoutSummaryResponse[]>("GET", "/me/workouts"),
-  // Fork a session into a reusable personal template ("Save as template").
-  createTemplateFromSession: (sessionId: string, body: { name?: string }) =>
-    request<WorkoutDetailResponse>(
-      "POST",
-      `/me/workouts/from-session/${sessionId}`,
-      { body }
+  // The caller's own past completed sessions ("My Workouts").
+  listMyWorkouts: (q?: { limit?: number; offset?: number }) =>
+    request<SessionSummaryResponse[]>(
+      "GET",
+      `/me/workouts${toQuery({ limit: q?.limit, offset: q?.offset })}`
     ),
   getPreferences: () => request<PreferencesResponse>("GET", "/me/preferences"),
   patchPreferences: (body: PreferencesPatch) =>
@@ -453,54 +585,60 @@ export const api = {
     request<SetLogCreatedResponse>("PATCH", `/me/sets/${id}`, { body }),
   deleteSet: (id: number) => request<void>("DELETE", `/me/sets/${id}`),
   getPRs: () => request<PersonalRecordResponse[]>("GET", "/me/prs"),
-  /* ----- admin (workout CRUD) --------------------------------------
-   * Bearer-protected. The /admin/workouts router mirrors the shape
-   * of the public read endpoints, so list/show return the same
-   * payloads. Mutations always echo the freshly-built detail so the
-   * client doesn't have to re-fetch.
-   * ----------------------------------------------------------------- */
-  adminListWorkouts: (q?: {
-    limit?: number;
-    offset?: number;
-    location?: string;
-    equipment?: string;
-  }) =>
+  /* ----- coach library (workout CRUD) ------------------------------ */
+  coachListWorkouts: (q?: { limit?: number; offset?: number; equipment?: string }) =>
     request<WorkoutSummaryResponse[]>(
       "GET",
-      `/admin/workouts${toQuery({
-        limit: q?.limit,
-        offset: q?.offset,
-        location: q?.location,
-        equipment: q?.equipment,
-      })}`
+      `/coach/workouts${toQuery({ limit: q?.limit, offset: q?.offset, equipment: q?.equipment })}`
     ),
-  adminCreateWorkout: (body: WorkoutCreate) =>
-    request<WorkoutDetailResponse>("POST", "/admin/workouts", { body }),
-  adminUpdateWorkout: (id: string, body: WorkoutUpdate) =>
-    request<WorkoutDetailResponse>("PATCH", `/admin/workouts/${id}`, { body }),
-  adminDeleteWorkout: (id: string) =>
-    request<void>("DELETE", `/admin/workouts/${id}`),
-  adminAddExercise: (workoutId: string, body: AddExerciseToWorkout) =>
-    request<WorkoutDetailResponse>(
-      "POST",
-      `/admin/workouts/${workoutId}/exercises`,
-      { body }
-    ),
-  adminRemoveExercise: (workoutId: string, exerciseId: string) =>
-    request<void>(
-      "DELETE",
-      `/admin/workouts/${workoutId}/exercises/${exerciseId}`
-    ),
-  adminReorderExercises: (workoutId: string, body: ReorderExercises) =>
+  coachGetWorkout: (id: string) =>
+    request<WorkoutDetailResponse>("GET", `/coach/workouts/${id}`),
+  coachCreateWorkout: (body: WorkoutCreate) =>
+    request<WorkoutDetailResponse>("POST", "/coach/workouts", { body }),
+  coachUpdateWorkout: (id: string, body: WorkoutUpdate) =>
+    request<WorkoutDetailResponse>("PATCH", `/coach/workouts/${id}`, { body }),
+  coachDeleteWorkout: (id: string) => request<void>("DELETE", `/coach/workouts/${id}`),
+  coachAddExercise: (workoutId: string, body: AddExerciseToWorkout) =>
+    request<WorkoutDetailResponse>("POST", `/coach/workouts/${workoutId}/exercises`, { body }),
+  coachRemoveExercise: (workoutId: string, exerciseId: string) =>
+    request<void>("DELETE", `/coach/workouts/${workoutId}/exercises/${exerciseId}`),
+  coachReorderExercises: (workoutId: string, body: ReorderExercises) =>
     request<WorkoutDetailResponse>(
       "PATCH",
-      `/admin/workouts/${workoutId}/exercises/reorder`,
+      `/coach/workouts/${workoutId}/exercises/reorder`,
       { body }
     ),
-  adminUpdatePrescription: (workoutId: string, exerciseId: string, body: PrescriptionPatch) =>
+  coachUpdatePrescription: (workoutId: string, exerciseId: string, body: PrescriptionPatch) =>
     request<WorkoutDetailResponse>(
       "PATCH",
-      `/admin/workouts/${workoutId}/exercises/${exerciseId}/prescription`,
+      `/coach/workouts/${workoutId}/exercises/${exerciseId}/prescription`,
       { body }
     ),
+  coachGetAssignments: (workoutId: string) =>
+    request<AssignmentsBody>("GET", `/coach/workouts/${workoutId}/assignments`),
+  coachSetAssignments: (workoutId: string, body: AssignmentsBody) =>
+    request<AssignmentsBody>("PUT", `/coach/workouts/${workoutId}/assignments`, { body }),
+  coachListAthletes: () => request<AthletesResponse>("GET", "/coach/athletes"),
+  coachAcceptLink: (linkId: string) =>
+    request<AthleteRow>("POST", `/coach/links/${linkId}/accept`),
+  coachDeclineLink: (linkId: string) =>
+    request<void>("POST", `/coach/links/${linkId}/decline`),
+  /* ----- athlete side ------------------------------------------------- */
+  listCoaches: () => request<CoachPublic[]>("GET", "/coaches"),
+  getMyCoach: () => request<CoachLinkResponse | null>("GET", "/me/coach"),
+  requestCoach: (body: CoachRequestCreate) =>
+    request<CoachLinkResponse>("POST", "/me/coach-requests", { body }),
+  cancelCoachLink: () => request<void>("DELETE", "/me/coach-link"),
+  getPlaybook: () => request<PlaybookResponse>("GET", "/me/playbook"),
+  /* ----- messages ----------------------------------------------------- */
+  listMessages: (otherId: string, q?: { after_id?: number; limit?: number }) =>
+    request<MessageResponse[]>(
+      "GET",
+      `/me/messages/${otherId}${toQuery({ after_id: q?.after_id, limit: q?.limit })}`
+    ),
+  sendMessage: (otherId: string, body: { body: string }) =>
+    request<MessageResponse>("POST", `/me/messages/${otherId}`, { body }),
+  markMessagesRead: (otherId: string) =>
+    request<void>("POST", `/me/messages/${otherId}/read`),
+  getUnread: () => request<UnreadResponse>("GET", "/me/messages/unread"),
 };

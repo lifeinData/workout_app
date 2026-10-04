@@ -1,9 +1,9 @@
-"""Admin CRUD endpoints for workouts.
+"""Coach library CRUD endpoints for workouts.
 
-All routes are gated by `Depends(require_admin)` and live under
-`/api/v1/admin/workouts`. The router mirrors the shape of the public
-read endpoints (so the admin UI can list/show the same data) and
-adds mutations.
+All routes are gated by `Depends(require_coach)` and live under
+`/api/v1/coach/workouts`. The library is shared by all coaches
+(`created_by` is attribution only). Assignment / athlete routes live in
+`coaching.py`.
 
 Conventions
 -----------
@@ -21,9 +21,15 @@ from sqlalchemy import func
 from sqlmodel import Session as SQLModelSession, select
 
 from app.db import get_session
-from app.deps import require_admin
-from app.models import Exercise, Workout, WorkoutExerciseLink
-from app.routers._helpers import build_workout_detail
+from app.deps import require_coach
+from app.models import Exercise, User, Workout, WorkoutAssignment, WorkoutExerciseLink
+from app.routers._helpers import (
+    build_workout_detail,
+    recompute_equipment,
+    workout_summaries,
+)
+from app.timefmt import utc_now_iso
+from app.units import to_kg
 from app.schemas import (
     AddExerciseToWorkout,
     PrescriptionPatch,
@@ -37,8 +43,8 @@ from app.schemas import (
 
 router = APIRouter(
     prefix="/workouts",
-    tags=["admin"],
-    dependencies=[Depends(require_admin)],
+    tags=["coach"],
+    dependencies=[Depends(require_coach)],
 )
 
 
@@ -90,61 +96,24 @@ def list_workouts(
     session: SQLModelSession = Depends(get_session),
     limit: int = Query(default=100, ge=1, le=500),
     offset: int = Query(default=0, ge=0),
-    location: str | None = Query(default=None, pattern="^(home|gym|either)$"),
-    equipment: str | None = Query(default=None, max_length=50),
 ) -> list[WorkoutSummaryResponse]:
-    """Every workout, with exercise_count. Same shape as the public /workouts.
+    """The shared library (`owner_id IS NULL`), newest first."""
+    rows = session.exec(
+        select(Workout)
+        .where(Workout.owner_id.is_(None))
+        .order_by(Workout.created_at.desc(), Workout.id)
+        .limit(limit)
+        .offset(offset)
+    ).all()
+    return workout_summaries(session, list(rows))
 
-    `limit`/`offset` allow paging through large catalogs; default
-    100 is enough for the v1 admin UI. `location` and `equipment` are
-    pushed into SQL so filtering is O(returned) not O(catalog).
-    """
-    # Admins curate the coach catalog only — never users' personal
-    # templates (owner_id set), which are private to each user.
-    stmt = select(Workout).where(Workout.owner_id.is_(None))
-    if location:
-        # Treat "either" as a wildcard: a workout with `location="either"`
-        # is valid for both home and gym filters, so we OR it in.
-        stmt = stmt.where(
-            (Workout.location == location) | (Workout.location == "either")
-        )
-    if equipment:
-        # equipment is a JSON array stored as TEXT in SQLite. A `LIKE`
-        # substring check is the cheapest cross-dialect filter; the
-        # matches are then re-checked in Python to avoid false
-        # positives (e.g. searching "bar" must not match "barbell"
-        # AND "barbell" AND "barbell" rows — substring `LIKE '%bar%'`
-        # would). Actually LIKE works fine for our set: equipment
-        # tokens are short and don't have substring-overlap issues
-        # at the JSON-array-stringified level (e.g. '["barbell"]').
-        # We still re-check in Python for safety.
-        stmt = stmt.where(Workout.equipment.like(f'%"{equipment}"%'))
-    rows = session.exec(stmt.limit(limit).offset(offset)).all()
 
-    if equipment:
-        rows = [w for w in rows if equipment in w.equipment]
-
-    counts = dict(
-        session.exec(
-            select(
-                WorkoutExerciseLink.workout_id,
-                func.count(WorkoutExerciseLink.exercise_id),
-            ).group_by(WorkoutExerciseLink.workout_id)
-        ).all()  # type: ignore[arg-type]
-    )
-
-    return [
-        WorkoutSummaryResponse(
-            id=w.id,
-            name=w.name,
-            tag=w.tag,
-            location=w.location,
-            equipment=w.equipment,
-            duration_min=w.duration_min,
-            exercise_count=counts.get(w.id, 0),
-        )
-        for w in rows
-    ]
+@router.get("/{workout_id}", response_model=WorkoutDetailResponse)
+def get_workout(
+    workout_id: str,
+    session: SQLModelSession = Depends(get_session),
+) -> WorkoutDetailResponse:
+    return build_workout_detail(session, _get_workout_or_404(session, workout_id))
 
 
 # ---------------------------------------------------------------------------
@@ -160,6 +129,7 @@ def list_workouts(
 def create_workout(
     body: WorkoutCreate,
     session: SQLModelSession = Depends(get_session),
+    coach: User = Depends(require_coach),
 ) -> WorkoutDetailResponse:
     new_id = body.id if body.id else f"w-{uuid.uuid4().hex[:8]}"
 
@@ -184,10 +154,10 @@ def create_workout(
     w = Workout(
         id=new_id,
         name=body.name,
-        tag=body.tag,
-        location=body.location,
-        equipment=body.equipment,
+        equipment=[],
         duration_min=body.duration_min,
+        created_by=coach.id,
+        created_at=utc_now_iso(),
     )
     session.add(w)
     for idx, ex_id in enumerate(body.exercise_ids):
@@ -198,6 +168,8 @@ def create_workout(
                 order_index=idx,
             )
         )
+    session.flush()
+    recompute_equipment(session, w)
     session.commit()
     session.refresh(w)
     return build_workout_detail(session, w)
@@ -224,14 +196,8 @@ def update_workout(
     # a deliberate line added in this router.
     if body.name is not None:
         w.name = body.name
-    if body.tag is not None:
-        w.tag = body.tag
-    if body.location is not None:
-        w.location = body.location
-    if body.equipment is not None:
-        w.equipment = body.equipment
-    if body.duration_min is not None:
-        w.duration_min = body.duration_min
+    if "duration_min" in body.model_fields_set:
+        w.duration_min = body.duration_min  # explicit null clears it
 
     session.add(w)
     session.commit()
@@ -262,6 +228,10 @@ def delete_workout(
     ).all()
     for link in links:
         session.delete(link)
+    for assignment in session.exec(
+        select(WorkoutAssignment).where(WorkoutAssignment.workout_id == workout_id)
+    ).all():
+        session.delete(assignment)
     session.delete(w)
     session.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)
@@ -338,6 +308,8 @@ def add_exercise_to_workout(
         )
     )
     _renormalize_order_indexes(session, workout_id)
+    session.flush()
+    recompute_equipment(session, w)
     session.commit()
     return build_workout_detail(session, w)
 
@@ -357,7 +329,7 @@ def remove_exercise_from_workout(
     session: SQLModelSession = Depends(get_session),
 ) -> Response:
     # 404 if the workout itself doesn't exist (consistent with the add
-    # endpoint, which checks both). Catches `/admin/workouts/nope/exercises/x`.
+    # endpoint, which checks both). Catches `/coach/workouts/nope/exercises/x`.
     _get_workout_or_404(session, workout_id)
 
     link = session.get(WorkoutExerciseLink, (workout_id, exercise_id))
@@ -370,7 +342,9 @@ def remove_exercise_from_workout(
         )
 
     session.delete(link)
+    session.flush()
     _renormalize_order_indexes(session, workout_id)
+    recompute_equipment(session, _get_workout_or_404(session, workout_id))
     session.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
@@ -399,25 +373,16 @@ def update_prescription(
             detail=f"Exercise '{exercise_id}' is not in workout '{workout_id}'",
         )
 
-    # Validate against the EFFECTIVE range (patched value if supplied,
-    # else the link's current value) — a patch that only touches one
-    # bound must not accidentally invert the other.
-    effective_low = body.target_reps_low if body.target_reps_low is not None else link.target_reps_low
-    effective_high = (
-        body.target_reps_high if body.target_reps_high is not None else link.target_reps_high
-    )
-    if effective_high is not None and effective_high < effective_low:
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail="target_reps_high must be >= target_reps_low",
-        )
-
     if body.target_sets is not None:
         link.target_sets = body.target_sets
-    if body.target_reps_low is not None:
-        link.target_reps_low = body.target_reps_low
-    if body.target_reps_high is not None:
-        link.target_reps_high = body.target_reps_high
+    if body.target_reps is not None:
+        link.target_reps = body.target_reps
+    if "target_weight" in body.model_fields_set:
+        if body.target_weight is None:
+            link.target_weight_kg = None  # explicit null clears the target
+        else:
+            # Schema validator guarantees the unit is present.
+            link.target_weight_kg = to_kg(body.target_weight, body.target_weight_unit or "lb")
     if body.target_rest_sec is not None:
         link.target_rest_sec = body.target_rest_sec
     if body.prescription_notes is not None:

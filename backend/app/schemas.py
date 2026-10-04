@@ -1,6 +1,23 @@
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict, Field
+from typing import Literal
+
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+
+
+class UserPublic(BaseModel):
+    """The slice of a user other users may see."""
+
+    model_config = ConfigDict(from_attributes=True)
+
+    id: str
+    username: str
+    display_name: Optional[str] = None
+    initials: Optional[str] = None
+
+
+class CoachPublic(UserPublic):
+    athlete_count: int = 0
 
 
 class ExerciseResponse(BaseModel):
@@ -27,8 +44,8 @@ class WorkoutExerciseResponse(ExerciseResponse):
 
     order_index: int
     target_sets: int
-    target_reps_low: int
-    target_reps_high: Optional[int] = None
+    target_reps: int
+    target_weight_kg: Optional[float] = None
     target_rest_sec: int
     prescription_notes: Optional[str] = None
 
@@ -38,13 +55,13 @@ class WorkoutSummaryResponse(BaseModel):
 
     id: str
     name: str
-    tag: str
-    location: str
     equipment: list[str]
-    duration_min: int
+    duration_min: Optional[int] = None
     exercise_count: int
-    # None = coach catalog ("Coach's Playbook"); set = a personal template
-    # owned by the caller ("My Workouts"). Lets the client segment the two.
+    created_by: Optional[UserPublic] = None
+    created_at: str = ""
+    # None = coach library ("Coach's Playbook"). Personal templates no
+    # longer exist, but the field stays on the wire.
     owner_id: Optional[str] = None
 
 
@@ -53,10 +70,11 @@ class WorkoutDetailResponse(BaseModel):
 
     id: str
     name: str
-    tag: str
-    location: str
     equipment: list[str]
-    duration_min: int
+    duration_min: Optional[int] = None
+    exercise_count: int = 0
+    created_by: Optional[UserPublic] = None
+    created_at: str = ""
     owner_id: Optional[str] = None
     exercises: list[WorkoutExerciseResponse]
 
@@ -187,21 +205,18 @@ class SessionPatch(BaseModel):
     name: Optional[str] = Field(default=None, min_length=1, max_length=200)
 
 
-class TemplateFromSessionCreate(BaseModel):
-    """Body for POST /me/workouts/from-session/{id}. `name` optional —
-    defaults to the source session's name when omitted."""
-
-    name: Optional[str] = Field(default=None, min_length=1, max_length=200)
-
-
 class SessionExerciseBlock(BaseModel):
     exercise: ExerciseResponse
     order_index: int
     target_sets: int
-    target_reps_low: int
-    target_reps_high: Optional[int] = None
+    target_reps: int
+    target_weight_kg: Optional[float] = None
     target_rest_sec: int
     prescription_notes: Optional[str] = None
+    # True only for blocks that come from the session's workout prescription.
+    # Ad-hoc blocks (empty workout, or an exercise added on top of a coach
+    # workout) carry placeholder target_* defaults the client must not show.
+    is_prescribed: bool = False
     sets: list[HistoricalSetResponse]
     last_time: list[HistoricalSetResponse]
 
@@ -276,12 +291,13 @@ class SessionResponse(BaseModel):
 
 
 # ---------------------------------------------------------------------------
-# Admin (workout CRUD + exercise reorder + prescriptions)
+# Coach (workout library CRUD + exercise reorder + prescriptions)
 # ---------------------------------------------------------------------------
 
 
 class WorkoutCreate(BaseModel):
-    """Admin creates a new workout. `id` auto-generated if omitted."""
+    """Coach creates a new library workout. `id` auto-generated if omitted.
+    Equipment is computed server-side from the exercises."""
 
     id: Optional[str] = Field(
         default=None,
@@ -289,18 +305,15 @@ class WorkoutCreate(BaseModel):
         pattern=r"^[a-z0-9][a-z0-9-]{0,63}$",
     )
     name: str = Field(min_length=1, max_length=200)
-    tag: str = Field(min_length=1, max_length=40)
-    location: str = Field(pattern="^(home|gym|either)$")
-    equipment: list[str] = Field(default_factory=list)
-    duration_min: int = Field(ge=1, le=600)
-    exercise_ids: list[str] = Field(min_length=1)
+    duration_min: Optional[int] = Field(default=None, ge=1, le=600)
+    exercise_ids: list[str] = Field(default_factory=list)
 
 
 class WorkoutUpdate(BaseModel):
+    """`duration_min: null` (explicitly sent) clears the duration — the
+    router checks `model_fields_set` to tell null from absent."""
+
     name: Optional[str] = Field(default=None, min_length=1, max_length=200)
-    tag: Optional[str] = Field(default=None, min_length=1, max_length=40)
-    location: Optional[str] = Field(default=None, pattern="^(home|gym|either)$")
-    equipment: Optional[list[str]] = None
     duration_min: Optional[int] = Field(default=None, ge=1, le=600)
 
 
@@ -315,10 +328,104 @@ class ReorderExercises(BaseModel):
 
 
 class PrescriptionPatch(BaseModel):
-    """Edits a single exercise's target sets/reps/rest within one workout."""
+    """Edits a single exercise's target sets/reps/weight/rest in one workout.
+
+    `target_weight: null` (explicitly sent) clears the target weight; a
+    non-null `target_weight` requires `target_weight_unit`.
+    """
 
     target_sets: Optional[int] = Field(default=None, ge=1, le=20)
-    target_reps_low: Optional[int] = Field(default=None, ge=1, le=100)
-    target_reps_high: Optional[int] = Field(default=None, ge=1, le=100)
+    target_reps: Optional[int] = Field(default=None, ge=1, le=100)
+    target_weight: Optional[float] = Field(default=None, ge=0)
+    target_weight_unit: Optional[Literal["lb", "kg"]] = None
     target_rest_sec: Optional[int] = Field(default=None, ge=0, le=1800)
     prescription_notes: Optional[str] = Field(default=None, max_length=500)
+
+    @model_validator(mode="after")
+    def _weight_needs_unit(self) -> "PrescriptionPatch":
+        if self.target_weight is not None and self.target_weight_unit is None:
+            raise ValueError("target_weight_unit is required when target_weight is set")
+        return self
+
+
+PrescriptionUpdate = PrescriptionPatch  # agenda name alias
+
+
+# ---------------------------------------------------------------------------
+# Coaching (links, athletes, assignments, playbook)
+# ---------------------------------------------------------------------------
+
+
+class LastMessage(BaseModel):
+    body: str
+    created_at: str
+    from_me: bool
+
+
+class CoachLinkResponse(BaseModel):
+    id: str
+    status: str  # pending | accepted
+    coach: CoachPublic
+    created_at: str
+    responded_at: Optional[str] = None
+    unread_count: int = 0
+
+
+class AthleteRow(BaseModel):
+    link_id: str
+    status: str  # pending | accepted
+    user: UserPublic
+    created_at: str
+    unread_count: int = 0
+    last_message: Optional[LastMessage] = None
+    assigned_workout_count: int = 0
+
+
+class AthletesResponse(BaseModel):
+    requests: list[AthleteRow]
+    athletes: list[AthleteRow]
+
+
+class CoachRequestCreate(BaseModel):
+    coach_id: str = Field(min_length=1, max_length=64)
+    message: Optional[str] = Field(default=None, max_length=2000)
+
+
+class AssignmentsBody(BaseModel):
+    athlete_ids: list[str]
+
+
+class PlaybookResponse(BaseModel):
+    is_coach: bool
+    coach_link: Optional[CoachLinkResponse] = None
+    workouts: list[WorkoutSummaryResponse]
+
+
+# ---------------------------------------------------------------------------
+# Messages
+# ---------------------------------------------------------------------------
+
+
+class MessageResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    sender_id: str
+    recipient_id: str
+    body: str
+    created_at: str
+    read_at: Optional[str] = None
+
+
+class MessageCreate(BaseModel):
+    body: str = Field(min_length=1, max_length=2000)
+
+    @field_validator("body", mode="before")
+    @classmethod
+    def _strip(cls, v: object) -> object:
+        return v.strip() if isinstance(v, str) else v
+
+
+class UnreadResponse(BaseModel):
+    total: int
+    by_user: dict[str, int]

@@ -1,9 +1,14 @@
-import { QueryClient, QueryClientProvider, useQueryClient } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import { AppState } from "react-native";
-import Toast from "react-native-toast-message";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { ToastHost } from "@/components/ui/Toast";
 import { setUnauthorizedHandler } from "@/lib/api";
 import { api } from "@/lib/api";
 import { clearToken } from "@/lib/auth";
@@ -47,7 +52,9 @@ function LogoutRetryBridge() {
     const onAppActive = async () => {
       if (cancelled) return;
       try {
-        const AsyncStorage = (await import("@react-native-async-storage/async-storage")).default;
+        const AsyncStorage = (
+          await import("@react-native-async-storage/async-storage")
+        ).default;
         const pending = await AsyncStorage.getItem("@workout/pending-logout");
         if (!pending) return;
         try {
@@ -76,18 +83,21 @@ function LogoutRetryBridge() {
 
 export default function RootLayout() {
   return (
-    <QueryClientProvider client={queryClient}>
-      {/* The app uses a light warm-pastel background everywhere, so the
-       * OS status bar needs DARK icons/text to be legible. Android's
-       * default is light content, which is invisible on `#fdf6f0`. */}
-      <StatusBar style="dark" />
-      <AuthBridge />
-      <LogoutRetryBridge />
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="(auth)" />
-      </Stack>
-      <Toast />
-    </QueryClientProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <QueryClientProvider client={queryClient}>
+        {/* The app uses a light warm-pastel background everywhere, so the
+         * OS status bar needs DARK icons/text to be legible. Android's
+         * default is light content, which is invisible on `#fdf6f0`. */}
+        <StatusBar style="dark" />
+        <AuthBridge />
+        <LogoutRetryBridge />
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(tabs)" />
+          <Stack.Screen name="(auth)" />
+        </Stack>
+        {/* After the navigator so it floats above every screen. */}
+        <ToastHost />
+      </QueryClientProvider>
+    </GestureHandlerRootView>
   );
 }

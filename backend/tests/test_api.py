@@ -99,9 +99,9 @@ def test_workout_detail_includes_prescriptions(seeded_client):
     by_id = {e["id"]: e for e in r.json()["exercises"]}
     # Compounds: lower reps, longer rest than accessories.
     assert by_id["ex-bench"]["target_sets"] == 4
-    assert by_id["ex-bench"]["target_reps_high"] == 8
+    assert by_id["ex-bench"]["target_reps"] == 5
     assert by_id["ex-bench"]["target_rest_sec"] == 150
-    assert by_id["ex-cable-fly"]["target_reps_low"] == 10
+    assert by_id["ex-cable-fly"]["target_reps"] == 10
     assert by_id["ex-cable-fly"]["target_rest_sec"] == 60
 
 
@@ -276,11 +276,29 @@ def test_log_set_unknown_exercise_404(seeded_client, user_bearer_headers):
     assert r.status_code == 404
 
 
-def test_log_set_requires_active_session(seeded_client, user_bearer_headers):
+def test_log_set_into_completed_session_succeeds(seeded_client, user_bearer_headers):
+    # A1's "no more templates" rework allows editing a completed
+    # session in place (e.g. re-opening a past workout from My
+    # Workouts) — only `abandoned` sessions are locked.
     session_id = _start_session(seeded_client, user_bearer_headers)
     seeded_client.patch(
         f"/api/v1/me/sessions/{session_id}",
         json={"status": "completed"},
+        headers=user_bearer_headers,
+    )
+    r = seeded_client.post(
+        "/api/v1/me/sets",
+        json={"session_id": session_id, "exercise_id": "ex-bench", "weight": 100, "reps": 5},
+        headers=user_bearer_headers,
+    )
+    assert r.status_code == 201
+
+
+def test_log_set_into_abandoned_session_409(seeded_client, user_bearer_headers):
+    session_id = _start_session(seeded_client, user_bearer_headers)
+    seeded_client.patch(
+        f"/api/v1/me/sessions/{session_id}",
+        json={"status": "abandoned"},
         headers=user_bearer_headers,
     )
     r = seeded_client.post(
@@ -424,6 +442,77 @@ def test_exercise_history_rollup(seeded_client, user_bearer_headers):
     assert len(rollups) == 1
     assert rollups[0]["session_id"] == session_id
     assert rollups[0]["sets"] == 1
+
+
+def test_update_and_delete_set_on_completed_session_succeed(seeded_client, user_bearer_headers):
+    # Same "editable-status" rule as logging: PATCH/DELETE on a set must
+    # succeed against a completed session (not just an active one).
+    session_id = _start_session(seeded_client, user_bearer_headers)
+    r = seeded_client.post(
+        "/api/v1/me/sets",
+        json={"session_id": session_id, "exercise_id": "ex-bench", "weight": 200, "reps": 5},
+        headers=user_bearer_headers,
+    )
+    set_id = r.json()["set"]["id"]
+    seeded_client.patch(
+        f"/api/v1/me/sessions/{session_id}",
+        json={"status": "completed"},
+        headers=user_bearer_headers,
+    )
+
+    rp = seeded_client.patch(
+        f"/api/v1/me/sets/{set_id}",
+        json={"weight": 225},
+        headers=user_bearer_headers,
+    )
+    assert rp.status_code == 200
+    assert rp.json()["set"]["weight"] == 225
+
+    rd = seeded_client.delete(f"/api/v1/me/sets/{set_id}", headers=user_bearer_headers)
+    assert rd.status_code == 204
+
+
+def test_pr_recompute_on_completed_session_excludes_warmups(seeded_client, user_bearer_headers):
+    session_id = _start_session(seeded_client, user_bearer_headers)
+    r = seeded_client.post(
+        "/api/v1/me/sets",
+        json={"session_id": session_id, "exercise_id": "ex-bench", "weight": 200, "reps": 5},
+        headers=user_bearer_headers,
+    )
+    set_id = r.json()["set"]["id"]
+    seeded_client.patch(
+        f"/api/v1/me/sessions/{session_id}",
+        json={"status": "completed"},
+        headers=user_bearer_headers,
+    )
+
+    # Editing the set on the now-completed session still recomputes PRs.
+    rp = seeded_client.patch(
+        f"/api/v1/me/sets/{set_id}",
+        json={"weight": 300},
+        headers=user_bearer_headers,
+    )
+    assert rp.json()["is_pr"] is True
+    prs = seeded_client.get("/api/v1/me/prs", headers=user_bearer_headers).json()
+    pr = next(p for p in prs if p["exercise_id"] == "ex-bench")
+    assert pr["best_weight_kg"] == rp.json()["set"]["weight_kg"]
+
+    # A warmup logged into the same completed session must not disturb
+    # the PR or count toward volume.
+    seeded_client.post(
+        "/api/v1/me/sets",
+        json={
+            "session_id": session_id,
+            "exercise_id": "ex-bench",
+            "weight": 400,
+            "reps": 5,
+            "kind": "warmup",
+        },
+        headers=user_bearer_headers,
+    )
+    prs_after = seeded_client.get("/api/v1/me/prs", headers=user_bearer_headers).json()
+    pr_after = next(p for p in prs_after if p["exercise_id"] == "ex-bench")
+    assert pr_after["best_weight_kg"] == pr["best_weight_kg"]
 
 
 def test_prs_user_isolation(seeded_client):

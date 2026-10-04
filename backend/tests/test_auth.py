@@ -1,10 +1,10 @@
 """Auth + admin-authz surface tests.
 
 Covers the 5 `/api/v1/auth/*` endpoints (signup, login, logout,
-logout-all, me) and the admin role gate on `/api/v1/admin/workouts`.
+logout-all, me) and the coach role gate on `/api/v1/coach/workouts`.
 
 All authenticated calls go through Bearer tokens obtained from the
-`admin_bearer_headers` / `user_bearer_headers` fixtures in conftest.py.
+`coach_bearer_headers` / `user_bearer_headers` fixtures in conftest.py.
 """
 from datetime import datetime, timedelta, timezone
 
@@ -87,7 +87,7 @@ def test_login_valid_credentials_returns_session(seeded_client):
     data = r.json()
     assert "token" in data and len(data["token"]) > 0
     assert data["user"]["username"] == "admin"
-    assert data["user"]["role"] == "admin"
+    assert data["user"]["role"] == "coach"
 
 
 def test_login_wrong_password_returns_401(seeded_client):
@@ -115,12 +115,12 @@ def test_login_case_insensitive_username(seeded_client):
     assert r.json()["user"]["username"] == "admin"
 
 
-def test_me_with_valid_token_returns_user(seeded_client, admin_bearer_headers):
-    r = seeded_client.get("/api/v1/auth/me", headers=admin_bearer_headers)
+def test_me_with_valid_token_returns_user(seeded_client, coach_bearer_headers):
+    r = seeded_client.get("/api/v1/auth/me", headers=coach_bearer_headers)
     assert r.status_code == 200
     data = r.json()
     assert data["username"] == "admin"
-    assert data["role"] == "admin"
+    assert data["role"] == "coach"
 
 
 def test_me_without_token_returns_401(client):
@@ -165,10 +165,10 @@ def test_me_with_expired_token_returns_401(seeded_client, db_session):
     assert me.status_code == 401
 
 
-def test_logout_invalidates_token(seeded_client, admin_bearer_headers):
-    r = seeded_client.post("/api/v1/auth/logout", headers=admin_bearer_headers)
+def test_logout_invalidates_token(seeded_client, coach_bearer_headers):
+    r = seeded_client.post("/api/v1/auth/logout", headers=coach_bearer_headers)
     assert r.status_code == 204
-    me = seeded_client.get("/api/v1/auth/me", headers=admin_bearer_headers)
+    me = seeded_client.get("/api/v1/auth/me", headers=coach_bearer_headers)
     assert me.status_code == 401
 
 
@@ -177,7 +177,7 @@ def test_logout_without_token_returns_401(client):
     assert r.status_code in (401, 422)
 
 
-def test_logout_all_invalidates_every_session(seeded_client, admin_bearer_headers):
+def test_logout_all_invalidates_every_session(seeded_client, coach_bearer_headers):
     # Mint a SECOND session for admin so we can verify both are revoked.
     r2 = seeded_client.post(
         "/api/v1/auth/login",
@@ -189,12 +189,12 @@ def test_logout_all_invalidates_every_session(seeded_client, admin_bearer_header
 
     # Logout-all using the FIRST session's token.
     r = seeded_client.post(
-        "/api/v1/auth/logout-all", headers=admin_bearer_headers
+        "/api/v1/auth/logout-all", headers=coach_bearer_headers
     )
     assert r.status_code == 204
 
     # Both tokens should now be invalid.
-    me1 = seeded_client.get("/api/v1/auth/me", headers=admin_bearer_headers)
+    me1 = seeded_client.get("/api/v1/auth/me", headers=coach_bearer_headers)
     assert me1.status_code == 401
     me2 = seeded_client.get("/api/v1/auth/me", headers=second_headers)
     assert me2.status_code == 401
@@ -202,14 +202,14 @@ def test_logout_all_invalidates_every_session(seeded_client, admin_bearer_header
 
 def test_admin_endpoints_require_admin_role(seeded_client, user_bearer_headers):
     r = seeded_client.get(
-        "/api/v1/admin/workouts", headers=user_bearer_headers
+        "/api/v1/coach/workouts", headers=user_bearer_headers
     )
     assert r.status_code == 403
 
 
-def test_admin_can_list_workouts(seeded_client, admin_bearer_headers):
+def test_admin_can_list_workouts(seeded_client, coach_bearer_headers):
     r = seeded_client.get(
-        "/api/v1/admin/workouts", headers=admin_bearer_headers
+        "/api/v1/coach/workouts", headers=coach_bearer_headers
     )
     assert r.status_code == 200
     data = r.json()
@@ -217,10 +217,10 @@ def test_admin_can_list_workouts(seeded_client, admin_bearer_headers):
     assert {w["id"] for w in data} == {"w-upper-power", "w-home-bw"}
 
 
-def test_admin_can_create_workout(seeded_client, admin_bearer_headers):
+def test_admin_can_create_workout(seeded_client, coach_bearer_headers):
     r = seeded_client.post(
-        "/api/v1/admin/workouts",
-        headers=admin_bearer_headers,
+        "/api/v1/coach/workouts",
+        headers=coach_bearer_headers,
         json={
             "name": "Test Workout",
             "tag": "Test",
@@ -236,21 +236,21 @@ def test_admin_can_create_workout(seeded_client, admin_bearer_headers):
     assert {e["id"] for e in data["exercises"]} == {"ex-pushup", "ex-airsquat"}
 
 
-def test_admin_can_update_workout(seeded_client, admin_bearer_headers):
+def test_admin_can_update_workout(seeded_client, coach_bearer_headers):
     r = seeded_client.patch(
-        "/api/v1/admin/workouts/w-upper-power",
-        headers=admin_bearer_headers,
+        "/api/v1/coach/workouts/w-upper-power",
+        headers=coach_bearer_headers,
         json={"name": "Upper Power v2"},
     )
     assert r.status_code == 200
     assert r.json()["name"] == "Upper Power v2"
 
 
-def test_admin_can_delete_workout(seeded_client, admin_bearer_headers):
+def test_admin_can_delete_workout(seeded_client, coach_bearer_headers):
     # Create a throwaway workout to delete.
     create = seeded_client.post(
-        "/api/v1/admin/workouts",
-        headers=admin_bearer_headers,
+        "/api/v1/coach/workouts",
+        headers=coach_bearer_headers,
         json={
             "name": "Throwaway",
             "tag": "Test",
@@ -264,14 +264,14 @@ def test_admin_can_delete_workout(seeded_client, admin_bearer_headers):
     new_id = create.json()["id"]
 
     delete = seeded_client.delete(
-        f"/api/v1/admin/workouts/{new_id}",
-        headers=admin_bearer_headers,
+        f"/api/v1/coach/workouts/{new_id}",
+        headers=coach_bearer_headers,
     )
     assert delete.status_code == 204
 
     # Confirm it's gone from the admin listing.
     listing = seeded_client.get(
-        "/api/v1/admin/workouts", headers=admin_bearer_headers
+        "/api/v1/coach/workouts", headers=coach_bearer_headers
     )
     assert listing.status_code == 200
     assert all(w["id"] != new_id for w in listing.json())

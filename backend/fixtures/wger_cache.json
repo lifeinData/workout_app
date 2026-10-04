@@ -33,7 +33,7 @@
     "equipment": [],
     "variation_group": "95132eef-ae4e-4185-87b8-a8588caff4fa",
     "license_author": "flori",
-    "_en_name": "Adduction de hanche assise"
+    "_en_name": "Seated Hip Adduction"
   },
   {
     "id": 20,
@@ -53,7 +53,7 @@
     ],
     "variation_group": "e3388987-305b-43b8-9e90-c3bce376b203",
     "license_author": "trzr23",
-    "_en_name": "Arnold Press"
+    "_en_name": "Arnold Shoulder Press"
   },
   {
     "id": 31,
@@ -226,7 +226,7 @@
     ],
     "variation_group": "6005adbc-c8d6-4747-81f7-f526ec65cd06",
     "license_author": "nate303303",
-    "_en_name": "Bear Walk"
+    "_en_name": "Bear Walk 2"
   },
   {
     "id": 71,
@@ -241,7 +241,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "wger.de",
-    "_en_name": "Beinstrecker Einbeinig"
+    "_en_name": "Single Leg Extension"
   },
   {
     "id": 73,
@@ -262,7 +262,7 @@
     ],
     "variation_group": "f45f135e-4cd3-4023-a82a-83fca2078656",
     "license_author": "sistab2",
-    "_en_name": "Bankdr\u00fccken LH"
+    "_en_name": "Bench Press"
   },
   {
     "id": 75,
@@ -283,7 +283,7 @@
     ],
     "variation_group": "f45f135e-4cd3-4023-a82a-83fca2078656",
     "license_author": "wger.de",
-    "_en_name": "Bankdr\u00fccken KH"
+    "_en_name": "Benchpress Dumbbells"
   },
   {
     "id": 76,
@@ -304,7 +304,7 @@
     ],
     "variation_group": "f45f135e-4cd3-4023-a82a-83fca2078656",
     "license_author": "wger.de",
-    "_en_name": "Bankdr\u00fccken Eng"
+    "_en_name": "Bench Press Narrow Grip"
   },
   {
     "id": 79,
@@ -339,7 +339,7 @@
     ],
     "variation_group": "e87bd3db-75b1-44ec-8962-df2f97274109",
     "license_author": "sebk",
-    "_en_name": "Bent Over Dumbbell Rows"
+    "_en_name": "Bent Over Dumbbell Rows (Single Arm)"
   },
   {
     "id": 82,
@@ -521,7 +521,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "wger.de",
-    "_en_name": "Brustpresse"
+    "_en_name": "Chest Press"
   },
   {
     "id": 132,
@@ -534,7 +534,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "er0355",
-    "_en_name": "Angli\u010d\u00e1ky"
+    "_en_name": "Burpees"
   },
   {
     "id": 135,
@@ -551,7 +551,7 @@
     "equipment": [],
     "variation_group": "2ebedf75-1dab-4a7d-ae06-6e1f2d3c4f8c",
     "license_author": "wger.de",
-    "_en_name": "Aperturas en m\u00e1quina"
+    "_en_name": "Butterfly"
   },
   {
     "id": 137,
@@ -566,7 +566,7 @@
     "equipment": [],
     "variation_group": "2ebedf75-1dab-4a7d-ae06-6e1f2d3c4f8c",
     "license_author": "wger.de",
-    "_en_name": "Butterfly Eng"
+    "_en_name": "Butterfly Narrow Grip"
   },
   {
     "id": 139,
@@ -598,7 +598,7 @@
     ],
     "variation_group": null,
     "license_author": "lauroernesto",
-    "_en_name": "Au\u00dfenrotation am Kabelzug"
+    "_en_name": "Cable External Rotation"
   },
   {
     "id": 145,
@@ -703,7 +703,7 @@
     ],
     "variation_group": null,
     "license_author": "powerade69",
-    "_en_name": "Croci su panca piana"
+    "_en_name": "Cross-Bench Dumbbell Pullovers"
   },
   {
     "id": 165,
@@ -720,7 +720,7 @@
     "equipment": [],
     "variation_group": "8f8b5cfb-7f26-45c5-bba5-aae58b3e039f",
     "license_author": "Konsumopfer",
-    "_en_name": "Abdominales en Bola de Estabilidad"
+    "_en_name": "Ball crunches"
   },
   {
     "id": 167,
@@ -739,7 +739,7 @@
     ],
     "variation_group": "8f8b5cfb-7f26-45c5-bba5-aae58b3e039f",
     "license_author": "wger.de",
-    "_en_name": "Abdominal"
+    "_en_name": "Crunches"
   },
   {
     "id": 171,
@@ -756,7 +756,7 @@
     ],
     "variation_group": "8f8b5cfb-7f26-45c5-bba5-aae58b3e039f",
     "license_author": "wger.de",
-    "_en_name": "Abdominales en Banco Inclinado"
+    "_en_name": "Incline Crunches"
   },
   {
     "id": 172,
@@ -771,7 +771,7 @@
     "equipment": [],
     "variation_group": "8f8b5cfb-7f26-45c5-bba5-aae58b3e039f",
     "license_author": "wger.de",
-    "_en_name": "Abdominales en M\u00e1quina"
+    "_en_name": "Crunches on Machine"
   },
   {
     "id": 173,
@@ -805,7 +805,7 @@
     "equipment": [],
     "variation_group": "8f8b5cfb-7f26-45c5-bba5-aae58b3e039f",
     "license_author": "krisbbb",
-    "_en_name": "Crunch con alzata di Gambe"
+    "_en_name": "Crunches With Legs Up"
   },
   {
     "id": 177,
@@ -829,7 +829,7 @@
     ],
     "variation_group": null,
     "license_author": "BFad07",
-    "_en_name": "Bicicletta"
+    "_en_name": "Cycling"
   },
   {
     "id": 178,
@@ -846,7 +846,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "Metin",
-    "_en_name": "Bicho Muerto"
+    "_en_name": "Deadbug"
   },
   {
     "id": 182,
@@ -1004,7 +1004,7 @@
     ],
     "variation_group": "674f258e-60c5-4c94-8495-cd918aabea77",
     "license_author": "http://www.exrx.net/WeightExercises/Brachialis/DBC",
-    "_en_name": "Curl biceps avec halt\u00e8re"
+    "_en_name": "Dumbbell Concentration Curl"
   },
   {
     "id": 203,
@@ -1040,7 +1040,7 @@
     ],
     "variation_group": "674f258e-60c5-4c94-8495-cd918aabea77",
     "license_author": "ExRx",
-    "_en_name": "Bizeps KH-Curls Schr\u00e4gbank"
+    "_en_name": "Dumbbell Incline Curl"
   },
   {
     "id": 205,
@@ -1059,7 +1059,7 @@
     ],
     "variation_group": "c8727770-8ec1-4fe3-ae70-238a9fc46570",
     "license_author": "wger.de",
-    "_en_name": "Ausfallschritte Stehend"
+    "_en_name": "Dumbbell Lunges Standing"
   },
   {
     "id": 206,
@@ -1078,7 +1078,7 @@
     ],
     "variation_group": "c8727770-8ec1-4fe3-ae70-238a9fc46570",
     "license_author": "wger.de",
-    "_en_name": "Ausfallschritte im Gehen"
+    "_en_name": "Dumbbell Lunges Walking"
   },
   {
     "id": 208,
@@ -1095,7 +1095,7 @@
     ],
     "variation_group": null,
     "license_author": "wger.de",
-    "_en_name": "Curl con Mancuernas en Banco Scott"
+    "_en_name": "Dumbbells on Scott Machine"
   },
   {
     "id": 211,
@@ -1132,7 +1132,7 @@
     ],
     "variation_group": null,
     "license_author": "abeworld",
-    "_en_name": "Face Pulls"
+    "_en_name": "Facepull"
   },
   {
     "id": 235,
@@ -1148,7 +1148,7 @@
     "equipment": [],
     "variation_group": "8cab688b-4277-46a6-9bf5-73af4a647aae",
     "license_author": "nate303303",
-    "_en_name": "Battements de jambes"
+    "_en_name": "Flutter Kicks"
   },
   {
     "id": 237,
@@ -1165,7 +1165,7 @@
     ],
     "variation_group": "3fc23914-7252-44fd-bb70-a3b8de727914",
     "license_author": "wger.de",
-    "_en_name": "Cruce de Poleas para Pecho"
+    "_en_name": "Fly With Cable"
   },
   {
     "id": 238,
@@ -1182,7 +1182,7 @@
     ],
     "variation_group": "3fc23914-7252-44fd-bb70-a3b8de727914",
     "license_author": "wger.de",
-    "_en_name": "Aperturas con Mancuernas"
+    "_en_name": "Fly With Dumbbells"
   },
   {
     "id": 239,
@@ -1200,7 +1200,7 @@
     ],
     "variation_group": "3fc23914-7252-44fd-bb70-a3b8de727914",
     "license_author": "wger.de",
-    "_en_name": "Aperturas con Mancuernas Declinadas"
+    "_en_name": "Fly With Dumbbells, Decline Bench"
   },
   {
     "id": 245,
@@ -1218,7 +1218,7 @@
     ],
     "variation_group": "46d83fa5-cddc-4cb5-9b16-dcd4c62ae861",
     "license_author": "wger.de",
-    "_en_name": "Barre au front aux halt\u00e8res"
+    "_en_name": "Skullcrusher Dumbbells"
   },
   {
     "id": 246,
@@ -1236,7 +1236,7 @@
     ],
     "variation_group": "46d83fa5-cddc-4cb5-9b16-dcd4c62ae861",
     "license_author": "wger.de",
-    "_en_name": "Barre au front \u00e0 la barre EZ"
+    "_en_name": "Skullcrusher SZ-bar"
   },
   {
     "id": 254,
@@ -1252,7 +1252,7 @@
     "equipment": [],
     "variation_group": "b40d438a-c545-4507-8447-10bbb5e30bdd",
     "license_author": "Marius",
-    "_en_name": "Elevaciones Frontales con Disco"
+    "_en_name": "Front Raises with Plates"
   },
   {
     "id": 256,
@@ -1270,7 +1270,7 @@
     ],
     "variation_group": "b40d438a-c545-4507-8447-10bbb5e30bdd",
     "license_author": "Manu, wikipedia",
-    "_en_name": "Distensione lento avanti Bilanciere"
+    "_en_name": "Front Raises"
   },
   {
     "id": 257,
@@ -1289,7 +1289,7 @@
     ],
     "variation_group": "ba010720-728a-4baf-ba8c-e1a37370625b",
     "license_author": "sistab2",
-    "_en_name": "Front Kniebeuge"
+    "_en_name": "Front Squats"
   },
   {
     "id": 258,
@@ -1368,7 +1368,7 @@
     "equipment": [],
     "variation_group": "df253492-1fa4-407a-aa2c-1a19a5b30925",
     "license_author": "tdprice12",
-    "_en_name": "Br\u00fccke Auf Dem Ball"
+    "_en_name": "Glute Bridge"
   },
   {
     "id": 272,
@@ -1385,7 +1385,7 @@
     ],
     "variation_group": "674f258e-60c5-4c94-8495-cd918aabea77",
     "license_author": "wger.de",
-    "_en_name": "Biceps Martelo"
+    "_en_name": "Hammer Curls"
   },
   {
     "id": 275,
@@ -1404,7 +1404,7 @@
     ],
     "variation_group": "674f258e-60c5-4c94-8495-cd918aabea77",
     "license_author": "wger.de",
-    "_en_name": "Biceps concentrado martillo con cable"
+    "_en_name": "Hammercurls on Cable"
   },
   {
     "id": 279,
@@ -1417,7 +1417,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "vince63",
-    "_en_name": "Fortalecedor de Agarre"
+    "_en_name": "Hand Grip"
   },
   {
     "id": 282,
@@ -1437,7 +1437,7 @@
     ],
     "variation_group": "fbc0f8e4-3eee-4ff5-8b56-aed1d32209f4",
     "license_author": "BFad07",
-    "_en_name": "Flexiones en pino"
+    "_en_name": "Handstand Pushup"
   },
   {
     "id": 283,
@@ -1454,7 +1454,7 @@
     ],
     "variation_group": "8cab688b-4277-46a6-9bf5-73af4a647aae",
     "license_author": "robhoyt",
-    "_en_name": "Addominali alla sbarra"
+    "_en_name": "Hanging Leg Raises"
   },
   {
     "id": 284,
@@ -1550,7 +1550,7 @@
     ],
     "variation_group": null,
     "license_author": "James Mackay",
-    "_en_name": "Elevaci\u00f3n de cadera tumbado"
+    "_en_name": "Hip Raise, Lying"
   },
   {
     "id": 294,
@@ -1568,7 +1568,7 @@
     ],
     "variation_group": null,
     "license_author": "Bret Contreras",
-    "_en_name": "Beckenheben"
+    "_en_name": "Hip Thrust"
   },
   {
     "id": 297,
@@ -1586,7 +1586,7 @@
     ],
     "variation_group": null,
     "license_author": "Behrooz",
-    "_en_name": "Barchetta"
+    "_en_name": "Hollow Hold"
   },
   {
     "id": 301,
@@ -1601,7 +1601,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "wger.de",
-    "_en_name": "Extensions lombaires (hyperextensions)"
+    "_en_name": "Hyperextensions"
   },
   {
     "id": 308,
@@ -1619,7 +1619,7 @@
     ],
     "variation_group": "3fc23914-7252-44fd-bb70-a3b8de727914",
     "license_author": "tuckerm",
-    "_en_name": "Aperturas con mancuernas en banco inclinado"
+    "_en_name": "Incline Dumbbell Fly"
   },
   {
     "id": 310,
@@ -1675,7 +1675,7 @@
     ],
     "variation_group": null,
     "license_author": "cal.zabel",
-    "_en_name": "Essuie-glaces isom\u00e9triques"
+    "_en_name": "Isometric Wipers"
   },
   {
     "id": 319,
@@ -1688,7 +1688,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "Papazit",
-    "_en_name": "Joggen"
+    "_en_name": "Jogging"
   },
   {
     "id": 320,
@@ -1703,7 +1703,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "student1234",
-    "_en_name": "E\u03ba\u03c4\u03ac\u03c3\u03b5\u03b9\u03c2-\u03b1\u03bd\u03b1\u03c4\u03ac\u03c3\u03b5\u03b9\u03c2 \u03bc\u03b5 \u03b1\u03bd\u03b1\u03c0\u03ae\u03b4\u03b7\u03c3\u03b7"
+    "_en_name": "Jumping Jacks"
   },
   {
     "id": 323,
@@ -1722,7 +1722,7 @@
     ],
     "variation_group": null,
     "license_author": "wger.de",
-    "_en_name": "Aperturas en polea"
+    "_en_name": "Cable Cross-over"
   },
   {
     "id": 331,
@@ -1758,7 +1758,7 @@
     "equipment": [],
     "variation_group": "10385554-2bdc-40a6-a7f8-1aadc205528c",
     "license_author": "wger.de",
-    "_en_name": "Kniebeuge an Multipresse - Eng"
+    "_en_name": "Squats on Multipress"
   },
   {
     "id": 346,
@@ -1795,7 +1795,7 @@
     ],
     "variation_group": "b40d438a-c545-4507-8447-10bbb5e30bdd",
     "license_author": "wger.de",
-    "_en_name": "Alzate Laterali"
+    "_en_name": "Lateral Raises"
   },
   {
     "id": 349,
@@ -1830,7 +1830,7 @@
     ],
     "variation_group": "b40d438a-c545-4507-8447-10bbb5e30bdd",
     "license_author": "nate303303",
-    "_en_name": "Elevaciones lateral a frontal"
+    "_en_name": "Lateral-to-Front Raises"
   },
   {
     "id": 354,
@@ -1845,7 +1845,7 @@
     "equipment": [],
     "variation_group": "7bad4b8b-a95f-4a40-b512-7429d3333f66",
     "license_author": "drthurlow",
-    "_en_name": "Jal\u00f3n al pecho (inclinado)"
+    "_en_name": "Lat Pull Down (Leaning Back)"
   },
   {
     "id": 355,
@@ -1860,7 +1860,7 @@
     "equipment": [],
     "variation_group": "7bad4b8b-a95f-4a40-b512-7429d3333f66",
     "license_author": "drthurlow",
-    "_en_name": "Jal\u00f3n al pecho"
+    "_en_name": "Lat Pull Down (Straight Back)"
   },
   {
     "id": 364,
@@ -1876,7 +1876,7 @@
     "equipment": [],
     "variation_group": "bf50ea3b-2bcb-4278-a682-083798f309d2",
     "license_author": "BFad07",
-    "_en_name": "Beinbeuger"
+    "_en_name": "Leg Curl"
   },
   {
     "id": 365,
@@ -1891,7 +1891,7 @@
     "equipment": [],
     "variation_group": "bf50ea3b-2bcb-4278-a682-083798f309d2",
     "license_author": "wger.de",
-    "_en_name": "Beinbeuger Liegend"
+    "_en_name": "Leg Curls (laying)"
   },
   {
     "id": 366,
@@ -1906,7 +1906,7 @@
     "equipment": [],
     "variation_group": "bf50ea3b-2bcb-4278-a682-083798f309d2",
     "license_author": "wger.de",
-    "_en_name": "Curl femoral sentado"
+    "_en_name": "Leg Curls (sitting)"
   },
   {
     "id": 367,
@@ -1921,7 +1921,7 @@
     "equipment": [],
     "variation_group": "bf50ea3b-2bcb-4278-a682-083798f309d2",
     "license_author": "wger.de",
-    "_en_name": "Beinbeuger Stehend"
+    "_en_name": "Leg Curls (standing)"
   },
   {
     "id": 369,
@@ -1936,7 +1936,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "BFad07",
-    "_en_name": "Beinstrecker (Leg Extension)"
+    "_en_name": "Leg Extension"
   },
   {
     "id": 371,
@@ -1954,7 +1954,7 @@
     "equipment": [],
     "variation_group": "10385554-2bdc-40a6-a7f8-1aadc205528c",
     "license_author": "BFad07",
-    "_en_name": "Beinpresse"
+    "_en_name": "Leg Press"
   },
   {
     "id": 373,
@@ -1971,7 +1971,7 @@
     "equipment": [],
     "variation_group": "10385554-2bdc-40a6-a7f8-1aadc205528c",
     "license_author": "wger.de",
-    "_en_name": "Beinpresse Eng"
+    "_en_name": "Leg Presses (narrow)"
   },
   {
     "id": 374,
@@ -1988,7 +1988,7 @@
     "equipment": [],
     "variation_group": "10385554-2bdc-40a6-a7f8-1aadc205528c",
     "license_author": "wger.de",
-    "_en_name": "Beinpresse (weit)"
+    "_en_name": "Leg Presses (wide)"
   },
   {
     "id": 375,
@@ -2003,7 +2003,7 @@
     "equipment": [],
     "variation_group": "10385554-2bdc-40a6-a7f8-1aadc205528c",
     "license_author": "wger.de",
-    "_en_name": "Kniebeuge an Hackenschmidtmaschine"
+    "_en_name": "Leg Press on Hackenschmidt Machine"
   },
   {
     "id": 376,
@@ -2019,7 +2019,7 @@
     "equipment": [],
     "variation_group": "8cab688b-4277-46a6-9bf5-73af4a647aae",
     "license_author": "BFad07",
-    "_en_name": "Alzate le gambe"
+    "_en_name": "Leg Raise"
   },
   {
     "id": 377,
@@ -2038,7 +2038,7 @@
     ],
     "variation_group": "8cab688b-4277-46a6-9bf5-73af4a647aae",
     "license_author": "wger.de",
-    "_en_name": "Beinheben Liegend"
+    "_en_name": "Leg Raises, Lying"
   },
   {
     "id": 378,
@@ -2055,7 +2055,7 @@
     "equipment": [],
     "variation_group": "8cab688b-4277-46a6-9bf5-73af4a647aae",
     "license_author": "wger.de",
-    "_en_name": "Beinheben Aufrecht"
+    "_en_name": "Leg Raises, Standing"
   },
   {
     "id": 379,
@@ -2139,7 +2139,7 @@
     ],
     "variation_group": "370087d4-a048-4a2e-b4d7-6c0ddee6b61e",
     "license_author": "wger.de",
-    "_en_name": "Long-Pulley"
+    "_en_name": "Long-Pulley (low Row)"
   },
   {
     "id": 395,
@@ -2159,7 +2159,7 @@
     ],
     "variation_group": null,
     "license_author": "wger.de",
-    "_en_name": "Long-Pulley (eng)"
+    "_en_name": "Long-Pulley, Narrow"
   },
   {
     "id": 397,
@@ -2177,7 +2177,7 @@
     ],
     "variation_group": "ba010720-728a-4baf-ba8c-e1a37370625b",
     "license_author": "taylorbarbell",
-    "_en_name": "Box Squat mit weitem Stand"
+    "_en_name": "Low Box Squat - Wide Stance"
   },
   {
     "id": 406,
@@ -2192,7 +2192,7 @@
     ],
     "variation_group": null,
     "license_author": "Trix",
-    "_en_name": "Ejercicio del manguito rotador tumbado"
+    "_en_name": "Lying Rotator Cuff Exercise"
   },
   {
     "id": 418,
@@ -2212,7 +2212,7 @@
     ],
     "variation_group": "e3388987-305b-43b8-9e90-c3bce376b203",
     "license_author": "mbozi1",
-    "_en_name": "D\u00e9velopp\u00e9 militaire \u00e0 la barre EZ"
+    "_en_name": "Military Press mit SZ-Bar"
   },
   {
     "id": 423,
@@ -2248,7 +2248,7 @@
     "equipment": [],
     "variation_group": "8f8b5cfb-7f26-45c5-bba5-aae58b3e039f",
     "license_author": "wger.de",
-    "_en_name": "Crunches an Negativbank"
+    "_en_name": "Negative Crunches"
   },
   {
     "id": 439,
@@ -2305,7 +2305,7 @@
     ],
     "variation_group": "f45f135e-4cd3-4023-a82a-83fca2078656",
     "license_author": "Mens Fitness",
-    "_en_name": "D\u00e9velopp\u00e9 couch\u00e9 avec pause"
+    "_en_name": "Pause Bench"
   },
   {
     "id": 448,
@@ -2332,7 +2332,7 @@
     "id": 454,
     "uuid": "3b96a05b-9705-48da-b43e-6e098234bb35",
     "created": "2023-08-06T10:17:17.422900+02:00",
-    "last_update": "2024-01-17T11:32:00.847844+01:00",
+    "last_update": "2026-09-10T18:59:11.405217+02:00",
     "category": 8,
     "muscles": [
       4
@@ -2343,9 +2343,9 @@
     "equipment": [
       7
     ],
-    "variation_group": null,
+    "variation_group": "e683eb4d-0d9c-4c80-a00f-fc7d867d5936",
     "license_author": "Nash",
-    "_en_name": "Flessioni del luccio"
+    "_en_name": "Pike Push Ups"
   },
   {
     "id": 456,
@@ -2365,7 +2365,7 @@
     "equipment": [],
     "variation_group": "ba010720-728a-4baf-ba8c-e1a37370625b",
     "license_author": "minifigmaster125",
-    "_en_name": "D\u0159ep na lev\u00e9 noze"
+    "_en_name": "Pistol Squat"
   },
   {
     "id": 458,
@@ -2387,7 +2387,7 @@
     ],
     "variation_group": "35343f78-00cf-4b34-9f50-7f45d37555ca",
     "license_author": "YYCfit / BFad07",
-    "_en_name": "Izdr\u017eaj na podlakticama"
+    "_en_name": "Plank"
   },
   {
     "id": 465,
@@ -2404,7 +2404,7 @@
     ],
     "variation_group": "674f258e-60c5-4c94-8495-cd918aabea77",
     "license_author": "cgoob883",
-    "_en_name": "Curl en banco Scott"
+    "_en_name": "Preacher Curls"
   },
   {
     "id": 468,
@@ -2440,7 +2440,7 @@
     ],
     "variation_group": "0e31687f-8dd5-4c68-9dc6-df0d9dbb7590",
     "license_author": "wger.de",
-    "_en_name": "Dominadas"
+    "_en_name": "Pull-ups"
   },
   {
     "id": 477,
@@ -2459,7 +2459,7 @@
     "equipment": [],
     "variation_group": "0e31687f-8dd5-4c68-9dc6-df0d9dbb7590",
     "license_author": "wger.de",
-    "_en_name": "Klimmz\u00fcge an Maschine"
+    "_en_name": "Pull Ups on Machine"
   },
   {
     "id": 478,
@@ -2476,7 +2476,7 @@
     "equipment": [],
     "variation_group": "e3388987-305b-43b8-9e90-c3bce376b203",
     "license_author": "sistab2",
-    "_en_name": "Press de hombro con mancuernas"
+    "_en_name": "Push Press"
   },
   {
     "id": 484,
@@ -2493,7 +2493,7 @@
     "equipment": [],
     "variation_group": "100586dc-3923-44b3-a987-5f6c0ea17d1b",
     "license_author": "Mahoney",
-    "_en_name": "Levantamento terra em rack"
+    "_en_name": "Rack Deadlift"
   },
   {
     "id": 487,
@@ -2508,7 +2508,7 @@
     ],
     "variation_group": "b40d438a-c545-4507-8447-10bbb5e30bdd",
     "license_author": "YYCfit",
-    "_en_name": "Elevaciones de deltoides posterior"
+    "_en_name": "Rear Delt Raises"
   },
   {
     "id": 490,
@@ -2526,7 +2526,7 @@
     ],
     "variation_group": "e87bd3db-75b1-44ec-8962-df2f97274109",
     "license_author": "fletchgraham",
-    "_en_name": "Remo renegado"
+    "_en_name": "Renegade Row"
   },
   {
     "id": 493,
@@ -2562,7 +2562,7 @@
     ],
     "variation_group": null,
     "license_author": "BFad07",
-    "_en_name": "Curl en pronation (reverse curl)"
+    "_en_name": "Reverse Curl"
   },
   {
     "id": 498,
@@ -2630,7 +2630,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "MaddieBeasley",
-    "_en_name": "Beinheben am Roman Chair"
+    "_en_name": "Roman Chair Crunch"
   },
   {
     "id": 507,
@@ -2650,7 +2650,7 @@
     ],
     "variation_group": "100586dc-3923-44b3-a987-5f6c0ea17d1b",
     "license_author": "pjwirth",
-    "_en_name": "Peso muerto rumano con barra"
+    "_en_name": "Romanian Deadlift"
   },
   {
     "id": 508,
@@ -2672,7 +2672,7 @@
     ],
     "variation_group": "e87bd3db-75b1-44ec-8962-df2f97274109",
     "license_author": "BFad07",
-    "_en_name": "P\u0159\u00edtahy v Sed\u011b s Oporou"
+    "_en_name": "Row"
   },
   {
     "id": 510,
@@ -2702,7 +2702,7 @@
     "equipment": [],
     "variation_group": "e87bd3db-75b1-44ec-8962-df2f97274109",
     "license_author": "wger.de",
-    "_en_name": "Remo Gironda"
+    "_en_name": "Rowing seated, narrow grip"
   },
   {
     "id": 513,
@@ -2721,7 +2721,7 @@
     "equipment": [],
     "variation_group": "e87bd3db-75b1-44ec-8962-df2f97274109",
     "license_author": "wger.de",
-    "_en_name": "Remo en \"T\""
+    "_en_name": "Rowing, T-bar"
   },
   {
     "id": 516,
@@ -2749,7 +2749,7 @@
     ],
     "variation_group": "410fbd5a-e57c-4c39-b3b5-d49470ec141a",
     "license_author": "BeLikeWater",
-    "_en_name": "Hardlopen"
+    "_en_name": "Run"
   },
   {
     "id": 529,
@@ -2764,7 +2764,7 @@
     ],
     "variation_group": "410fbd5a-e57c-4c39-b3b5-d49470ec141a",
     "license_author": "BeLikeWater",
-    "_en_name": "HIIT"
+    "_en_name": "Run - Interval Training"
   },
   {
     "id": 530,
@@ -2777,7 +2777,7 @@
     "equipment": [],
     "variation_group": "410fbd5a-e57c-4c39-b3b5-d49470ec141a",
     "license_author": "foguinho.peruca",
-    "_en_name": "Correr en cinta"
+    "_en_name": "Run - Treadmill"
   },
   {
     "id": 537,
@@ -2798,7 +2798,7 @@
     ],
     "variation_group": "f45f135e-4cd3-4023-a82a-83fca2078656",
     "license_author": "wger.de",
-    "_en_name": "D\u00e9velopp\u00e9 inclin\u00e9 - halt\u00e8res"
+    "_en_name": "Incline Bench Press - Dumbbell"
   },
   {
     "id": 538,
@@ -2819,7 +2819,7 @@
     ],
     "variation_group": "f45f135e-4cd3-4023-a82a-83fca2078656",
     "license_author": "wger.de",
-    "_en_name": "Distensione Panca Inclinata Bilanciere"
+    "_en_name": "Incline Bench Press - Barbell"
   },
   {
     "id": 539,
@@ -2837,7 +2837,7 @@
     "equipment": [],
     "variation_group": "f45f135e-4cd3-4023-a82a-83fca2078656",
     "license_author": "wger.de",
-    "_en_name": "Distensione su Panca Piana Imp Stretta"
+    "_en_name": "Incline Bench Press - MP"
   },
   {
     "id": 543,
@@ -2854,7 +2854,7 @@
     "equipment": [],
     "variation_group": "e3388987-305b-43b8-9e90-c3bce376b203",
     "license_author": "wger.de",
-    "_en_name": "Press de hombro con maquina"
+    "_en_name": "Shoulder Press, on Machine"
   },
   {
     "id": 545,
@@ -2869,7 +2869,7 @@
     "equipment": [],
     "variation_group": "8cab688b-4277-46a6-9bf5-73af4a647aae",
     "license_author": "vkylamba",
-    "_en_name": "Ciseaux"
+    "_en_name": "Scissors"
   },
   {
     "id": 549,
@@ -2887,7 +2887,7 @@
     ],
     "variation_group": "46d83fa5-cddc-4cb5-9b16-dcd4c62ae861",
     "license_author": "richmr2174@gmail.com",
-    "_en_name": "Extension des triceps assis"
+    "_en_name": "Seated Triceps Press"
   },
   {
     "id": 556,
@@ -2906,7 +2906,7 @@
     ],
     "variation_group": null,
     "license_author": "klabautermann",
-    "_en_name": "Seitliches Oberk\u00f6rperbeugen am Ger\u00e4t"
+    "_en_name": "Side Bends on Machine"
   },
   {
     "id": 562,
@@ -2940,7 +2940,7 @@
     ],
     "variation_group": "e3388987-305b-43b8-9e90-c3bce376b203",
     "license_author": "wger.de",
-    "_en_name": "D\u00e9velopp\u00e9 \u00e9paules, barre"
+    "_en_name": "Shoulder Press, Barbell"
   },
   {
     "id": 567,
@@ -2957,7 +2957,7 @@
     ],
     "variation_group": "e3388987-305b-43b8-9e90-c3bce376b203",
     "license_author": "wger.de",
-    "_en_name": "D\u00e9velopp\u00e9 \u00e9paules, halt\u00e8res"
+    "_en_name": "Shoulder Press, Dumbbells"
   },
   {
     "id": 569,
@@ -2972,7 +2972,7 @@
     "equipment": [],
     "variation_group": "e3388987-305b-43b8-9e90-c3bce376b203",
     "license_author": "wger.de",
-    "_en_name": "D\u00e9velopp\u00e9 \u00e9paules \u00e0 la multipresse"
+    "_en_name": "Shoulder Press, on Multi Press"
   },
   {
     "id": 570,
@@ -2989,7 +2989,7 @@
     ],
     "variation_group": "fe504a2d-3468-4af2-8096-cd8a0ba3213c",
     "license_author": "BFad07",
-    "_en_name": "Encogimiento de hombros"
+    "_en_name": "Shoulder Shrug"
   },
   {
     "id": 571,
@@ -3006,7 +3006,7 @@
     ],
     "variation_group": "fe504a2d-3468-4af2-8096-cd8a0ba3213c",
     "license_author": "wger.de",
-    "_en_name": "Encogimientos de hombros con barra"
+    "_en_name": "Shrugs, Barbells"
   },
   {
     "id": 572,
@@ -3023,7 +3023,7 @@
     ],
     "variation_group": "fe504a2d-3468-4af2-8096-cd8a0ba3213c",
     "license_author": "wger.de",
-    "_en_name": "Encogimientos de hombros con mancuernas"
+    "_en_name": "Shrugs, Dumbbells"
   },
   {
     "id": 575,
@@ -3040,7 +3040,7 @@
     "equipment": [],
     "variation_group": "fe504a2d-3468-4af2-8096-cd8a0ba3213c",
     "license_author": "wger.de",
-    "_en_name": "Shrugs an der MP"
+    "_en_name": "Shrugs on Multipress"
   },
   {
     "id": 576,
@@ -3078,7 +3078,7 @@
     ],
     "variation_group": null,
     "license_author": "GiglioRosso",
-    "_en_name": "Flexion lat\u00e9rale du tronc avec halt\u00e8re"
+    "_en_name": "Side Dumbbell Trunk Flexion"
   },
   {
     "id": 578,
@@ -3091,7 +3091,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "apeschel",
-    "_en_name": "Au\u00dfenrotation in Seitenlage"
+    "_en_name": "Side-lying External Rotation"
   },
   {
     "id": 580,
@@ -3110,7 +3110,7 @@
     ],
     "variation_group": "35343f78-00cf-4b34-9f50-7f45d37555ca",
     "license_author": "http://www.bodybuilding.com/",
-    "_en_name": "Bo\u010dni izdr\u017eaj lijevo"
+    "_en_name": "Side Plank"
   },
   {
     "id": 583,
@@ -3128,7 +3128,7 @@
     "equipment": [],
     "variation_group": "07c5447d-9d49-4b29-a2e2-0f9169f749c5",
     "license_author": "nate303303",
-    "_en_name": "Flexiones de lado a lado"
+    "_en_name": "Side to Side Push Ups"
   },
   {
     "id": 584,
@@ -3145,7 +3145,7 @@
     ],
     "variation_group": "674f258e-60c5-4c94-8495-cd918aabea77",
     "license_author": "tuckerm",
-    "_en_name": "Curl au pupitre \u00e0 un bras"
+    "_en_name": "Single-arm Preacher Curl"
   },
   {
     "id": 590,
@@ -3162,7 +3162,7 @@
     "equipment": [],
     "variation_group": "4b54f372-2aef-4741-b76d-85e3f376f1d7",
     "license_author": "wger.de",
-    "_en_name": "Elevaci\u00f3n de tal\u00f3n sentados"
+    "_en_name": "Sitting Calf Raises"
   },
   {
     "id": 591,
@@ -3177,7 +3177,7 @@
     "equipment": [],
     "variation_group": "8f8b5cfb-7f26-45c5-bba5-aae58b3e039f",
     "license_author": "wger.de",
-    "_en_name": "Abdominales"
+    "_en_name": "Sit-ups"
   },
   {
     "id": 595,
@@ -3192,7 +3192,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "Cerin",
-    "_en_name": "Saltar a la comba \u2013 est\u00e1ndar"
+    "_en_name": "Skipping - Standard"
   },
   {
     "id": 598,
@@ -3209,7 +3209,7 @@
     "equipment": [],
     "variation_group": "46d83fa5-cddc-4cb5-9b16-dcd4c62ae861",
     "license_author": "tuckerm",
-    "_en_name": "D\u00e9velopp\u00e9 couch\u00e9 prise serr\u00e9e \u00e0 la machine Smith"
+    "_en_name": "Smith Machine Close-grip Bench Press"
   },
   {
     "id": 599,
@@ -3226,7 +3226,7 @@
     ],
     "variation_group": null,
     "license_author": "Mens Fitness",
-    "_en_name": "Arrach\u00e9"
+    "_en_name": "Snatch"
   },
   {
     "id": 604,
@@ -3260,7 +3260,7 @@
     "equipment": [],
     "variation_group": "8f8b5cfb-7f26-45c5-bba5-aae58b3e039f",
     "license_author": "djblitzd",
-    "_en_name": "Abdominales splinter"
+    "_en_name": "Splinter Sit-ups"
   },
   {
     "id": 614,
@@ -3294,7 +3294,7 @@
     ],
     "variation_group": "ba010720-728a-4baf-ba8c-e1a37370625b",
     "license_author": "wger.de",
-    "_en_name": "Accroupi"
+    "_en_name": "Squats"
   },
   {
     "id": 616,
@@ -3314,7 +3314,7 @@
     ],
     "variation_group": "ba010720-728a-4baf-ba8c-e1a37370625b",
     "license_author": "BFad07",
-    "_en_name": "Agachamento de impulso"
+    "_en_name": "Squat Thrust"
   },
   {
     "id": 621,
@@ -3332,7 +3332,7 @@
     ],
     "variation_group": "674f258e-60c5-4c94-8495-cd918aabea77",
     "license_author": "BFad07",
-    "_en_name": "Bizeps-Curl im Stehen"
+    "_en_name": "Standing Bicep Curl"
   },
   {
     "id": 622,
@@ -3349,7 +3349,7 @@
     "equipment": [],
     "variation_group": "4b54f372-2aef-4741-b76d-85e3f376f1d7",
     "license_author": "wger.de",
-    "_en_name": "Elevaci\u00f3n de tal\u00f3n de pie"
+    "_en_name": "Standing Calf Raises"
   },
   {
     "id": 623,
@@ -3362,7 +3362,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "pwiltrout",
-    "_en_name": "Antebrazo con rodillo de mu\u00f1eca de pie"
+    "_en_name": "Standing Rope Forearm"
   },
   {
     "id": 624,
@@ -3394,7 +3394,7 @@
     ],
     "variation_group": "100586dc-3923-44b3-a987-5f6c0ea17d1b",
     "license_author": "tuckerm",
-    "_en_name": "Stiff"
+    "_en_name": "Stiff-legged Deadlifts"
   },
   {
     "id": 628,
@@ -3413,7 +3413,7 @@
     ],
     "variation_group": "7bad4b8b-a95f-4a40-b512-7429d3333f66",
     "license_author": "tuckerm",
-    "_en_name": "Jal\u00f3n con brazos rectos (agarre de barra)"
+    "_en_name": "Straight-arm Pull Down (bar Attachment)"
   },
   {
     "id": 629,
@@ -3432,7 +3432,7 @@
     ],
     "variation_group": "7bad4b8b-a95f-4a40-b512-7429d3333f66",
     "license_author": "tuckerm",
-    "_en_name": "Jal\u00f3n con brazos rectos (agarre de cuerda)"
+    "_en_name": "Straight-arm Pull Down (rope Attachment)"
   },
   {
     "id": 630,
@@ -3451,7 +3451,7 @@
     "equipment": [],
     "variation_group": "100586dc-3923-44b3-a987-5f6c0ea17d1b",
     "license_author": "magdy",
-    "_en_name": "Peso muerto sumo"
+    "_en_name": "Sumo Deadlift"
   },
   {
     "id": 632,
@@ -3469,7 +3469,7 @@
     ],
     "variation_group": "ba010720-728a-4baf-ba8c-e1a37370625b",
     "license_author": "sophialj",
-    "_en_name": "Agachamentos de sum\u00f4"
+    "_en_name": "Sumo Squats"
   },
   {
     "id": 636,
@@ -3523,7 +3523,7 @@
     ],
     "variation_group": null,
     "license_author": "http://www.bodybuilding.com/",
-    "_en_name": "Contragolpe de tr\u00edceps con mancuernas"
+    "_en_name": "Tricep Dumbbell Kickback"
   },
   {
     "id": 659,
@@ -3540,7 +3540,7 @@
     ],
     "variation_group": "290582f2-d94c-4eb6-a994-99e38d7251f7",
     "license_author": "wger.de",
-    "_en_name": "Extension de triceps polea"
+    "_en_name": "Triceps Extensions on Cable"
   },
   {
     "id": 660,
@@ -3557,7 +3557,7 @@
     ],
     "variation_group": "290582f2-d94c-4eb6-a994-99e38d7251f7",
     "license_author": "wger.de",
-    "_en_name": "Extensiones de tr\u00edceps en polea con barra"
+    "_en_name": "Triceps Extensions on Cable With Bar"
   },
   {
     "id": 661,
@@ -3665,7 +3665,7 @@
     "equipment": [],
     "variation_group": "7bad4b8b-a95f-4a40-b512-7429d3333f66",
     "license_author": "tuckerm",
-    "_en_name": "Jal\u00f3n al pecho con agarre supino"
+    "_en_name": "Underhand Lat Pull Down"
   },
   {
     "id": 687,
@@ -3717,7 +3717,7 @@
     "equipment": [],
     "variation_group": "e12a2da9-2791-451c-8aa4-0488ea7af251",
     "license_author": "wger.de",
-    "_en_name": "Remo al ment\u00f3n en multipower"
+    "_en_name": "Upright Row, on Multi Press"
   },
   {
     "id": 693,
@@ -3737,7 +3737,7 @@
     ],
     "variation_group": "e12a2da9-2791-451c-8aa4-0488ea7af251",
     "license_author": "wger.de",
-    "_en_name": "Remo al Menton"
+    "_en_name": "Upright Row, SZ-bar"
   },
   {
     "id": 694,
@@ -3757,7 +3757,7 @@
     ],
     "variation_group": "e12a2da9-2791-451c-8aa4-0488ea7af251",
     "license_author": "koreyhinton",
-    "_en_name": "Aufrechtes Rudern mit Kurzhanteln"
+    "_en_name": "Upright Row w/ Dumbbells"
   },
   {
     "id": 695,
@@ -3792,7 +3792,7 @@
     "equipment": [],
     "variation_group": "4b54f372-2aef-4741-b76d-85e3f376f1d7",
     "license_author": "McMarcel13",
-    "_en_name": "Angkat kaki kiri anak sapi"
+    "_en_name": "Calf raises, one legged"
   },
   {
     "id": 711,
@@ -3807,7 +3807,7 @@
     ],
     "variation_group": "fbc0f8e4-3eee-4ff5-8b56-aed1d32209f4",
     "license_author": "Nash",
-    "_en_name": "Flexi\u00f3n a pino contra la pared"
+    "_en_name": ""
   },
   {
     "id": 713,
@@ -3831,7 +3831,7 @@
     ],
     "variation_group": "07c5447d-9d49-4b29-a2e2-0f9169f749c5",
     "license_author": "Dexter",
-    "_en_name": "Wall Pushup"
+    "_en_name": ""
   },
   {
     "id": 716,
@@ -3852,7 +3852,7 @@
     ],
     "variation_group": null,
     "license_author": "Whythebigpaws",
-    "_en_name": "Deslizamientos en la pared"
+    "_en_name": ""
   },
   {
     "id": 718,
@@ -3870,7 +3870,7 @@
     ],
     "variation_group": "ba010720-728a-4baf-ba8c-e1a37370625b",
     "license_author": "Blablabla",
-    "_en_name": "Agachamento parede"
+    "_en_name": ""
   },
   {
     "id": 722,
@@ -3889,7 +3889,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "jigglychipmunk",
-    "_en_name": "Weighted Step-ups"
+    "_en_name": ""
   },
   {
     "id": 723,
@@ -3911,7 +3911,7 @@
     ],
     "variation_group": "7bad4b8b-a95f-4a40-b512-7429d3333f66",
     "license_author": "tuckerm",
-    "_en_name": "Jal\u00f3n con agarre ancho"
+    "_en_name": ""
   },
   {
     "id": 801,
@@ -3969,7 +3969,7 @@
     ],
     "variation_group": "290582f2-d94c-4eb6-a994-99e38d7251f7",
     "license_author": "",
-    "_en_name": "Extensi\u00f3n de Tr\u00edceps a una Mano en Polea"
+    "_en_name": "One Arm Triceps Extensions on Cable"
   },
   {
     "id": 804,
@@ -4001,7 +4001,7 @@
     ],
     "variation_group": null,
     "license_author": "cshep442",
-    "_en_name": "Empuje de tr\u00edceps en cable"
+    "_en_name": "Tricep Pushdown on Cable"
   },
   {
     "id": 820,
@@ -4035,7 +4035,7 @@
     ],
     "variation_group": null,
     "license_author": "marcelbader",
-    "_en_name": "Dominadas en Tabla de Multipresas"
+    "_en_name": "Pullup on fingerboard"
   },
   {
     "id": 822,
@@ -4055,7 +4055,7 @@
     ],
     "variation_group": "19808be8-e98c-4b65-b8c7-f559aba5f2f8",
     "license_author": "cshep442",
-    "_en_name": "Aperturas Posteriores en Polea"
+    "_en_name": "Cable Rear Delt Fly"
   },
   {
     "id": 828,
@@ -4074,7 +4074,7 @@
     ],
     "variation_group": null,
     "license_author": "cshep442",
-    "_en_name": "Alzate posteriori"
+    "_en_name": "Incline Bench Reverse Fly"
   },
   {
     "id": 908,
@@ -4087,7 +4087,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "karly",
-    "_en_name": "Carrera en Zona 2"
+    "_en_name": ""
   },
   {
     "id": 909,
@@ -4105,7 +4105,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "karly",
-    "_en_name": "Curl N\u00f3rdico Inverso"
+    "_en_name": "Reverse Nordic Curl"
   },
   {
     "id": 910,
@@ -4122,7 +4122,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "karly",
-    "_en_name": "Curl N\u00f3rdico"
+    "_en_name": "Nordic Curl"
   },
   {
     "id": 911,
@@ -4154,7 +4154,7 @@
     ],
     "variation_group": null,
     "license_author": "novadani",
-    "_en_name": "Curl en Polea con Barra Recta"
+    "_en_name": "Straight Bar Cable Curls"
   },
   {
     "id": 913,
@@ -4171,7 +4171,7 @@
     ],
     "variation_group": null,
     "license_author": "novadani",
-    "_en_name": "Curl de Predicador Inverso"
+    "_en_name": "Reverse Preacher Curl (Close Grip)"
   },
   {
     "id": 914,
@@ -4189,7 +4189,7 @@
     ],
     "variation_group": null,
     "license_author": "novadani",
-    "_en_name": "Curl Inverso con Barra EZ en Polea"
+    "_en_name": "Reverse EZ Bar Cable Curls"
   },
   {
     "id": 915,
@@ -4221,7 +4221,7 @@
     ],
     "variation_group": null,
     "license_author": "novadani",
-    "_en_name": "Prensa Smith"
+    "_en_name": "Smith Press"
   },
   {
     "id": 917,
@@ -4239,7 +4239,7 @@
     ],
     "variation_group": null,
     "license_author": "novadani",
-    "_en_name": "Elevaci\u00f3n frontal con cable"
+    "_en_name": "Straight Bar Cable Front Raise"
   },
   {
     "id": 918,
@@ -4326,7 +4326,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "novadani",
-    "_en_name": "D\u00e9velopp\u00e9 inclin\u00e9 \u00e0 la Smith machine"
+    "_en_name": "Smith Machine Slight Incline Press"
   },
   {
     "id": 926,
@@ -4341,7 +4341,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "novadani",
-    "_en_name": "Aperturas en M\u00e1quina para Pecho"
+    "_en_name": "Machine chest fly"
   },
   {
     "id": 927,
@@ -4358,7 +4358,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Croci in sospensione"
+    "_en_name": "Suspended crossess"
   },
   {
     "id": 957,
@@ -4380,7 +4380,7 @@
     ],
     "variation_group": null,
     "license_author": "utkb",
-    "_en_name": "Arm- und Beinheben im Vierf\u00fc\u00dflerstand"
+    "_en_name": "Quadriped Arm and Leg Raise"
   },
   {
     "id": 958,
@@ -4397,7 +4397,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Biceps au TRX"
+    "_en_name": "Biceps with TRX"
   },
   {
     "id": 959,
@@ -4416,7 +4416,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Remo en TRX"
+    "_en_name": "TRX Rows"
   },
   {
     "id": 960,
@@ -4451,7 +4451,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "abuono",
-    "_en_name": "Piques de 50m en Nataci\u00f3n"
+    "_en_name": "Swimming 50m sprints"
   },
   {
     "id": 962,
@@ -4474,7 +4474,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Crosstrainer"
+    "_en_name": "Elliptical"
   },
   {
     "id": 974,
@@ -4491,7 +4491,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Curl con kettlebell a due mani"
+    "_en_name": "Curl with kettlebell two hands"
   },
   {
     "id": 975,
@@ -4508,7 +4508,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Curl con kettlebell una sola mano"
+    "_en_name": ""
   },
   {
     "id": 976,
@@ -4525,7 +4525,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Abdominales en V con Bal\u00f3n Medicinal"
+    "_en_name": "Medicine ball booklet crunch"
   },
   {
     "id": 977,
@@ -4544,7 +4544,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Box Squat"
+    "_en_name": "Box squat"
   },
   {
     "id": 978,
@@ -4563,7 +4563,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Addominali alla sbarra"
+    "_en_name": "Knee Raises"
   },
   {
     "id": 979,
@@ -4583,7 +4583,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Addominali alla sbarra a gambe distese"
+    "_en_name": "Leg raises pull up bar"
   },
   {
     "id": 980,
@@ -4603,7 +4603,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Commando Pull-ups"
+    "_en_name": ""
   },
   {
     "id": 981,
@@ -4624,7 +4624,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Ad\u0131m atma"
+    "_en_name": "Step-ups"
   },
   {
     "id": 983,
@@ -4639,7 +4639,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Corsa sul posto con ginocchia alte"
+    "_en_name": "High knees"
   },
   {
     "id": 984,
@@ -4659,7 +4659,7 @@
     ],
     "variation_group": "c8727770-8ec1-4fe3-ae70-238a9fc46570",
     "license_author": "",
-    "_en_name": "Affondi"
+    "_en_name": "Lunges"
   },
   {
     "id": 985,
@@ -4680,7 +4680,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Draaiend opdrukken"
+    "_en_name": "Push-up rotations"
   },
   {
     "id": 986,
@@ -4695,7 +4695,7 @@
     ],
     "variation_group": "02cd56f5-11d3-4c0e-86a1-773c8fc3cd66",
     "license_author": "",
-    "_en_name": "Bo\u010dni podijeljeni \u010du\u010dnjevi lijevo"
+    "_en_name": "Side split squats left"
   },
   {
     "id": 987,
@@ -4710,7 +4710,7 @@
     ],
     "variation_group": "02cd56f5-11d3-4c0e-86a1-773c8fc3cd66",
     "license_author": "",
-    "_en_name": "Bo\u010dni podijeljeni \u010du\u010dnjevi desno"
+    "_en_name": "Side split squats right"
   },
   {
     "id": 988,
@@ -4730,7 +4730,7 @@
     ],
     "variation_group": "02cd56f5-11d3-4c0e-86a1-773c8fc3cd66",
     "license_author": "",
-    "_en_name": "Affondo bulgaro con manubri"
+    "_en_name": "Bulgarian split squats left"
   },
   {
     "id": 989,
@@ -4750,7 +4750,7 @@
     ],
     "variation_group": "02cd56f5-11d3-4c0e-86a1-773c8fc3cd66",
     "license_author": "",
-    "_en_name": "Bugarski podijeljeni \u010du\u010danj desno"
+    "_en_name": "Bulgarian split squats right"
   },
   {
     "id": 990,
@@ -4769,7 +4769,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Coice"
+    "_en_name": "Kneeling kickbacks"
   },
   {
     "id": 991,
@@ -4789,7 +4789,7 @@
     ],
     "variation_group": "02cd56f5-11d3-4c0e-86a1-773c8fc3cd66",
     "license_author": "",
-    "_en_name": "D\u0159ep ve v\u00fdpadu nalevo"
+    "_en_name": "Split squats left"
   },
   {
     "id": 992,
@@ -4809,7 +4809,7 @@
     ],
     "variation_group": "02cd56f5-11d3-4c0e-86a1-773c8fc3cd66",
     "license_author": "",
-    "_en_name": "D\u0159ep ve v\u00fdpadu napravo"
+    "_en_name": "Split squats right"
   },
   {
     "id": 993,
@@ -4824,7 +4824,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Corda de Salto: saltos b\u00e1sicos"
+    "_en_name": "Jump rope: basic jumps"
   },
   {
     "id": 994,
@@ -4839,7 +4839,7 @@
     ],
     "variation_group": "7810504a-8137-4101-931e-17ceedc9c006",
     "license_author": "",
-    "_en_name": "Armkreisen vorw\u00e4rts"
+    "_en_name": "Forward arm circles"
   },
   {
     "id": 995,
@@ -4854,7 +4854,7 @@
     ],
     "variation_group": "7810504a-8137-4101-931e-17ceedc9c006",
     "license_author": "",
-    "_en_name": "Achterwaartse arm cirkels"
+    "_en_name": "Backward arm circles"
   },
   {
     "id": 996,
@@ -4869,7 +4869,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Alpinista"
+    "_en_name": "Mountain climbers"
   },
   {
     "id": 997,
@@ -4884,7 +4884,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "4-Hitung burpe"
+    "_en_name": "4-count burpees"
   },
   {
     "id": 998,
@@ -4899,7 +4899,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Angli\u010d\u00e1ky bez kliku"
+    "_en_name": "No push-up burpees"
   },
   {
     "id": 999,
@@ -4919,7 +4919,7 @@
     ],
     "variation_group": "c8727770-8ec1-4fe3-ae70-238a9fc46570",
     "license_author": "",
-    "_en_name": "Affondi inversi"
+    "_en_name": "Reverse lunges"
   },
   {
     "id": 1000,
@@ -4939,7 +4939,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Bodensenken"
+    "_en_name": "Floor dips"
   },
   {
     "id": 1001,
@@ -4960,7 +4960,7 @@
     ],
     "variation_group": "35343f78-00cf-4b34-9f50-7f45d37555ca",
     "license_author": "",
-    "_en_name": "Asse alto"
+    "_en_name": "High plank"
   },
   {
     "id": 1002,
@@ -4975,7 +4975,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Barnets position"
+    "_en_name": "Child's pose"
   },
   {
     "id": 1003,
@@ -4996,7 +4996,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Deadlift Kettlebell"
+    "_en_name": "Kettlebell deadlifts"
   },
   {
     "id": 1004,
@@ -5026,7 +5026,7 @@
     ],
     "variation_group": "61ce3ada-b0ca-40d9-9686-af83497251b7",
     "license_author": "",
-    "_en_name": "Achterwaartse schouder draaiing"
+    "_en_name": "Backward shoulder rotation"
   },
   {
     "id": 1006,
@@ -5071,7 +5071,7 @@
     ],
     "variation_group": "f3b26e21-9855-4409-ac26-bf1d070554bd",
     "license_author": "",
-    "_en_name": "Alongamento de pesco\u00e7o para esquerda"
+    "_en_name": "Left neck stretch"
   },
   {
     "id": 1009,
@@ -5086,7 +5086,7 @@
     ],
     "variation_group": "f3b26e21-9855-4409-ac26-bf1d070554bd",
     "license_author": "",
-    "_en_name": "Alongamento de pesco\u00e7o para direita"
+    "_en_name": "Right neck stretch"
   },
   {
     "id": 1010,
@@ -5101,7 +5101,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Achternek rekken"
+    "_en_name": "Back neck stretch"
   },
   {
     "id": 1011,
@@ -5116,7 +5116,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Alongamento frontal do pesco\u00e7o"
+    "_en_name": "Front neck stretch"
   },
   {
     "id": 1012,
@@ -5135,7 +5135,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Abwechselnde Bizepscurls"
+    "_en_name": "Alternating bicep curls"
   },
   {
     "id": 1013,
@@ -5150,7 +5150,7 @@
     ],
     "variation_group": "9588b37d-e19b-42e8-8e82-be71ec1c25ba",
     "license_author": "",
-    "_en_name": "Dehnung des linken Schulterblattes"
+    "_en_name": "Left levator scapulae stretch"
   },
   {
     "id": 1014,
@@ -5165,7 +5165,7 @@
     ],
     "variation_group": "9588b37d-e19b-42e8-8e82-be71ec1c25ba",
     "license_author": "",
-    "_en_name": "Dehnung des rechten Schulterblattes"
+    "_en_name": "Right levator scapulae stretch"
   },
   {
     "id": 1015,
@@ -5180,7 +5180,7 @@
     ],
     "variation_group": "b6c0e9f1-13ba-4cbf-bbd5-898456350466",
     "license_author": "",
-    "_en_name": "Cercles du cou dans le sens horaire"
+    "_en_name": "Clockwise neck circles"
   },
   {
     "id": 1016,
@@ -5195,7 +5195,7 @@
     ],
     "variation_group": "b6c0e9f1-13ba-4cbf-bbd5-898456350466",
     "license_author": "",
-    "_en_name": "Cercles du cou dans le sens antihoraire"
+    "_en_name": "Counterclockwise neck circles"
   },
   {
     "id": 1017,
@@ -5210,7 +5210,7 @@
     ],
     "variation_group": "b6c0e9f1-13ba-4cbf-bbd5-898456350466",
     "license_author": "",
-    "_en_name": "Demi-cercles du cou"
+    "_en_name": "Neck half circles"
   },
   {
     "id": 1018,
@@ -5244,7 +5244,7 @@
     ],
     "variation_group": "35343f78-00cf-4b34-9f50-7f45d37555ca",
     "license_author": "",
-    "_en_name": "Bo\u010dni izdr\u017eaj desno"
+    "_en_name": "Side plank right"
   },
   {
     "id": 1020,
@@ -5266,7 +5266,7 @@
     ],
     "variation_group": "ba010720-728a-4baf-ba8c-e1a37370625b",
     "license_author": "",
-    "_en_name": "D\u0159ep na prav\u00e9 noze"
+    "_en_name": "Pistol squats right"
   },
   {
     "id": 1021,
@@ -5285,7 +5285,7 @@
     ],
     "variation_group": "4b54f372-2aef-4741-b76d-85e3f376f1d7",
     "license_author": "",
-    "_en_name": "Angkat betis kaki kanan"
+    "_en_name": "Calf raises, right leg"
   },
   {
     "id": 1022,
@@ -5308,7 +5308,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Kettlebell swing a una mano"
+    "_en_name": "Single Arm Plank to Row"
   },
   {
     "id": 1027,
@@ -5340,7 +5340,7 @@
     ],
     "variation_group": null,
     "license_author": "tinman",
-    "_en_name": "Brustwirbels\u00e4ulen-Rotation im Vierf\u00fc\u00dflerstand links"
+    "_en_name": "Quadruped thoracic rotation left"
   },
   {
     "id": 1029,
@@ -5355,7 +5355,7 @@
     ],
     "variation_group": "05873ad4-6c13-4be9-b326-bb0c99599ba0",
     "license_author": "tinman",
-    "_en_name": "Brustwirbels\u00e4ulen-Rotation im Vierf\u00fc\u00dflerstand rechts"
+    "_en_name": "Quadruped thoracic rotation right"
   },
   {
     "id": 1080,
@@ -5386,7 +5386,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "tinman",
-    "_en_name": "Dislocaciones de hombro"
+    "_en_name": "Shoulder dislocates"
   },
   {
     "id": 1082,
@@ -5479,7 +5479,7 @@
     ],
     "variation_group": null,
     "license_author": "philip",
-    "_en_name": "Cargada de potencia desde colgado con mancuernas"
+    "_en_name": "Dumbbell Hang Power Cleans"
   },
   {
     "id": 1088,
@@ -5518,7 +5518,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Abdominales rusas"
+    "_en_name": "Medicine ball twist"
   },
   {
     "id": 1090,
@@ -5538,7 +5538,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Vpushup"
+    "_en_name": ""
   },
   {
     "id": 1091,
@@ -5559,7 +5559,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Plancha a una mano alterna"
+    "_en_name": "Plank Shoulder Taps"
   },
   {
     "id": 1092,
@@ -5585,7 +5585,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Allenamento al sacco"
+    "_en_name": "Bag training"
   },
   {
     "id": 1093,
@@ -5631,7 +5631,7 @@
     ],
     "variation_group": null,
     "license_author": "colundrum",
-    "_en_name": "Brustpresse im Sitzen"
+    "_en_name": "Seated Bench Press"
   },
   {
     "id": 1096,
@@ -5646,7 +5646,7 @@
     ],
     "variation_group": null,
     "license_author": "tregga",
-    "_en_name": "Abducci\u00f3n de pie"
+    "_en_name": "Abduction while standing"
   },
   {
     "id": 1098,
@@ -5706,7 +5706,7 @@
     ],
     "variation_group": null,
     "license_author": "philip",
-    "_en_name": "Wall balls"
+    "_en_name": ""
   },
   {
     "id": 1101,
@@ -5745,7 +5745,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Affondi indietro alternati"
+    "_en_name": "Alternate back lunges"
   },
   {
     "id": 1103,
@@ -5767,13 +5767,13 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Pont en marche"
+    "_en_name": ""
   },
   {
     "id": 1104,
     "uuid": "2e00d8e5-19a2-42ad-a954-f06a56f56561",
     "created": "2023-08-06T10:17:17.422900+02:00",
-    "last_update": "2024-01-17T11:39:50.446176+01:00",
+    "last_update": "2026-09-24T22:47:27.457760+02:00",
     "category": 15,
     "muscles": [
       11,
@@ -5788,9 +5788,9 @@
     "equipment": [
       7
     ],
-    "variation_group": null,
+    "variation_group": "d47fc5dd-7d8f-4e95-a0d0-101dfd38ad99",
     "license_author": "",
-    "_en_name": "Walking"
+    "_en_name": ""
   },
   {
     "id": 1105,
@@ -5827,7 +5827,7 @@
     ],
     "variation_group": null,
     "license_author": "cshep442",
-    "_en_name": "Biceps concentrado"
+    "_en_name": "Cable Concentration Curl"
   },
   {
     "id": 1111,
@@ -5847,7 +5847,7 @@
     ],
     "variation_group": null,
     "license_author": "anon1337",
-    "_en_name": "Distensione Panca Inclinata Bilanciere"
+    "_en_name": "Push-Ups | Incline"
   },
   {
     "id": 1112,
@@ -5868,7 +5868,7 @@
     ],
     "variation_group": null,
     "license_author": "anon1337",
-    "_en_name": "Flexiones | declinadas (decline)"
+    "_en_name": "Push-Ups | Decline"
   },
   {
     "id": 1113,
@@ -5886,7 +5886,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "anon1337",
-    "_en_name": "Flexiones | parallettes"
+    "_en_name": "Push-Ups | Parallettes"
   },
   {
     "id": 1114,
@@ -5949,7 +5949,7 @@
     ],
     "variation_group": null,
     "license_author": "Franpol",
-    "_en_name": "Rematore seduto al cavo"
+    "_en_name": "Seated Cable Row"
   },
   {
     "id": 1119,
@@ -6002,7 +6002,7 @@
     ],
     "variation_group": null,
     "license_author": "Franpol",
-    "_en_name": "Jal\u00f3n abierto supino"
+    "_en_name": ""
   },
   {
     "id": 1127,
@@ -6051,7 +6051,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "Franpol",
-    "_en_name": "Extension des fessiers \u00e0 la machine"
+    "_en_name": "Machine glute extension"
   },
   {
     "id": 1136,
@@ -6070,7 +6070,7 @@
     ],
     "variation_group": null,
     "license_author": "Franpol",
-    "_en_name": "Jal\u00f3n al pecho con agarre neutro"
+    "_en_name": "Neutral-grip chest pulldown"
   },
   {
     "id": 1137,
@@ -6123,7 +6123,7 @@
     ],
     "variation_group": null,
     "license_author": "cleen",
-    "_en_name": "Arabesco"
+    "_en_name": "Arabesque"
   },
   {
     "id": 1143,
@@ -6156,7 +6156,7 @@
     ],
     "variation_group": null,
     "license_author": "anto.kreegyr",
-    "_en_name": "Extensi\u00f3n de tr\u00edceps en polea con cuerda"
+    "_en_name": "Triceps Pushdown"
   },
   {
     "id": 1186,
@@ -6195,7 +6195,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Flexion lat\u00e9rale"
+    "_en_name": "Side bend"
   },
   {
     "id": 1192,
@@ -6233,7 +6233,7 @@
     ],
     "variation_group": null,
     "license_author": "lion",
-    "_en_name": "Abdominales rusas"
+    "_en_name": "Russian Twist"
   },
   {
     "id": 1194,
@@ -6278,7 +6278,7 @@
     ],
     "variation_group": null,
     "license_author": "Insight",
-    "_en_name": "Deslizamientos laterales + sentadillas"
+    "_en_name": "Side Slides + Squats"
   },
   {
     "id": 1196,
@@ -6297,7 +6297,7 @@
     ],
     "variation_group": null,
     "license_author": "Insight",
-    "_en_name": "Ejercicios contra la pared"
+    "_en_name": ""
   },
   {
     "id": 1198,
@@ -6334,7 +6334,7 @@
     ],
     "variation_group": null,
     "license_author": "cynomops",
-    "_en_name": "Elevaci\u00f3n tibial anterior"
+    "_en_name": "Tibialis raises"
   },
   {
     "id": 1201,
@@ -6355,7 +6355,7 @@
     ],
     "variation_group": null,
     "license_author": "cynomops",
-    "_en_name": "Dragon Squat"
+    "_en_name": "Dragon squat"
   },
   {
     "id": 1202,
@@ -6370,7 +6370,7 @@
     ],
     "variation_group": null,
     "license_author": "wakanda90",
-    "_en_name": "Abducci\u00f3n de cadera en dec\u00fabito lateral"
+    "_en_name": "Side Lying Hip Abduction"
   },
   {
     "id": 1203,
@@ -6415,7 +6415,7 @@
     ],
     "variation_group": null,
     "license_author": "wakanda90",
-    "_en_name": "Curl de mu\u00f1eca con mancuernas"
+    "_en_name": ""
   },
   {
     "id": 1207,
@@ -6430,7 +6430,7 @@
     ],
     "variation_group": null,
     "license_author": "lxmx",
-    "_en_name": "Coup de pied du scorpion"
+    "_en_name": "Scorpion Kick"
   },
   {
     "id": 1208,
@@ -6471,7 +6471,7 @@
     ],
     "variation_group": null,
     "license_author": "lxmx",
-    "_en_name": "Flexi\u00f3n a tres puntos al ancho de los hombros"
+    "_en_name": "Shoulder width three-point push-up"
   },
   {
     "id": 1210,
@@ -6486,7 +6486,7 @@
     ],
     "variation_group": null,
     "license_author": "lxmx",
-    "_en_name": "Fallschirmspringer in T-Position"
+    "_en_name": "Skydiver with arms in T-position"
   },
   {
     "id": 1214,
@@ -6507,7 +6507,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Front Lever Tuck"
+    "_en_name": "Front lever tuck"
   },
   {
     "id": 1215,
@@ -6530,7 +6530,7 @@
     ],
     "variation_group": null,
     "license_author": "mike6426",
-    "_en_name": "Ange de neige invers\u00e9"
+    "_en_name": "Reverse Snow Angel"
   },
   {
     "id": 1216,
@@ -6585,7 +6585,7 @@
     ],
     "variation_group": null,
     "license_author": "PaukOne",
-    "_en_name": "Flexiones de rodillas"
+    "_en_name": ""
   },
   {
     "id": 1219,
@@ -6606,7 +6606,7 @@
     ],
     "variation_group": null,
     "license_author": "PaukOne",
-    "_en_name": "Australian Pull-ups (umgekehrtes Rudern)"
+    "_en_name": "Australian pull-ups"
   },
   {
     "id": 1223,
@@ -6640,7 +6640,7 @@
     ],
     "variation_group": null,
     "license_author": "Lynn_McIntyre",
-    "_en_name": "Drag curls aux halt\u00e8res"
+    "_en_name": "Dumbbell drag curls"
   },
   {
     "id": 1225,
@@ -6657,7 +6657,7 @@
     ],
     "variation_group": null,
     "license_author": "Lynn_McIntyre",
-    "_en_name": "Breite Bizeps-Curls mit Kurzhanteln"
+    "_en_name": "Dumbbell wide bicep curls"
   },
   {
     "id": 1226,
@@ -6674,7 +6674,7 @@
     ],
     "variation_group": null,
     "license_author": "Lynn_McIntyre",
-    "_en_name": "Curl biceps \u00e0 d\u00e9velopp\u00e9 aux halt\u00e8res"
+    "_en_name": "Dumbbell bicep curl to press"
   },
   {
     "id": 1227,
@@ -6728,7 +6728,7 @@
     ],
     "variation_group": null,
     "license_author": "Lynn_McIntyre",
-    "_en_name": "Estiramiento de tr\u00edceps izquierdo"
+    "_en_name": "Triceps stretch left"
   },
   {
     "id": 1231,
@@ -6745,7 +6745,7 @@
     ],
     "variation_group": null,
     "license_author": "Lynn_McIntyre",
-    "_en_name": "Estiramiento de tr\u00edceps derecho"
+    "_en_name": "Triceps stretch right"
   },
   {
     "id": 1232,
@@ -6764,7 +6764,7 @@
     ],
     "variation_group": null,
     "license_author": "Lynn_McIntyre",
-    "_en_name": "Estiramiento de b\u00edceps de pie izquierdo"
+    "_en_name": "Standing biceps stretch left"
   },
   {
     "id": 1233,
@@ -6783,7 +6783,7 @@
     ],
     "variation_group": null,
     "license_author": "Lynn_McIntyre",
-    "_en_name": "Estiramiento de b\u00edceps de pie derecho"
+    "_en_name": "Standing biceps stretch right"
   },
   {
     "id": 1234,
@@ -6829,7 +6829,7 @@
     "id": 1239,
     "uuid": "f36dfa40-7586-4721-a434-1fd878232c62",
     "created": "2024-02-28T18:45:30.275387+01:00",
-    "last_update": "2024-02-28T18:45:30.275408+01:00",
+    "last_update": "2026-09-21T00:54:14.022108+02:00",
     "category": 9,
     "muscles": [
       7
@@ -6838,9 +6838,9 @@
     "equipment": [
       7
     ],
-    "variation_group": null,
+    "variation_group": "0def44de-f872-4fd3-9c69-56d41df33d19",
     "license_author": "erikocobra",
-    "_en_name": "Estiramiento de gemelos de pie"
+    "_en_name": "Standing Calf Stretch"
   },
   {
     "id": 1240,
@@ -6911,7 +6911,7 @@
     ],
     "variation_group": null,
     "license_author": "erikocobra",
-    "_en_name": "Beidbeiniges Wadenheben"
+    "_en_name": "Double Leg Calf Raise"
   },
   {
     "id": 1244,
@@ -6933,7 +6933,7 @@
     ],
     "variation_group": null,
     "license_author": "damnlost",
-    "_en_name": "Esercizio di yoga: Mucca-gatto"
+    "_en_name": ""
   },
   {
     "id": 1245,
@@ -6971,7 +6971,7 @@
     ],
     "variation_group": null,
     "license_author": "cynomops",
-    "_en_name": "Roll out au TRX"
+    "_en_name": "TRX roll out"
   },
   {
     "id": 1248,
@@ -6990,7 +6990,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Ice Scream Maker"
+    "_en_name": "Ice cream maker"
   },
   {
     "id": 1252,
@@ -7031,7 +7031,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "cynomops",
-    "_en_name": "Oblicuos en TRX"
+    "_en_name": "TRX Obliques"
   },
   {
     "id": 1260,
@@ -7046,7 +7046,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "cynomops",
-    "_en_name": "Curl marteau au TRX"
+    "_en_name": "TRX hammer curl"
   },
   {
     "id": 1261,
@@ -7063,7 +7063,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "cynomops",
-    "_en_name": "Curl biceps gorille au TRX"
+    "_en_name": "TRX gorilla biceps curl"
   },
   {
     "id": 1262,
@@ -7082,7 +7082,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "cynomops",
-    "_en_name": "Curl biceps \u00e0 un bras au TRX"
+    "_en_name": "Trx Single Arm Bicep Curl"
   },
   {
     "id": 1263,
@@ -7119,7 +7119,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "cynomops",
-    "_en_name": "Extension des triceps au TRX"
+    "_en_name": "TRX Tricep Extension"
   },
   {
     "id": 1269,
@@ -7136,7 +7136,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "cynomops",
-    "_en_name": "Dips au TRX"
+    "_en_name": "TRX dips"
   },
   {
     "id": 1270,
@@ -7155,7 +7155,7 @@
     ],
     "variation_group": null,
     "license_author": "FEFFO",
-    "_en_name": "Aperturas en polea baja"
+    "_en_name": "Low Pulley Cable Fly"
   },
   {
     "id": 1273,
@@ -7284,7 +7284,7 @@
     ],
     "variation_group": null,
     "license_author": "vdrb",
-    "_en_name": "Flexi\u00f3n pseudo planche"
+    "_en_name": "Pseudo Planche Push-up"
   },
   {
     "id": 1285,
@@ -7379,7 +7379,7 @@
     ],
     "variation_group": null,
     "license_author": "sTiKyt",
-    "_en_name": "Curl con mancuernas sentado"
+    "_en_name": "Seated Dumbbell Curls"
   },
   {
     "id": 1290,
@@ -7398,7 +7398,7 @@
     ],
     "variation_group": null,
     "license_author": "sTiKyt",
-    "_en_name": "Curl de b\u00edceps con barra en agarre invertido"
+    "_en_name": "Reverse Grip Barbell Curls"
   },
   {
     "id": 1292,
@@ -7477,7 +7477,7 @@
     ],
     "variation_group": null,
     "license_author": "JackSparrow",
-    "_en_name": "Croisement \u00e0 la poulie basse - NB"
+    "_en_name": "Low-Cable Cross-Over - NB"
   },
   {
     "id": 1298,
@@ -7494,7 +7494,7 @@
     ],
     "variation_group": null,
     "license_author": "JackSparrow",
-    "_en_name": "Extension des triceps crois\u00e9e \u00e0 la poulie haute - NB"
+    "_en_name": "High-Cable Cross Tricep Extention - NB"
   },
   {
     "id": 1302,
@@ -7620,7 +7620,7 @@
     ],
     "variation_group": null,
     "license_author": "hektkaso",
-    "_en_name": "Hampelmann HD"
+    "_en_name": "Jumping Jack HD"
   },
   {
     "id": 1318,
@@ -7643,7 +7643,7 @@
     ],
     "variation_group": null,
     "license_author": "hektkaso",
-    "_en_name": "High Knee Skips"
+    "_en_name": "High Knee Skips HD"
   },
   {
     "id": 1320,
@@ -7687,7 +7687,7 @@
     ],
     "variation_group": null,
     "license_author": "hektkaso",
-    "_en_name": "Ausfallschritt mit K\u00f6rpergewicht"
+    "_en_name": "Bodyweight lunge HD"
   },
   {
     "id": 1325,
@@ -7738,7 +7738,7 @@
     ],
     "variation_group": null,
     "license_author": "Anastasious",
-    "_en_name": "Extension des triceps au-dessus de la t\u00eate (halt\u00e8re)"
+    "_en_name": "Triceps Overhead (Dumbbell)"
   },
   {
     "id": 1338,
@@ -7755,7 +7755,7 @@
     ],
     "variation_group": null,
     "license_author": "Anastasious",
-    "_en_name": "Elevaci\u00f3n de hombros (mancuerna)"
+    "_en_name": "Shoulder Raise (Dumbbell)"
   },
   {
     "id": 1348,
@@ -7768,7 +7768,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "Anastasious",
-    "_en_name": "Extensiones de espalda baja"
+    "_en_name": "Lower Back Extensions"
   },
   {
     "id": 1353,
@@ -7815,7 +7815,7 @@
     ],
     "variation_group": null,
     "license_author": "m4k3r",
-    "_en_name": "Clean and press con doble kettlebell"
+    "_en_name": "Double Kettlebell Clean and Press"
   },
   {
     "id": 1361,
@@ -7928,7 +7928,7 @@
     ],
     "variation_group": null,
     "license_author": "tekknokrat@gmx.de",
-    "_en_name": "Boxspr\u00fcnge"
+    "_en_name": ""
   },
   {
     "id": 1374,
@@ -7943,7 +7943,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "6LXBO",
-    "_en_name": "Bauch-Twist Ger\u00e4t"
+    "_en_name": "Rotary Torso Machine"
   },
   {
     "id": 1376,
@@ -7978,7 +7978,7 @@
     ],
     "variation_group": null,
     "license_author": "brucem",
-    "_en_name": "Giro de torso"
+    "_en_name": "Torso Twist"
   },
   {
     "id": 1378,
@@ -8001,16 +8001,16 @@
     "id": 1380,
     "uuid": "f18eb684-9a9b-4566-9771-e22a87d536b1",
     "created": "2024-10-07T10:45:20.418196+02:00",
-    "last_update": "2026-07-23T12:08:38.479485+02:00",
+    "last_update": "2026-09-16T03:24:40.338276+02:00",
     "category": 12,
     "muscles": [],
     "muscles_secondary": [],
     "equipment": [
       11
     ],
-    "variation_group": null,
+    "variation_group": "6a8f9718-0447-47be-a2eb-6d052cf608af",
     "license_author": "schwolfar",
-    "_en_name": "Aperturas con banda el\u00e1stica"
+    "_en_name": "Band pull-aparts"
   },
   {
     "id": 1381,
@@ -8029,7 +8029,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "phpi",
-    "_en_name": "Espalda alta"
+    "_en_name": "Upper Back"
   },
   {
     "id": 1384,
@@ -8066,7 +8066,7 @@
     ],
     "variation_group": null,
     "license_author": "captive0592",
-    "_en_name": "Battements de jambe tendue"
+    "_en_name": "Hamstring Kicks"
   },
   {
     "id": 1388,
@@ -8085,7 +8085,7 @@
     ],
     "variation_group": null,
     "license_author": "admin",
-    "_en_name": "Einbeiniges Kreuzheben mit gestreckten Beinen (Single Leg RDL)"
+    "_en_name": "Single Leg RDL"
   },
   {
     "id": 1390,
@@ -8105,7 +8105,7 @@
     ],
     "variation_group": null,
     "license_author": "captive0592",
-    "_en_name": "Tocar los dedos del pie"
+    "_en_name": "Toe Touch"
   },
   {
     "id": 1391,
@@ -8124,7 +8124,7 @@
     ],
     "variation_group": null,
     "license_author": "captive0592",
-    "_en_name": "Caminata del elefante"
+    "_en_name": "Elephant Walks"
   },
   {
     "id": 1392,
@@ -8158,7 +8158,7 @@
     ],
     "variation_group": null,
     "license_author": "captive0592",
-    "_en_name": "Einbeiniges Dehnen der hinteren Oberschenkelmuskulatur"
+    "_en_name": "Single Leg Hamstring Stretch"
   },
   {
     "id": 1394,
@@ -8175,7 +8175,7 @@
     ],
     "variation_group": null,
     "license_author": "captive0592",
-    "_en_name": "Flexion assise (sit & reach)"
+    "_en_name": "Sit & Reach"
   },
   {
     "id": 1395,
@@ -8192,7 +8192,7 @@
     ],
     "variation_group": null,
     "license_author": "captive0592",
-    "_en_name": "Balancements de jambe crois\u00e9s"
+    "_en_name": "Crossbody Leg Swings"
   },
   {
     "id": 1396,
@@ -8209,7 +8209,7 @@
     ],
     "variation_group": null,
     "license_author": "captive0592",
-    "_en_name": "Pancake de pie"
+    "_en_name": "Standing Pancake"
   },
   {
     "id": 1397,
@@ -8226,7 +8226,7 @@
     ],
     "variation_group": "5eca8c6e-64cd-4023-bcc8-d2edefe58a00",
     "license_author": "captive0592",
-    "_en_name": "Buenos d\u00edas de pie con apertura (pancake)"
+    "_en_name": "Standing Pancake Good Morning"
   },
   {
     "id": 1398,
@@ -8260,7 +8260,7 @@
     ],
     "variation_group": null,
     "license_author": "captive0592",
-    "_en_name": "D\u00e9roul\u00e9 du buste (roll down)"
+    "_en_name": "Roll Down"
   },
   {
     "id": 1400,
@@ -8299,7 +8299,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Estensione Plank-Gomito"
+    "_en_name": "Plank-to-Elbow Extension"
   },
   {
     "id": 1407,
@@ -8337,7 +8337,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Chaise (wall-sit)"
+    "_en_name": ""
   },
   {
     "id": 1409,
@@ -8358,7 +8358,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Dragon Flag"
+    "_en_name": "Dragon-flag"
   },
   {
     "id": 1410,
@@ -8375,7 +8375,7 @@
     ],
     "variation_group": null,
     "license_author": "hpmbala@gmail.com",
-    "_en_name": "Plancha con elevaci\u00f3n de pierna"
+    "_en_name": "Plank with Alternating Leg Lift"
   },
   {
     "id": 1411,
@@ -8394,7 +8394,7 @@
     ],
     "variation_group": null,
     "license_author": "hpmbala@gmail.com",
-    "_en_name": "Fersenber\u00fchrungen"
+    "_en_name": "Heel Touches"
   },
   {
     "id": 1412,
@@ -8413,7 +8413,7 @@
     ],
     "variation_group": null,
     "license_author": "hpmbala@gmail.com",
-    "_en_name": "Abdominales en bicicleta"
+    "_en_name": ""
   },
   {
     "id": 1414,
@@ -8451,7 +8451,7 @@
     ],
     "variation_group": null,
     "license_author": "hpmbala@gmail.com",
-    "_en_name": "Abdominales con mancuerna"
+    "_en_name": "Dumbbell Crunches"
   },
   {
     "id": 1424,
@@ -8504,7 +8504,7 @@
     ],
     "variation_group": null,
     "license_author": "hpmbala@gmail.com",
-    "_en_name": "Crunch lateral de pie"
+    "_en_name": "Standing Side Crunches"
   },
   {
     "id": 1429,
@@ -8536,7 +8536,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "hpmbala@gmail.com",
-    "_en_name": "Maintien de disques en pince"
+    "_en_name": "Plate Pinch Hold"
   },
   {
     "id": 1433,
@@ -8560,7 +8560,7 @@
     ],
     "variation_group": null,
     "license_author": "M9",
-    "_en_name": "Le\u00f1ador inverso"
+    "_en_name": "Reverse Wood Chops"
   },
   {
     "id": 1434,
@@ -8615,7 +8615,7 @@
     ],
     "variation_group": null,
     "license_author": "M9",
-    "_en_name": "D\u00e9velopp\u00e9 couch\u00e9 aux barres d'arr\u00eat (barre)"
+    "_en_name": "Pin Bench Press BB"
   },
   {
     "id": 1437,
@@ -8697,7 +8697,7 @@
     ],
     "variation_group": null,
     "license_author": "M9",
-    "_en_name": "D\u00e9velopp\u00e9 militaire avec impulsion (push press)"
+    "_en_name": "Push OHP"
   },
   {
     "id": 1441,
@@ -8716,7 +8716,7 @@
     ],
     "variation_group": null,
     "license_author": "M9",
-    "_en_name": "D\u00e9velopp\u00e9 \u00e9paules inclin\u00e9 aux halt\u00e8res"
+    "_en_name": "Incline OHP DB"
   },
   {
     "id": 1442,
@@ -8755,7 +8755,7 @@
     ],
     "variation_group": null,
     "license_author": "M9",
-    "_en_name": "Elevaci\u00f3n lateral y frontal con mancuernas"
+    "_en_name": "Shoulder Raise Side and Front DB"
   },
   {
     "id": 1445,
@@ -8776,7 +8776,7 @@
     ],
     "variation_group": null,
     "license_author": "M9",
-    "_en_name": "Jerk (Sto\u00dfen)"
+    "_en_name": "Jerk OL"
   },
   {
     "id": 1446,
@@ -8823,7 +8823,7 @@
     ],
     "variation_group": null,
     "license_author": "M9",
-    "_en_name": "Arrach\u00e9 \u2014 halt\u00e9rophilie"
+    "_en_name": "Snatch OL"
   },
   {
     "id": 1448,
@@ -8842,7 +8842,7 @@
     ],
     "variation_group": null,
     "license_author": "M9",
-    "_en_name": "Curl inclinado con mancuernas"
+    "_en_name": "Seated W Curl"
   },
   {
     "id": 1449,
@@ -8898,7 +8898,7 @@
     ],
     "variation_group": null,
     "license_author": "hpmbala@gmail.com",
-    "_en_name": "Estiramiento de rotaci\u00f3n del torso"
+    "_en_name": "Torso rotation stretch"
   },
   {
     "id": 1452,
@@ -8917,7 +8917,7 @@
     ],
     "variation_group": null,
     "license_author": "hpmbala@gmail.com",
-    "_en_name": "Estiramiento de rodilla al pecho"
+    "_en_name": "Knee to Chest Stretch"
   },
   {
     "id": 1455,
@@ -8934,7 +8934,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "Yderkone",
-    "_en_name": "Handtuch-Superman"
+    "_en_name": "Towel Superman"
   },
   {
     "id": 1457,
@@ -8996,7 +8996,7 @@
     ],
     "variation_group": null,
     "license_author": "Expenses7000",
-    "_en_name": "D\u00e9velopp\u00e9 couch\u00e9 aux halt\u00e8res sans impulsion des jambes"
+    "_en_name": "No Leg Drive Dumbbell Chest Press"
   },
   {
     "id": 1462,
@@ -9039,7 +9039,7 @@
     "id": 1464,
     "uuid": "1b329beb-fcda-4471-ba70-eea62da410dd",
     "created": "2025-02-24T15:53:10.523438+01:00",
-    "last_update": "2025-02-24T15:53:10.523453+01:00",
+    "last_update": "2026-09-18T13:01:26.451469+02:00",
     "category": 9,
     "muscles": [
       10
@@ -9050,9 +9050,9 @@
       8
     ],
     "equipment": [],
-    "variation_group": null,
+    "variation_group": "d219c31d-97fb-452e-8547-be92090d774e",
     "license_author": "Expenses7000",
-    "_en_name": "Hack Squats mit Pause"
+    "_en_name": "Pause Hack Squats"
   },
   {
     "id": 1465,
@@ -9069,7 +9069,7 @@
     ],
     "variation_group": null,
     "license_author": "Moffi",
-    "_en_name": "Curl Ara\u00f1a"
+    "_en_name": "Spider Curl"
   },
   {
     "id": 1466,
@@ -9122,7 +9122,7 @@
     ],
     "variation_group": null,
     "license_author": "Expenses7000",
-    "_en_name": "Barre au front au sol"
+    "_en_name": "Floor Skull Crusher"
   },
   {
     "id": 1469,
@@ -9226,7 +9226,7 @@
     ],
     "variation_group": null,
     "license_author": "Moffi",
-    "_en_name": "W-Raise"
+    "_en_name": ""
   },
   {
     "id": 1475,
@@ -9260,7 +9260,7 @@
     ],
     "variation_group": null,
     "license_author": "Moffi",
-    "_en_name": "Abdominal mariposa"
+    "_en_name": "Butterfly Sit Up"
   },
   {
     "id": 1477,
@@ -9278,7 +9278,7 @@
     ],
     "variation_group": null,
     "license_author": "Moffi",
-    "_en_name": "Sacacorchos sentado"
+    "_en_name": "Seated Corkscrew"
   },
   {
     "id": 1478,
@@ -9295,7 +9295,7 @@
     ],
     "variation_group": null,
     "license_author": "Moffi",
-    "_en_name": "Crunch de levitaci\u00f3n"
+    "_en_name": "Levitation Crunch"
   },
   {
     "id": 1479,
@@ -9313,7 +9313,7 @@
     ],
     "variation_group": null,
     "license_author": "Moffi",
-    "_en_name": "Abdominal con golpe de codo"
+    "_en_name": "Sit Up Elbow Thrust"
   },
   {
     "id": 1480,
@@ -9331,7 +9331,7 @@
     ],
     "variation_group": null,
     "license_author": "Moffi",
-    "_en_name": "Extensiones de tr\u00edceps tumbado"
+    "_en_name": "Lying Triceps Extensions"
   },
   {
     "id": 1481,
@@ -9366,7 +9366,7 @@
     ],
     "variation_group": null,
     "license_author": "Moffi",
-    "_en_name": "Curl con trampa con mancuernas"
+    "_en_name": "Dumbbell Cheat Curl"
   },
   {
     "id": 1483,
@@ -9401,7 +9401,7 @@
     ],
     "variation_group": null,
     "license_author": "Moffi",
-    "_en_name": "Crois\u00e9 de poulies omni"
+    "_en_name": "Omni Cable Cross-over"
   },
   {
     "id": 1485,
@@ -9419,7 +9419,7 @@
     ],
     "variation_group": null,
     "license_author": "Moffi",
-    "_en_name": "Extension des triceps \u00e0 la corde avec balancement"
+    "_en_name": "Rocking Triceps Pushdown"
   },
   {
     "id": 1486,
@@ -9436,7 +9436,7 @@
     ],
     "variation_group": null,
     "license_author": "Moffi",
-    "_en_name": "Abwechselndes hohes Kabelrudern"
+    "_en_name": "Alternating High Cable Row"
   },
   {
     "id": 1487,
@@ -9451,7 +9451,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "Moffi",
-    "_en_name": "Combinaci\u00f3n hiperextensi\u00f3n Y-W"
+    "_en_name": "Hyper Y W Combo"
   },
   {
     "id": 1489,
@@ -9491,7 +9491,7 @@
     ],
     "variation_group": null,
     "license_author": "Moffi",
-    "_en_name": "Kickback triceps allong\u00e9"
+    "_en_name": "Lying Triceps Kickback"
   },
   {
     "id": 1492,
@@ -9652,7 +9652,7 @@
     ],
     "variation_group": null,
     "license_author": "JohnPreston",
-    "_en_name": "Bradford-Dr\u00fccken mit Kurzhanteln"
+    "_en_name": "Dumbbell Bradford press"
   },
   {
     "id": 1508,
@@ -9754,7 +9754,7 @@
     ],
     "variation_group": null,
     "license_author": "Expenses7000",
-    "_en_name": "Extension des triceps \u00e0 la poulie au-dessus de la t\u00eate"
+    "_en_name": "Overhead Cable Tricep Extension"
   },
   {
     "id": 1514,
@@ -9771,7 +9771,7 @@
     ],
     "variation_group": null,
     "license_author": "cozyGalvinism",
-    "_en_name": "Caminata lateral"
+    "_en_name": "Lateral Walk"
   },
   {
     "id": 1515,
@@ -9818,7 +9818,7 @@
     ],
     "variation_group": null,
     "license_author": "benjamin.yildiz@proton.me",
-    "_en_name": "Extension des triceps au-dessus de la t\u00eate"
+    "_en_name": "Overhead Triceps Extension"
   },
   {
     "id": 1521,
@@ -9852,7 +9852,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "flanny",
-    "_en_name": "Empuje de trineo"
+    "_en_name": "Sled Push"
   },
   {
     "id": 1524,
@@ -9921,7 +9921,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "flanny",
-    "_en_name": "Machine de ski (ski erg)"
+    "_en_name": "Ski Machine"
   },
   {
     "id": 1527,
@@ -9941,7 +9941,7 @@
     ],
     "variation_group": null,
     "license_author": "schweezer",
-    "_en_name": "Pendelkniebeube"
+    "_en_name": "Pendulum Squat"
   },
   {
     "id": 1528,
@@ -9979,7 +9979,7 @@
     ],
     "variation_group": null,
     "license_author": "florian.bussmann",
-    "_en_name": "Pointes de pieds \u00e0 la barre (toes to bar)"
+    "_en_name": "Toes to bar"
   },
   {
     "id": 1530,
@@ -9997,7 +9997,7 @@
     ],
     "variation_group": null,
     "license_author": "Moffi",
-    "_en_name": "Curls avec halt\u00e8res allong\u00e9"
+    "_en_name": "Lying Dumbbell Curls"
   },
   {
     "id": 1531,
@@ -10128,7 +10128,7 @@
     ],
     "variation_group": null,
     "license_author": "Settebello",
-    "_en_name": "Liegest\u00fctz"
+    "_en_name": "Push-Up"
   },
   {
     "id": 1554,
@@ -10173,7 +10173,7 @@
     ],
     "variation_group": null,
     "license_author": "Settebello",
-    "_en_name": "Devil's Press"
+    "_en_name": "Devil\u2019s Press"
   },
   {
     "id": 1567,
@@ -10321,7 +10321,7 @@
     ],
     "variation_group": null,
     "license_author": "mountain.potato",
-    "_en_name": "Charni\u00e8re de hanche"
+    "_en_name": "Hip hinge"
   },
   {
     "id": 1579,
@@ -10354,7 +10354,7 @@
     ],
     "variation_group": null,
     "license_author": "CptnFatbeard",
-    "_en_name": "Einarmiges Landmine-Rudern (senkrecht)"
+    "_en_name": "Perpendicular Unilateral Landmine Row"
   },
   {
     "id": 1581,
@@ -10373,7 +10373,7 @@
     ],
     "variation_group": null,
     "license_author": "CptnFatbeard",
-    "_en_name": "D\u00e9velopp\u00e9 trap\u00e8zes"
+    "_en_name": "Trap press"
   },
   {
     "id": 1582,
@@ -10392,7 +10392,7 @@
     ],
     "variation_group": null,
     "license_author": "CptnFatbeard",
-    "_en_name": "Innenrotation in Seitenlage"
+    "_en_name": "Side-laying interior rotation"
   },
   {
     "id": 1583,
@@ -10436,7 +10436,7 @@
     ],
     "variation_group": null,
     "license_author": "MrAlfaRobot",
-    "_en_name": "Auf der Stelle marschieren oder joggen"
+    "_en_name": "March or jog in place"
   },
   {
     "id": 1589,
@@ -10512,7 +10512,7 @@
     ],
     "variation_group": null,
     "license_author": "MrAlfaRobot",
-    "_en_name": "Gef\u00fchrte oder freie Meditation"
+    "_en_name": "Guided or free meditation"
   },
   {
     "id": 1593,
@@ -10530,7 +10530,7 @@
     ],
     "variation_group": null,
     "license_author": "workout@rooven.anonaddy.me",
-    "_en_name": "Sentadilla split en m\u00e1quina Smith"
+    "_en_name": "Smith Machine Split Squat"
   },
   {
     "id": 1602,
@@ -10568,7 +10568,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "Leg curl con elastico"
+    "_en_name": "Leg curl with elastic"
   },
   {
     "id": 1604,
@@ -10590,7 +10590,7 @@
     ],
     "variation_group": null,
     "license_author": "RiccaBaro",
-    "_en_name": "Affondo laterale con pattina"
+    "_en_name": "Sliding Lateral Lunge"
   },
   {
     "id": 1605,
@@ -10654,7 +10654,7 @@
     ],
     "variation_group": null,
     "license_author": "tenebrizz",
-    "_en_name": "Dominadas typewriter"
+    "_en_name": "Typewriter Pull-ups"
   },
   {
     "id": 1608,
@@ -10671,7 +10671,7 @@
     ],
     "variation_group": null,
     "license_author": "tenebrizz",
-    "_en_name": "Bizeps-Curl mit dem eigenen K\u00f6rpergewicht"
+    "_en_name": "Bodyweight Biceps Curl"
   },
   {
     "id": 1612,
@@ -10690,7 +10690,7 @@
     ],
     "variation_group": null,
     "license_author": "Tierrasverdes",
-    "_en_name": "Sentadilla con pesa rusa"
+    "_en_name": ""
   },
   {
     "id": 1613,
@@ -10707,7 +10707,7 @@
     ],
     "variation_group": null,
     "license_author": "Tierrasverdes",
-    "_en_name": "Glute Kickback mit Widerstandsband"
+    "_en_name": ""
   },
   {
     "id": 1615,
@@ -10722,7 +10722,7 @@
     ],
     "variation_group": null,
     "license_author": "Tierrasverdes",
-    "_en_name": "Cardio en cinta"
+    "_en_name": "Treadmill Cardio"
   },
   {
     "id": 1616,
@@ -10740,7 +10740,7 @@
     ],
     "variation_group": null,
     "license_author": "Tierrasverdes",
-    "_en_name": "Donkey kick \u00e0 l'halt\u00e8re"
+    "_en_name": "Dumbbell donkey kick"
   },
   {
     "id": 1618,
@@ -10755,7 +10755,7 @@
     ],
     "variation_group": null,
     "license_author": "Tierrasverdes",
-    "_en_name": "Cardio auf dem Heimtrainer"
+    "_en_name": "Stationary bike cardio"
   },
   {
     "id": 1620,
@@ -10772,13 +10772,13 @@
     ],
     "variation_group": null,
     "license_author": "AlucardEvil40",
-    "_en_name": "Elevaci\u00f3n de gemelos sentado con mancuerna"
+    "_en_name": "Seated Dumbbell Calf Raise"
   },
   {
     "id": 1621,
     "uuid": "c1a9297d-6786-45dc-9047-5539fb61db9c",
     "created": "2025-09-04T09:44:17.513518+02:00",
-    "last_update": "2026-07-23T12:36:37.427448+02:00",
+    "last_update": "2026-09-20T14:04:31.507704+02:00",
     "category": 12,
     "muscles": [
       12,
@@ -10789,9 +10789,9 @@
       8,
       12
     ],
-    "variation_group": null,
+    "variation_group": "bf93e7a9-c81c-4af4-892d-d40d6913c896",
     "license_author": "Rottekongen",
-    "_en_name": "Einarmiges Rudern am Kabelzug"
+    "_en_name": "Unilateral Cable row"
   },
   {
     "id": 1630,
@@ -10836,7 +10836,7 @@
     ],
     "variation_group": null,
     "license_author": "Rottekongen",
-    "_en_name": "Pullover/remo con cuerda"
+    "_en_name": "Rope Pullover/row"
   },
   {
     "id": 1635,
@@ -10872,7 +10872,7 @@
     ],
     "variation_group": null,
     "license_author": "Rottekongen",
-    "_en_name": "Einarmiges Rudern"
+    "_en_name": "Single arm row"
   },
   {
     "id": 1638,
@@ -10949,7 +10949,7 @@
     ],
     "variation_group": null,
     "license_author": "AlucardEvil40",
-    "_en_name": "Einbeiniges Kreuzheben mit Kettlebell"
+    "_en_name": "Kettlebell One Legged Deadlift"
   },
   {
     "id": 1642,
@@ -10984,7 +10984,7 @@
     ],
     "variation_group": null,
     "license_author": "AlucardEvil40",
-    "_en_name": "Crunch con peso"
+    "_en_name": ""
   },
   {
     "id": 1650,
@@ -11074,7 +11074,7 @@
     ],
     "variation_group": null,
     "license_author": "roneydya",
-    "_en_name": "Elevaci\u00f3n lateral en m\u00e1quina"
+    "_en_name": "Machine Lateral Raise"
   },
   {
     "id": 1656,
@@ -11093,7 +11093,7 @@
     ],
     "variation_group": null,
     "license_author": "Shiladree",
-    "_en_name": "Brustdr\u00fccken am Kabelzug - negativ geneigt"
+    "_en_name": "Cable Chest Press - Decline"
   },
   {
     "id": 1657,
@@ -11110,7 +11110,7 @@
     ],
     "variation_group": null,
     "license_author": "Shiladree",
-    "_en_name": "Curl au pupitre - rotation interne"
+    "_en_name": "Preacher Curl - Internally Rotated"
   },
   {
     "id": 1658,
@@ -11127,7 +11127,7 @@
     ],
     "variation_group": null,
     "license_author": "Shiladree",
-    "_en_name": "Curl au pupitre - rotation externe"
+    "_en_name": "Preacher Curl - Externally Rotated"
   },
   {
     "id": 1659,
@@ -11144,7 +11144,7 @@
     ],
     "variation_group": null,
     "license_author": "Shiladree",
-    "_en_name": "Jal\u00f3n al pecho a un brazo cruzado"
+    "_en_name": "Lat Pulldown - Cross Body Single Arm"
   },
   {
     "id": 1660,
@@ -11163,7 +11163,7 @@
     ],
     "variation_group": null,
     "license_author": "Shiladree",
-    "_en_name": "Brustdr\u00fccken am Kabelzug auf der Schr\u00e4gbank"
+    "_en_name": "Cable Chest Press - Incline"
   },
   {
     "id": 1661,
@@ -11231,7 +11231,7 @@
     ],
     "variation_group": null,
     "license_author": "AlucardEvil40",
-    "_en_name": "Einarmiges Trizepsstrecken \u00fcber Kopf am Kabelzug"
+    "_en_name": "One Arm Overhead Cable Tricep Extension"
   },
   {
     "id": 1670,
@@ -11251,7 +11251,7 @@
     ],
     "variation_group": null,
     "license_author": "Jhonatan",
-    "_en_name": "Balancements de jambe (avant-arri\u00e8re)"
+    "_en_name": "Leg Swings (Front\u2013Back)"
   },
   {
     "id": 1672,
@@ -11268,7 +11268,7 @@
     ],
     "variation_group": null,
     "license_author": "Iko",
-    "_en_name": "Abducci\u00f3n de cadera sentado"
+    "_en_name": "Seated Hip Abduction"
   },
   {
     "id": 1679,
@@ -11285,7 +11285,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "bbayuwega",
-    "_en_name": "Wall Angels"
+    "_en_name": ""
   },
   {
     "id": 1680,
@@ -11302,7 +11302,7 @@
     ],
     "variation_group": null,
     "license_author": "ricardodavidrd",
-    "_en_name": "Estiramiento de cuatro sentado"
+    "_en_name": ""
   },
   {
     "id": 1683,
@@ -11320,7 +11320,7 @@
     ],
     "variation_group": "021511d4-6786-4847-b5ba-b7a36bb0a6fb",
     "license_author": "meldun",
-    "_en_name": "Curl Zottman"
+    "_en_name": ""
   },
   {
     "id": 1684,
@@ -11388,7 +11388,7 @@
     ],
     "variation_group": "6005adbc-c8d6-4747-81f7-f526ec65cd06",
     "license_author": "meldun",
-    "_en_name": "Bear Crawl Pull Through"
+    "_en_name": "Bear crawl pull through"
   },
   {
     "id": 1688,
@@ -11422,7 +11422,7 @@
     ],
     "variation_group": null,
     "license_author": "daiben",
-    "_en_name": "Aperturas en polea para el pecho medio"
+    "_en_name": "Cable Fly Middle Chest"
   },
   {
     "id": 1690,
@@ -11439,7 +11439,7 @@
     ],
     "variation_group": null,
     "license_author": "daiben",
-    "_en_name": "Aperturas en polea para el pecho superior"
+    "_en_name": "Cable Fly Upper Chest"
   },
   {
     "id": 1691,
@@ -11456,7 +11456,7 @@
     ],
     "variation_group": null,
     "license_author": "daiben",
-    "_en_name": "Aperturas en polea para el pecho inferior"
+    "_en_name": "Cable Fly Lower Chest"
   },
   {
     "id": 1693,
@@ -11490,7 +11490,7 @@
     ],
     "variation_group": null,
     "license_author": "daiben",
-    "_en_name": "Brustdr\u00fccken an der Maschine (flach)"
+    "_en_name": "Flat Machine Press"
   },
   {
     "id": 1695,
@@ -11507,7 +11507,7 @@
     ],
     "variation_group": null,
     "license_author": "daiben",
-    "_en_name": "Dominadas (agarre ancho)"
+    "_en_name": "Pull-Ups (Wide Grip)"
   },
   {
     "id": 1696,
@@ -11522,7 +11522,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "daiben",
-    "_en_name": "Dominadas (agarre neutro)"
+    "_en_name": "Pull-Ups (Neutral Grip)"
   },
   {
     "id": 1698,
@@ -11630,7 +11630,7 @@
     ],
     "variation_group": null,
     "license_author": "Mariano_O",
-    "_en_name": "Extensions des triceps en kickback"
+    "_en_name": "Patadas traseras"
   },
   {
     "id": 1704,
@@ -11653,7 +11653,7 @@
     ],
     "variation_group": null,
     "license_author": "clafal",
-    "_en_name": "L-sit agrupado"
+    "_en_name": "Tuck L-sit"
   },
   {
     "id": 1706,
@@ -11690,7 +11690,7 @@
     ],
     "variation_group": null,
     "license_author": "polloperro",
-    "_en_name": "Elevacion lateral polea"
+    "_en_name": "Elevaci\u00f3n lateral polea"
   },
   {
     "id": 1709,
@@ -11708,7 +11708,7 @@
     ],
     "variation_group": null,
     "license_author": "Croak6728",
-    "_en_name": "Oiseau debout"
+    "_en_name": "Reverse Fly Standing"
   },
   {
     "id": 1710,
@@ -11727,7 +11727,7 @@
     ],
     "variation_group": null,
     "license_author": "Croak6728",
-    "_en_name": "Butcher's Block Dehnung"
+    "_en_name": "Butchers Block Stretch"
   },
   {
     "id": 1711,
@@ -11765,7 +11765,7 @@
     ],
     "variation_group": null,
     "license_author": "Croak6728",
-    "_en_name": "Dehnung der horizontalen Schulterflexion"
+    "_en_name": "Horizontal Shoulder Flexion Stretch"
   },
   {
     "id": 1713,
@@ -11782,7 +11782,7 @@
     ],
     "variation_group": null,
     "license_author": "Croak6728",
-    "_en_name": "Brustdehnung im T\u00fcrrahmen"
+    "_en_name": "Doorway Pectoral Stretch"
   },
   {
     "id": 1714,
@@ -11802,7 +11802,7 @@
     ],
     "variation_group": null,
     "license_author": "Croak6728",
-    "_en_name": "Ejercicio pendular de hombro con mancuerna"
+    "_en_name": "Shoulder Dumbbell Pendular Exercise"
   },
   {
     "id": 1715,
@@ -11822,7 +11822,7 @@
     ],
     "variation_group": null,
     "license_author": "Croak6728",
-    "_en_name": "Au\u00dfenrotation der Schulter mit Kurzhantel"
+    "_en_name": "Shoulder External Rotation with Dumbbell"
   },
   {
     "id": 1716,
@@ -11858,7 +11858,7 @@
     ],
     "variation_group": null,
     "license_author": "polloperro",
-    "_en_name": "Codo unilateral polea alta"
+    "_en_name": "Neck extension"
   },
   {
     "id": 1718,
@@ -11877,7 +11877,7 @@
     ],
     "variation_group": null,
     "license_author": "polloperro",
-    "_en_name": "Remo alto desde polea"
+    "_en_name": "Remo alto polea alta"
   },
   {
     "id": 1719,
@@ -11925,7 +11925,7 @@
     ],
     "variation_group": null,
     "license_author": "barry",
-    "_en_name": "Adduction debout (poulie)"
+    "_en_name": "Standing Adduction (Cable)"
   },
   {
     "id": 1725,
@@ -11943,7 +11943,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "barry",
-    "_en_name": "Remo sentado (m\u00e1quina)"
+    "_en_name": "Seated Row (Machine)"
   },
   {
     "id": 1726,
@@ -11960,7 +11960,7 @@
     ],
     "variation_group": null,
     "license_author": "barry",
-    "_en_name": "Jal\u00f3n con brazos rectos (polea)"
+    "_en_name": "Straight-Arm Pulldown (Cable)"
   },
   {
     "id": 1727,
@@ -11977,7 +11977,7 @@
     ],
     "variation_group": null,
     "license_author": "barry",
-    "_en_name": "Jal\u00f3n lateral con brazo recto (polea)"
+    "_en_name": "Side Straight-Arm Pulldown (Cable)"
   },
   {
     "id": 1728,
@@ -11994,7 +11994,7 @@
     ],
     "variation_group": null,
     "license_author": "barry",
-    "_en_name": "Innenrotation der Schulter am Kabelzug"
+    "_en_name": "Shoulder Internal Rotation (Cable)"
   },
   {
     "id": 1729,
@@ -12011,7 +12011,7 @@
     ],
     "variation_group": null,
     "license_author": "barry",
-    "_en_name": "Au\u00dfenrotation der Schulter am Kabelzug"
+    "_en_name": "Shoulder External Rotation (Cable)"
   },
   {
     "id": 1730,
@@ -12064,7 +12064,7 @@
     ],
     "variation_group": null,
     "license_author": "54str",
-    "_en_name": "Face Pulls mit gelbem/gr\u00fcnem Band"
+    "_en_name": "Face pulls with yellow/green band"
   },
   {
     "id": 1733,
@@ -12101,7 +12101,7 @@
     ],
     "variation_group": null,
     "license_author": "Tierrasverdes",
-    "_en_name": "Einbeiniger Ausfallschritt mit Kettlebell"
+    "_en_name": "Single-Leg Lunge with Kettlebell:"
   },
   {
     "id": 1735,
@@ -12120,7 +12120,7 @@
     ],
     "variation_group": null,
     "license_author": "Tierrasverdes",
-    "_en_name": "Einbeinige seitliche Ges\u00e4\u00dfpresse"
+    "_en_name": "Single-leg side glute press"
   },
   {
     "id": 1736,
@@ -12138,7 +12138,7 @@
     ],
     "variation_group": "6d2a7dcd-2d34-440e-b9e6-decb5f840a74",
     "license_author": "Tierrasverdes",
-    "_en_name": "Einbeiniges Kreuzheben mit Kurzhantel"
+    "_en_name": "Single-Leg Deadlift with Dumbbell"
   },
   {
     "id": 1737,
@@ -12176,7 +12176,7 @@
     ],
     "variation_group": null,
     "license_author": "54str",
-    "_en_name": "Dominadas en agarre neutro o remo TRX"
+    "_en_name": "Neutral-grip pull-ups or TRX rows"
   },
   {
     "id": 1739,
@@ -12268,7 +12268,7 @@
     ],
     "variation_group": null,
     "license_author": "Happy",
-    "_en_name": "Essuie-glaces"
+    "_en_name": ""
   },
   {
     "id": 1744,
@@ -12283,7 +12283,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "Tierrasverdes",
-    "_en_name": "Elevaci\u00f3n lateral en maquina"
+    "_en_name": "Machine Side Lateral Raises"
   },
   {
     "id": 1745,
@@ -12316,7 +12316,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "Tierrasverdes",
-    "_en_name": "Kniebeuge in der Multipresse"
+    "_en_name": "Smith machine squat"
   },
   {
     "id": 1748,
@@ -12331,7 +12331,7 @@
     "equipment": [],
     "variation_group": "95132eef-ae4e-4185-87b8-a8588caff4fa",
     "license_author": "Tierrasverdes",
-    "_en_name": "Abducci\u00f3n en m\u00e1quina"
+    "_en_name": "Machine Hip Abduction"
   },
   {
     "id": 1751,
@@ -12353,7 +12353,7 @@
     ],
     "variation_group": null,
     "license_author": "manuher89",
-    "_en_name": "Cable Pull Through"
+    "_en_name": "Cable pull through"
   },
   {
     "id": 1752,
@@ -12437,7 +12437,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Plancha con extensi\u00f3n de brazo"
+    "_en_name": "Plank Reach"
   },
   {
     "id": 1771,
@@ -12454,7 +12454,7 @@
     ],
     "variation_group": "34e4c8b8-bafb-4f00-8c0a-bd16da450ddc",
     "license_author": "eufvksruh",
-    "_en_name": "Curl de mu\u00f1eca en polea"
+    "_en_name": ""
   },
   {
     "id": 1772,
@@ -12471,7 +12471,7 @@
     ],
     "variation_group": null,
     "license_author": "eufvksruh",
-    "_en_name": "Crunch inverso"
+    "_en_name": "Reverse crunch"
   },
   {
     "id": 1773,
@@ -12522,7 +12522,7 @@
     "equipment": [],
     "variation_group": "19808be8-e98c-4b65-b8c7-f559aba5f2f8",
     "license_author": "eufvksruh",
-    "_en_name": "Oiseau arri\u00e8re \u00e0 la machine pec deck"
+    "_en_name": "Pec deck rear delt fly"
   },
   {
     "id": 1776,
@@ -12618,7 +12618,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Einarmiger Cable Pulldown \u00fcber Kreuz"
+    "_en_name": ""
   },
   {
     "id": 1801,
@@ -12657,7 +12657,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "kmcalderwood",
-    "_en_name": "Sentadilla con barra hexagonal"
+    "_en_name": "Trap Bar Squat"
   },
   {
     "id": 1804,
@@ -12675,7 +12675,7 @@
     ],
     "variation_group": null,
     "license_author": "Davidgj32",
-    "_en_name": "Bascules en dorsiflexion de la cheville"
+    "_en_name": ""
   },
   {
     "id": 1807,
@@ -12715,7 +12715,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "Croak6728",
-    "_en_name": "Halten am Barren"
+    "_en_name": "Parallel Bar Hold"
   },
   {
     "id": 1809,
@@ -12733,7 +12733,7 @@
     ],
     "variation_group": null,
     "license_author": "Croak6728",
-    "_en_name": "Hiperextensi\u00f3n inversa"
+    "_en_name": "Reverse Hyperextension"
   },
   {
     "id": 1810,
@@ -12750,7 +12750,7 @@
     ],
     "variation_group": null,
     "license_author": "Joculari",
-    "_en_name": "Esfinge"
+    "_en_name": "Sphinx"
   },
   {
     "id": 1822,
@@ -12765,7 +12765,7 @@
     ],
     "variation_group": null,
     "license_author": "teus_ergaster",
-    "_en_name": "Buch aufschlagen (Open Book)"
+    "_en_name": "Open Book"
   },
   {
     "id": 1823,
@@ -12783,7 +12783,7 @@
     ],
     "variation_group": "b471b989-15df-47a7-808b-837187506c7a",
     "license_author": "teus_ergaster",
-    "_en_name": "Almeja (clamshell)"
+    "_en_name": "Clamshell"
   },
   {
     "id": 1824,
@@ -12841,7 +12841,7 @@
     ],
     "variation_group": null,
     "license_author": "beagle",
-    "_en_name": "Apertura con banda y rotaci\u00f3n externa"
+    "_en_name": "Band pull-apart with external rotation"
   },
   {
     "id": 1827,
@@ -12858,7 +12858,7 @@
     ],
     "variation_group": null,
     "license_author": "beagle",
-    "_en_name": "Bauchpresse mit beiden Beinen"
+    "_en_name": "Double-Leg Abdominal Press"
   },
   {
     "id": 1828,
@@ -12897,7 +12897,7 @@
     ],
     "variation_group": null,
     "license_author": "beagle",
-    "_en_name": "Landmine Kniebeuge mit \u00dcberkopfdr\u00fccken"
+    "_en_name": "Landmine Squat to Press"
   },
   {
     "id": 1830,
@@ -12914,7 +12914,7 @@
     ],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Ausfallschritt nach hinten mit Langhantel"
+    "_en_name": "Barbell Step Back Lunge"
   },
   {
     "id": 1831,
@@ -12932,7 +12932,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "D\u00e9velopp\u00e9 d\u00e9clin\u00e9 sur machine Hammer Strength"
+    "_en_name": "Hammerstrength Decline Chest Press"
   },
   {
     "id": 1832,
@@ -12945,7 +12945,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Maintien en appui aux anneaux"
+    "_en_name": "Ring Support Hold"
   },
   {
     "id": 1833,
@@ -12963,7 +12963,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Beinbeuger am Boden mit Glidern"
+    "_en_name": "Floor Glider Hamstring Curls"
   },
   {
     "id": 1834,
@@ -12980,7 +12980,7 @@
     ],
     "variation_group": null,
     "license_author": "Croak6728",
-    "_en_name": "Elevaci\u00f3n Trap-3"
+    "_en_name": "Trap-3 Raise"
   },
   {
     "id": 1835,
@@ -12998,7 +12998,7 @@
     ],
     "variation_group": null,
     "license_author": "Croak6728",
-    "_en_name": "Dehnung mit Au\u00dfenrotation"
+    "_en_name": "External Rotation Stretch"
   },
   {
     "id": 1838,
@@ -13065,7 +13065,7 @@
     ],
     "variation_group": null,
     "license_author": "Croak6728",
-    "_en_name": "Estiramiento de extensi\u00f3n de hombro sentado"
+    "_en_name": "Seated Shoulder Extension Stretch"
   },
   {
     "id": 1842,
@@ -13085,7 +13085,7 @@
     ],
     "variation_group": "b471b989-15df-47a7-808b-837187506c7a",
     "license_author": "Croak6728",
-    "_en_name": "Almeja con banda"
+    "_en_name": "Banded Clamshell"
   },
   {
     "id": 1843,
@@ -13117,7 +13117,7 @@
     ],
     "variation_group": null,
     "license_author": "Croak6728",
-    "_en_name": "Estiramiento de rana"
+    "_en_name": "Frog Stretch"
   },
   {
     "id": 1845,
@@ -13134,7 +13134,7 @@
     ],
     "variation_group": "5eca8c6e-64cd-4023-bcc8-d2edefe58a00",
     "license_author": "Croak6728",
-    "_en_name": "Buenos d\u00edas sentado con apertura (pancake)"
+    "_en_name": "Seated Pancake Good Morning"
   },
   {
     "id": 1846,
@@ -13173,7 +13173,7 @@
     ],
     "variation_group": "7cba5090-9bb9-4b12-a1cb-fa1c818fcc93",
     "license_author": "Croak6728",
-    "_en_name": "L-Sit en straddle"
+    "_en_name": "Straddle L-Sit"
   },
   {
     "id": 1852,
@@ -13195,7 +13195,7 @@
     ],
     "variation_group": "7cba5090-9bb9-4b12-a1cb-fa1c818fcc93",
     "license_author": "Croak6728",
-    "_en_name": "L-Sit"
+    "_en_name": "L-sit"
   },
   {
     "id": 1853,
@@ -13250,7 +13250,7 @@
     ],
     "variation_group": null,
     "license_author": "Davidgj32",
-    "_en_name": "Foam Roller isquitobiales"
+    "_en_name": "Hamstring Foam roller"
   },
   {
     "id": 1856,
@@ -13282,7 +13282,7 @@
     ],
     "variation_group": null,
     "license_author": "Davidgj32",
-    "_en_name": "Foam Roller Cintillar iliotibial"
+    "_en_name": "Foam Roller Iliotibial band"
   },
   {
     "id": 1858,
@@ -13299,7 +13299,7 @@
     ],
     "variation_group": null,
     "license_author": "Davidgj32",
-    "_en_name": "Foam Roller cuadriceps"
+    "_en_name": "Foam Roller quadriceps"
   },
   {
     "id": 1859,
@@ -13570,7 +13570,7 @@
     ],
     "variation_group": null,
     "license_author": "Deflation",
-    "_en_name": "Elevaci\u00f3n en Y con mancuernas en banco inclinado"
+    "_en_name": "Incline DB Y-Raise"
   },
   {
     "id": 1881,
@@ -13605,7 +13605,7 @@
     ],
     "variation_group": null,
     "license_author": "Deflation",
-    "_en_name": "Elevaci\u00f3n lateral en polea alta"
+    "_en_name": "High-Cable Lateral Raise"
   },
   {
     "id": 1884,
@@ -13623,7 +13623,7 @@
     ],
     "variation_group": null,
     "license_author": "teus_ergaster",
-    "_en_name": "Estiramiento de rotaci\u00f3n interna en shinbox"
+    "_en_name": "Shinbox IR Stretch"
   },
   {
     "id": 1885,
@@ -13642,7 +13642,7 @@
     ],
     "variation_group": null,
     "license_author": "teus_ergaster",
-    "_en_name": "Ejercicio YTWL"
+    "_en_name": ""
   },
   {
     "id": 1886,
@@ -13660,7 +13660,7 @@
     ],
     "variation_group": null,
     "license_author": "teus_ergaster",
-    "_en_name": "Abducci\u00f3n de cadera en supino"
+    "_en_name": "Supine Hip Abduction"
   },
   {
     "id": 1889,
@@ -13677,7 +13677,7 @@
     ],
     "variation_group": "8cab688b-4277-46a6-9bf5-73af4a647aae",
     "license_author": "nishant0712",
-    "_en_name": "Beinheben auf der Schr\u00e4gbank"
+    "_en_name": "Decline Bench Leg Raise"
   },
   {
     "id": 1893,
@@ -13694,7 +13694,7 @@
     ],
     "variation_group": null,
     "license_author": "nishant0712",
-    "_en_name": "D\u00e9velopp\u00e9 militaire \u00e0 la barre"
+    "_en_name": "Overhead Barbell Press"
   },
   {
     "id": 1900,
@@ -13713,7 +13713,7 @@
     ],
     "variation_group": null,
     "license_author": "nishant0712",
-    "_en_name": "Extensiones de tr\u00edceps con cuerda en polea"
+    "_en_name": "Tricep Rope Pushdowns"
   },
   {
     "id": 1901,
@@ -13732,7 +13732,7 @@
     ],
     "variation_group": null,
     "license_author": "nishant0712",
-    "_en_name": "Cargada y press"
+    "_en_name": "Clean and Press"
   },
   {
     "id": 1902,
@@ -13751,7 +13751,7 @@
     ],
     "variation_group": null,
     "license_author": "nishant0712",
-    "_en_name": "Flexiones con peso"
+    "_en_name": ""
   },
   {
     "id": 1904,
@@ -13860,7 +13860,7 @@
     ],
     "variation_group": null,
     "license_author": "cybro",
-    "_en_name": "Beinkreisen"
+    "_en_name": "Leg Wheel"
   },
   {
     "id": 1910,
@@ -13971,7 +13971,7 @@
     ],
     "variation_group": null,
     "license_author": "treder",
-    "_en_name": "Abducci\u00f3n de cadera en cuadrupedia"
+    "_en_name": "Quadruped Hip Abduction"
   },
   {
     "id": 1916,
@@ -14074,7 +14074,7 @@
     ],
     "variation_group": null,
     "license_author": "shushu",
-    "_en_name": "Aperturas de pecho en polea sentado"
+    "_en_name": "Seated Cable chest fly"
   },
   {
     "id": 1924,
@@ -14155,7 +14155,7 @@
     ],
     "variation_group": null,
     "license_author": "amaesc",
-    "_en_name": "Remo sentado con agarre en V"
+    "_en_name": "Seated V-Grip Row"
   },
   {
     "id": 1929,
@@ -14199,7 +14199,7 @@
     ],
     "variation_group": null,
     "license_author": "amaesc",
-    "_en_name": "Curl avec halt\u00e8res"
+    "_en_name": "Dumbbell Curl"
   },
   {
     "id": 1933,
@@ -14252,7 +14252,7 @@
     ],
     "variation_group": "19808be8-e98c-4b65-b8c7-f559aba5f2f8",
     "license_author": "Dulive",
-    "_en_name": "Aperturas para deltoides posterior en polea (un brazo)"
+    "_en_name": "Cable Rear-Delt Fly (single arm)"
   },
   {
     "id": 1938,
@@ -14310,7 +14310,7 @@
     ],
     "variation_group": null,
     "license_author": "Aleid",
-    "_en_name": "Arrancada con mancuerna (dumbbell snatch)"
+    "_en_name": ""
   },
   {
     "id": 1948,
@@ -14421,7 +14421,7 @@
     ],
     "variation_group": null,
     "license_author": "Pete-E automation",
-    "_en_name": "Estiramiento del piriforme sentado"
+    "_en_name": "Seated Piriformis Stretch"
   },
   {
     "id": 1960,
@@ -14436,7 +14436,7 @@
     ],
     "variation_group": null,
     "license_author": "Pete-E automation",
-    "_en_name": "Estiramiento del flexor de cadera con pie trasero elevado"
+    "_en_name": "Rear-foot-elevated Hip Flexor Stretch"
   },
   {
     "id": 1962,
@@ -14479,7 +14479,7 @@
     ],
     "variation_group": null,
     "license_author": "Anon#2",
-    "_en_name": "Langsame Kniebeuge"
+    "_en_name": "Slow Squat"
   },
   {
     "id": 1964,
@@ -14499,7 +14499,7 @@
     ],
     "variation_group": null,
     "license_author": "Anon#2",
-    "_en_name": "Breiter Liegest\u00fctz"
+    "_en_name": ""
   },
   {
     "id": 1965,
@@ -14520,7 +14520,7 @@
     ],
     "variation_group": null,
     "license_author": "Anon#2",
-    "_en_name": "Knieheben im Stand"
+    "_en_name": "Marching High Knees"
   },
   {
     "id": 1966,
@@ -14574,7 +14574,7 @@
     ],
     "variation_group": "e3388987-305b-43b8-9e90-c3bce376b203",
     "license_author": "evtimovgeorg",
-    "_en_name": "D\u00e9velopp\u00e9 \u00e9paules unilat\u00e9ral \u00e0 l'halt\u00e8re"
+    "_en_name": "Single-arm dumbbell shoulder press"
   },
   {
     "id": 1969,
@@ -14593,7 +14593,7 @@
     ],
     "variation_group": null,
     "license_author": "evtimovgeorg",
-    "_en_name": "Einarmiges Trizepsdr\u00fccken am Kabelzug"
+    "_en_name": "Single-arm cable pushdown"
   },
   {
     "id": 1970,
@@ -14615,7 +14615,7 @@
     ],
     "variation_group": null,
     "license_author": "wgerpott",
-    "_en_name": "Kettlebell Sumo High Pull"
+    "_en_name": "Kettlebell sumo high pull"
   },
   {
     "id": 1971,
@@ -14635,7 +14635,7 @@
     ],
     "variation_group": "7bad4b8b-a95f-4a40-b512-7429d3333f66",
     "license_author": "Mike Mentzer",
-    "_en_name": "Jal\u00f3n Mentzer"
+    "_en_name": "Mentzer Pulldown"
   },
   {
     "id": 1972,
@@ -14656,7 +14656,7 @@
     ],
     "variation_group": null,
     "license_author": "evtimovgeorg",
-    "_en_name": "Einarmiger Latzug"
+    "_en_name": "Single-Arm Lat Pulldown"
   },
   {
     "id": 2447,
@@ -14694,7 +14694,7 @@
     ],
     "variation_group": null,
     "license_author": "TobiasFalk",
-    "_en_name": "Almeja inversa"
+    "_en_name": "Reverse Clamshell"
   },
   {
     "id": 2449,
@@ -14711,7 +14711,7 @@
     ],
     "variation_group": null,
     "license_author": "TobiasFalk",
-    "_en_name": "Almeja a almeja inversa"
+    "_en_name": "Clamshell to Reverse Clamshell"
   },
   {
     "id": 2452,
@@ -14839,7 +14839,7 @@
     "equipment": [],
     "variation_group": null,
     "license_author": "",
-    "_en_name": "Wall-Hold Rotation"
+    "_en_name": ""
   },
   {
     "id": 2484,
@@ -14937,90 +14937,6 @@
     "_en_name": "Posterior Pelvic Tilt"
   },
   {
-    "id": 2489,
-    "uuid": "bbcf5019-a57f-4e67-bd44-98cba129a0b7",
-    "created": "2026-08-05T11:02:33.605051+02:00",
-    "last_update": "2026-08-05T11:02:33.728593+02:00",
-    "category": 12,
-    "muscles": [
-      9
-    ],
-    "muscles_secondary": [
-      1,
-      12
-    ],
-    "equipment": [],
-    "variation_group": "370087d4-a048-4a2e-b4d7-6c0ddee6b61e",
-    "license_author": "lbroggi",
-    "_en_name": "Low row"
-  },
-  {
-    "id": 2490,
-    "uuid": "1bda9167-805e-4c7d-aafc-57cdcf5b6d7d",
-    "created": "2026-08-05T11:09:39.901216+02:00",
-    "last_update": "2026-08-05T11:09:39.901236+02:00",
-    "category": 12,
-    "muscles": [
-      1,
-      12
-    ],
-    "muscles_secondary": [
-      9
-    ],
-    "equipment": [],
-    "variation_group": "370087d4-a048-4a2e-b4d7-6c0ddee6b61e",
-    "license_author": "lbroggi",
-    "_en_name": "Pulley (low, with triangle)"
-  },
-  {
-    "id": 2491,
-    "uuid": "d02f6fe0-8ae3-4251-8f94-a63e38249a55",
-    "created": "2026-08-05T11:16:08.334115+02:00",
-    "last_update": "2026-08-05T11:16:08.334127+02:00",
-    "category": 9,
-    "muscles": [
-      8
-    ],
-    "muscles_secondary": [],
-    "equipment": [],
-    "variation_group": null,
-    "license_author": "lbroggi",
-    "_en_name": "Abductors"
-  },
-  {
-    "id": 2492,
-    "uuid": "701d9cee-0797-4177-8556-252de669b56c",
-    "created": "2026-08-05T11:18:54.493141+02:00",
-    "last_update": "2026-08-05T11:18:54.493155+02:00",
-    "category": 9,
-    "muscles": [
-      8
-    ],
-    "muscles_secondary": [],
-    "equipment": [],
-    "variation_group": null,
-    "license_author": "lbroggi",
-    "_en_name": "Adductors"
-  },
-  {
-    "id": 2493,
-    "uuid": "1c60ade0-1e8c-475b-b2d3-bfdf313987f4",
-    "created": "2026-08-05T16:19:50.475240+02:00",
-    "last_update": "2026-08-05T16:19:50.475254+02:00",
-    "category": 9,
-    "muscles": [
-      11,
-      8
-    ],
-    "muscles_secondary": [],
-    "equipment": [
-      8
-    ],
-    "variation_group": null,
-    "license_author": "hurr99",
-    "_en_name": "Adductor Side Plank"
-  },
-  {
     "id": 2494,
     "uuid": "3096b34e-1781-4f99-8187-d9acac8e712b",
     "created": "2026-08-10T02:41:35.829708+02:00",
@@ -15038,296 +14954,6 @@
     "_en_name": "Band Terminal Knee extension"
   },
   {
-    "id": 2495,
-    "uuid": "c690034b-400c-4da8-8c71-37afac81ec3f",
-    "created": "2026-08-10T03:00:08.388406+02:00",
-    "last_update": "2026-08-10T03:00:08.388427+02:00",
-    "category": 9,
-    "muscles": [
-      11
-    ],
-    "muscles_secondary": [],
-    "equipment": [
-      12
-    ],
-    "variation_group": null,
-    "license_author": "Me",
-    "_en_name": "Machine Leg Flexion"
-  },
-  {
-    "id": 2496,
-    "uuid": "37895cdd-aa94-43b5-8b76-4494b7ffeac2",
-    "created": "2026-08-10T03:33:21.018077+02:00",
-    "last_update": "2026-08-10T03:33:21.018088+02:00",
-    "category": 11,
-    "muscles": [
-      4
-    ],
-    "muscles_secondary": [
-      2,
-      14
-    ],
-    "equipment": [
-      7
-    ],
-    "variation_group": null,
-    "license_author": "Vasco Custom",
-    "_en_name": "Wall Push-ups (Vasco L1)"
-  },
-  {
-    "id": 2497,
-    "uuid": "2dd388dd-e7fa-44f1-9973-6f9c1185e0a4",
-    "created": "2026-08-10T03:34:23.958382+02:00",
-    "last_update": "2026-08-10T03:34:23.958450+02:00",
-    "category": 11,
-    "muscles": [
-      4
-    ],
-    "muscles_secondary": [
-      2,
-      14
-    ],
-    "equipment": [
-      3
-    ],
-    "variation_group": null,
-    "license_author": "Vasco Custom",
-    "_en_name": "DB Floor Press (5kg Single Arm)"
-  },
-  {
-    "id": 2498,
-    "uuid": "d6bed527-8cd4-4ff0-bb83-761a25b8f3a3",
-    "created": "2026-08-10T03:34:27.223799+02:00",
-    "last_update": "2026-08-10T03:34:27.223813+02:00",
-    "category": 13,
-    "muscles": [
-      2
-    ],
-    "muscles_secondary": [
-      14
-    ],
-    "equipment": [
-      7
-    ],
-    "variation_group": null,
-    "license_author": "Vasco Custom",
-    "_en_name": "Pike Push-ups (Vasco L1)"
-  },
-  {
-    "id": 2499,
-    "uuid": "2cc5644d-a8d7-49f5-8978-db0f2184864e",
-    "created": "2026-08-10T03:34:30.545678+02:00",
-    "last_update": "2026-08-10T03:34:30.545702+02:00",
-    "category": 11,
-    "muscles": [
-      4
-    ],
-    "muscles_secondary": [],
-    "equipment": [
-      7
-    ],
-    "variation_group": null,
-    "license_author": "Vasco Custom",
-    "_en_name": "Incline Push-ups (Vasco L2)"
-  },
-  {
-    "id": 2501,
-    "uuid": "a7a1e96f-2f34-48eb-93ad-75c08e9e2721",
-    "created": "2026-08-10T03:37:29.100680+02:00",
-    "last_update": "2026-08-10T03:37:29.100692+02:00",
-    "category": 12,
-    "muscles": [
-      12
-    ],
-    "muscles_secondary": [
-      1,
-      9
-    ],
-    "equipment": [
-      7
-    ],
-    "variation_group": null,
-    "license_author": "Vasco Custom",
-    "_en_name": "Table Bodyweight Rows (Vasco L1)"
-  },
-  {
-    "id": 2502,
-    "uuid": "ef7d621e-ddb2-490f-ae2b-e73dd509d396",
-    "created": "2026-08-10T03:37:32.547136+02:00",
-    "last_update": "2026-08-10T03:37:32.547147+02:00",
-    "category": 12,
-    "muscles": [
-      12
-    ],
-    "muscles_secondary": [
-      1,
-      13
-    ],
-    "equipment": [
-      3
-    ],
-    "variation_group": null,
-    "license_author": "Vasco Custom",
-    "_en_name": "DB Single-Arm Row (5kg)"
-  },
-  {
-    "id": 2503,
-    "uuid": "52093ce1-2544-4b48-ad15-6e02de9b576d",
-    "created": "2026-08-10T03:37:35.909062+02:00",
-    "last_update": "2026-08-10T03:37:35.909075+02:00",
-    "category": 12,
-    "muscles": [
-      2,
-      9,
-      5
-    ],
-    "muscles_secondary": [],
-    "equipment": [
-      7
-    ],
-    "variation_group": null,
-    "license_author": "Vasco Custom",
-    "_en_name": "Face Pulls (Bodyweight Doorframe/Towel)"
-  },
-  {
-    "id": 2504,
-    "uuid": "6e5e15f0-5722-46d6-ad89-719c581da436",
-    "created": "2026-08-10T03:37:39.179368+02:00",
-    "last_update": "2026-08-10T03:37:39.179380+02:00",
-    "category": 8,
-    "muscles": [
-      1
-    ],
-    "muscles_secondary": [
-      13
-    ],
-    "equipment": [
-      3
-    ],
-    "variation_group": null,
-    "license_author": "Vasco Custom",
-    "_en_name": "DB Hammer Curls (5kg)"
-  },
-  {
-    "id": 2505,
-    "uuid": "816d8bff-73c0-436c-8479-e0145f2324fc",
-    "created": "2026-08-10T03:41:34.381905+02:00",
-    "last_update": "2026-08-10T03:41:34.381918+02:00",
-    "category": 10,
-    "muscles": [
-      6
-    ],
-    "muscles_secondary": [
-      14
-    ],
-    "equipment": [
-      7
-    ],
-    "variation_group": null,
-    "license_author": "Vasco Custom",
-    "_en_name": "Dead Bug (Core L1)"
-  },
-  {
-    "id": 2507,
-    "uuid": "0c6764f2-fb86-43f1-bd35-04a35f74d5e4",
-    "created": "2026-08-10T07:06:25.270489+02:00",
-    "last_update": "2026-08-10T07:06:25.270503+02:00",
-    "category": 10,
-    "muscles": [
-      7
-    ],
-    "muscles_secondary": [],
-    "equipment": [
-      7
-    ],
-    "variation_group": null,
-    "license_author": "Vasco Custom",
-    "_en_name": "Forearm Plank (Core L1)"
-  },
-  {
-    "id": 2508,
-    "uuid": "6d45afed-05c4-42a2-994b-5ef62a9d0aed",
-    "created": "2026-08-10T07:07:00.952271+02:00",
-    "last_update": "2026-08-10T07:07:00.952285+02:00",
-    "category": 10,
-    "muscles": [
-      6
-    ],
-    "muscles_secondary": [],
-    "equipment": [
-      7
-    ],
-    "variation_group": null,
-    "license_author": "Vasco Custom",
-    "_en_name": "Bird Dog (Core L1)"
-  },
-  {
-    "id": 2509,
-    "uuid": "2caf3474-9855-4d0b-a50f-dbc08772b151",
-    "created": "2026-08-10T07:07:04.454072+02:00",
-    "last_update": "2026-08-10T07:07:04.454083+02:00",
-    "category": 10,
-    "muscles": [
-      2,
-      12,
-      4
-    ],
-    "muscles_secondary": [
-      1,
-      13,
-      14
-    ],
-    "equipment": [
-      7
-    ],
-    "variation_group": null,
-    "license_author": "Vasco Custom",
-    "_en_name": "Side Plank (Core L1)"
-  },
-  {
-    "id": 2510,
-    "uuid": "2b165c5c-403f-43e5-b28d-83c8b914505b",
-    "created": "2026-08-10T07:07:08.031568+02:00",
-    "last_update": "2026-08-10T07:07:08.031589+02:00",
-    "category": 15,
-    "muscles": [
-      7,
-      8,
-      14
-    ],
-    "muscles_secondary": [
-      2,
-      1,
-      13,
-      12
-    ],
-    "equipment": [
-      7
-    ],
-    "variation_group": null,
-    "license_author": "Vasco Custom",
-    "_en_name": "Hollow Body Hold (Core L1)"
-  },
-  {
-    "id": 2522,
-    "uuid": "42cdddc2-970e-445c-a766-f6562bf63069",
-    "created": "2026-08-11T12:40:40.356482+02:00",
-    "last_update": "2026-08-11T12:40:40.356500+02:00",
-    "category": 8,
-    "muscles": [
-      5
-    ],
-    "muscles_secondary": [
-      4
-    ],
-    "equipment": [
-      11
-    ],
-    "variation_group": null,
-    "license_author": "G. Johnson",
-    "_en_name": "Tricep Pull-Down"
-  },
-  {
     "id": 2523,
     "uuid": "7936d8ad-6a39-4459-aa60-3e1e325f5e2b",
     "created": "2026-08-16T23:38:03.383162+02:00",
@@ -15339,21 +14965,6 @@
     "variation_group": null,
     "license_author": "Croak6728",
     "_en_name": "Serratus Wall Slide Stretch"
-  },
-  {
-    "id": 2524,
-    "uuid": "5abe2fee-6b82-4fce-9ff0-4f5fd2d3d01c",
-    "created": "2026-08-16T23:48:51.266441+02:00",
-    "last_update": "2026-08-16T23:48:51.266456+02:00",
-    "category": 9,
-    "muscles": [],
-    "muscles_secondary": [],
-    "equipment": [
-      1
-    ],
-    "variation_group": null,
-    "license_author": "Croak6728",
-    "_en_name": "Straddle Stance Good Morning"
   },
   {
     "id": 2525,
@@ -15503,5 +15114,1299 @@
     "variation_group": null,
     "license_author": "ege",
     "_en_name": "Planche Lean Hold"
+  },
+  {
+    "id": 2533,
+    "uuid": "f4291da4-09c2-4605-a90c-c926c6a92515",
+    "created": "2026-08-24T19:29:34.180330+02:00",
+    "last_update": "2026-08-24T19:29:34.180344+02:00",
+    "category": 13,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [
+      6
+    ],
+    "variation_group": null,
+    "license_author": "wintercyan",
+    "_en_name": "Arch Hang"
+  },
+  {
+    "id": 2535,
+    "uuid": "88c4d3e5-3837-4c71-bb06-c45e147496cc",
+    "created": "2026-09-01T08:15:43.864495+02:00",
+    "last_update": "2026-09-11T22:43:26.783370+02:00",
+    "category": 9,
+    "muscles": [
+      10
+    ],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "HexoctusEngineering",
+    "_en_name": "Leg Extension Isometric"
+  },
+  {
+    "id": 2536,
+    "uuid": "20d8df5a-c9d6-4c69-bdf2-d97af68ac83f",
+    "created": "2026-09-01T09:11:05.174863+02:00",
+    "last_update": "2026-09-11T22:43:27.164759+02:00",
+    "category": 11,
+    "muscles": [
+      2,
+      4,
+      5
+    ],
+    "muscles_secondary": [
+      14,
+      6,
+      3
+    ],
+    "equipment": [
+      1,
+      8
+    ],
+    "variation_group": null,
+    "license_author": "HexoctusEngineering",
+    "_en_name": "Bench Press Isometric"
+  },
+  {
+    "id": 2537,
+    "uuid": "993c7f0c-729b-4834-a0f5-67d126d92fbf",
+    "created": "2026-09-01T09:16:41.704046+02:00",
+    "last_update": "2026-09-11T22:43:27.539361+02:00",
+    "category": 13,
+    "muscles": [
+      2,
+      5
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      1
+    ],
+    "variation_group": null,
+    "license_author": "HexoctusEngineering",
+    "_en_name": "Overhead Press Isometric"
+  },
+  {
+    "id": 2538,
+    "uuid": "2d580008-4918-430a-b0bd-4fcfe8783195",
+    "created": "2026-09-01T09:19:55.287286+02:00",
+    "last_update": "2026-09-11T22:43:27.912873+02:00",
+    "category": 13,
+    "muscles": [
+      2
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      3
+    ],
+    "variation_group": null,
+    "license_author": "HexoctusEngineering",
+    "_en_name": "Lateral Raise Isometric"
+  },
+  {
+    "id": 2539,
+    "uuid": "d5fb6606-4832-4216-bc0a-36955b5f741f",
+    "created": "2026-09-01T09:22:35.387723+02:00",
+    "last_update": "2026-09-11T22:43:28.285378+02:00",
+    "category": 8,
+    "muscles": [
+      1
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      3,
+      2
+    ],
+    "variation_group": null,
+    "license_author": "HexoctusEngineering",
+    "_en_name": "Preacher Curl Isometric"
+  },
+  {
+    "id": 2540,
+    "uuid": "b6054509-576f-429c-960f-73c84f481b7c",
+    "created": "2026-09-01T09:25:50.002779+02:00",
+    "last_update": "2026-09-01T09:25:50.002797+02:00",
+    "category": 12,
+    "muscles": [
+      12
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      12
+    ],
+    "variation_group": null,
+    "license_author": "HexoctusEngineering",
+    "_en_name": "Lat Pulldown Isometric"
+  },
+  {
+    "id": 2541,
+    "uuid": "788b66aa-7e59-493f-ad9a-0522736c7ef0",
+    "created": "2026-09-01T09:28:39.832790+02:00",
+    "last_update": "2026-09-01T09:28:39.832803+02:00",
+    "category": 8,
+    "muscles": [
+      5
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      12
+    ],
+    "variation_group": null,
+    "license_author": "HexoctusEngineering",
+    "_en_name": "Triceps Pushdown Isometric"
+  },
+  {
+    "id": 2542,
+    "uuid": "0829749c-de42-49a5-a24b-451b0eac8627",
+    "created": "2026-09-01T10:30:19.501429+02:00",
+    "last_update": "2026-09-01T10:30:19.501443+02:00",
+    "category": 15,
+    "muscles": [
+      2,
+      5
+    ],
+    "muscles_secondary": [
+      1,
+      12
+    ],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "SAH",
+    "_en_name": "Boxing"
+  },
+  {
+    "id": 2543,
+    "uuid": "a5828b61-2f5c-42a0-a085-71b91d18ecc3",
+    "created": "2026-09-02T00:22:02.889958+02:00",
+    "last_update": "2026-09-02T00:22:02.889971+02:00",
+    "category": 8,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "Awlex",
+    "_en_name": ""
+  },
+  {
+    "id": 2549,
+    "uuid": "7e74b1f1-636b-4821-b4be-3711328b89b4",
+    "created": "2026-09-08T19:52:40.427382+02:00",
+    "last_update": "2026-09-08T19:52:40.427395+02:00",
+    "category": 15,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "Personal routine",
+    "_en_name": "Retro Treadmill Walking"
+  },
+  {
+    "id": 2555,
+    "uuid": "5597bafc-0478-4124-9745-85f9df22be3e",
+    "created": "2026-09-08T21:00:43.330683+02:00",
+    "last_update": "2026-09-08T21:00:43.330707+02:00",
+    "category": 10,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Kegel Exercise"
+  },
+  {
+    "id": 2557,
+    "uuid": "15cfef4a-471f-4a00-a3c3-973b15bd7cda",
+    "created": "2026-09-08T21:00:44.019949+02:00",
+    "last_update": "2026-09-08T21:00:44.019979+02:00",
+    "category": 9,
+    "muscles": [
+      10
+    ],
+    "muscles_secondary": [
+      8
+    ],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Supported Split Squat"
+  },
+  {
+    "id": 2564,
+    "uuid": "7bd11f85-69a1-42ea-9924-7df7ba6d4f10",
+    "created": "2026-09-08T21:00:46.553308+02:00",
+    "last_update": "2026-09-08T21:00:46.553337+02:00",
+    "category": 10,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "90/90 Breathing"
+  },
+  {
+    "id": 2613,
+    "uuid": "a825d0f7-de61-4ca3-a2b2-0f8b00303464",
+    "created": "2026-09-09T14:41:14.672774+02:00",
+    "last_update": "2026-09-11T22:34:53.225403+02:00",
+    "category": 9,
+    "muscles": [
+      8
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      7
+    ],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "90/90 Hip Switches"
+  },
+  {
+    "id": 2614,
+    "uuid": "4e396da7-b25e-42de-a507-fe1aeb4f3f77",
+    "created": "2026-09-09T14:41:16.644830+02:00",
+    "last_update": "2026-09-11T22:34:53.604567+02:00",
+    "category": 9,
+    "muscles": [],
+    "muscles_secondary": [
+      11,
+      8
+    ],
+    "equipment": [
+      7
+    ],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Adductor Rock Backs"
+  },
+  {
+    "id": 2615,
+    "uuid": "e205aa88-c7b8-43a7-a527-c881b2d5f259",
+    "created": "2026-09-09T14:41:19.307812+02:00",
+    "last_update": "2026-09-11T22:34:54.011349+02:00",
+    "category": 9,
+    "muscles": [
+      11
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      7
+    ],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Elevated Hamstring Stretch"
+  },
+  {
+    "id": 2616,
+    "uuid": "53b8727f-ad5c-402a-83e6-7b8e9c0bd99a",
+    "created": "2026-09-09T21:02:48.121098+02:00",
+    "last_update": "2026-09-21T00:54:16.817249+02:00",
+    "category": 9,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [
+      7
+    ],
+    "variation_group": "d509070f-bc9d-4ab6-9355-533d2f169c5a",
+    "license_author": "aboksz",
+    "_en_name": "Single-leg BOSU balance"
+  },
+  {
+    "id": 2617,
+    "uuid": "2867cd51-f911-47db-9ea5-ca09aa44ca8f",
+    "created": "2026-09-09T21:32:07.022880+02:00",
+    "last_update": "2026-09-09T21:32:07.022893+02:00",
+    "category": 9,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [
+      4
+    ],
+    "variation_group": null,
+    "license_author": "aboksz",
+    "_en_name": "Quad Sets"
+  },
+  {
+    "id": 2618,
+    "uuid": "a4f78033-90d7-45a2-96fa-509b41281ea3",
+    "created": "2026-09-09T21:46:08.626834+02:00",
+    "last_update": "2026-09-21T00:54:11.251271+02:00",
+    "category": 9,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [
+      11
+    ],
+    "variation_group": "544fef63-bc00-44a3-aeb7-aedbba526ba5",
+    "license_author": "aboksz",
+    "_en_name": "Hip-Out and Hip-In Lateral Steps"
+  },
+  {
+    "id": 2619,
+    "uuid": "eb8d3fa8-8cfc-4961-8e3d-5bf0a5081797",
+    "created": "2026-09-09T22:08:48.091850+02:00",
+    "last_update": "2026-09-09T22:08:48.091875+02:00",
+    "category": 9,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [
+      7
+    ],
+    "variation_group": null,
+    "license_author": "aboksz",
+    "_en_name": "Single-Leg Soft-Landing Holds"
+  },
+  {
+    "id": 2620,
+    "uuid": "04063ba5-05d1-48b9-9571-eae2b8edab29",
+    "created": "2026-09-09T22:37:34.025030+02:00",
+    "last_update": "2026-09-09T22:37:34.025044+02:00",
+    "category": 9,
+    "muscles": [
+      8,
+      10
+    ],
+    "muscles_secondary": [
+      11
+    ],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "aboksz",
+    "_en_name": "Reverse V-Squat"
+  },
+  {
+    "id": 2621,
+    "uuid": "6f919d6d-e8b2-4aac-bc43-fd6184978b70",
+    "created": "2026-09-10T18:59:11.314592+02:00",
+    "last_update": "2026-09-10T18:59:11.411982+02:00",
+    "category": 13,
+    "muscles": [
+      2,
+      4,
+      5
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      7
+    ],
+    "variation_group": "e683eb4d-0d9c-4c80-a00f-fc7d867d5936",
+    "license_author": "Jarda",
+    "_en_name": "Box Handstand Push-up"
+  },
+  {
+    "id": 2622,
+    "uuid": "8270bfb7-0264-4f79-aa3d-1ceed134b5d0",
+    "created": "2026-09-14T23:25:36.388477+02:00",
+    "last_update": "2026-09-14T23:25:36.543753+02:00",
+    "category": 13,
+    "muscles": [
+      2
+    ],
+    "muscles_secondary": [
+      3,
+      9
+    ],
+    "equipment": [
+      11
+    ],
+    "variation_group": "b40d438a-c545-4507-8447-10bbb5e30bdd",
+    "license_author": "trs1800",
+    "_en_name": "Banded Front Raise"
+  },
+  {
+    "id": 2623,
+    "uuid": "5d5122e0-65f3-4afc-ac36-21955e2c7dde",
+    "created": "2026-09-14T23:25:37.065065+02:00",
+    "last_update": "2026-09-14T23:25:37.108370+02:00",
+    "category": 12,
+    "muscles": [
+      12
+    ],
+    "muscles_secondary": [
+      1,
+      13,
+      9
+    ],
+    "equipment": [],
+    "variation_group": "7bad4b8b-a95f-4a40-b512-7429d3333f66",
+    "license_author": "trs1800",
+    "_en_name": "Plate-Loaded Lat Pulldown"
+  },
+  {
+    "id": 2624,
+    "uuid": "28d18142-8777-4dba-a3a1-6151cec94500",
+    "created": "2026-09-14T23:25:37.587956+02:00",
+    "last_update": "2026-09-14T23:25:37.627892+02:00",
+    "category": 13,
+    "muscles": [
+      2
+    ],
+    "muscles_secondary": [
+      9
+    ],
+    "equipment": [
+      12
+    ],
+    "variation_group": "fa7f14c4-f65a-4324-925c-bd30db99119d",
+    "license_author": "trs1800",
+    "_en_name": "Lean-Away Cable Lateral Raise"
+  },
+  {
+    "id": 2625,
+    "uuid": "42e40343-955c-43a2-902e-e70bd603a713",
+    "created": "2026-09-16T01:47:29.154394+02:00",
+    "last_update": "2026-09-16T01:47:29.154407+02:00",
+    "category": 10,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": ""
+  },
+  {
+    "id": 2626,
+    "uuid": "2a9b16ba-04ae-43ac-8d48-6e0aadb1d5a5",
+    "created": "2026-09-16T01:47:32.860142+02:00",
+    "last_update": "2026-09-16T01:47:32.860155+02:00",
+    "category": 9,
+    "muscles": [
+      11
+    ],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Machine Seated Leg Curl"
+  },
+  {
+    "id": 2627,
+    "uuid": "fc9d4980-c6a1-4786-b982-7ff56ca773f9",
+    "created": "2026-09-16T01:47:34.583404+02:00",
+    "last_update": "2026-09-16T01:47:34.583422+02:00",
+    "category": 11,
+    "muscles": [
+      4,
+      5
+    ],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Machine Chest Press"
+  },
+  {
+    "id": 2628,
+    "uuid": "8aae635b-cb15-4129-bc09-6951fa376274",
+    "created": "2026-09-16T01:47:37.107488+02:00",
+    "last_update": "2026-09-16T01:47:37.107501+02:00",
+    "category": 14,
+    "muscles": [
+      7,
+      15
+    ],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Machine Seated Calf Raise"
+  },
+  {
+    "id": 2629,
+    "uuid": "18a02b91-fb98-462b-aff1-05c982f151d4",
+    "created": "2026-09-16T01:47:39.578992+02:00",
+    "last_update": "2026-09-16T01:47:39.579007+02:00",
+    "category": 10,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Controlled Kegels"
+  },
+  {
+    "id": 2630,
+    "uuid": "be5c2a68-ac68-4833-8144-fb8c2bc7d5fb",
+    "created": "2026-09-16T01:47:41.819198+02:00",
+    "last_update": "2026-09-16T01:47:41.819210+02:00",
+    "category": 10,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Pelvic Endurance Hold"
+  },
+  {
+    "id": 2631,
+    "uuid": "e6bf0364-ccce-4053-afe1-eef206a50291",
+    "created": "2026-09-16T01:47:44.404363+02:00",
+    "last_update": "2026-09-16T01:47:44.404379+02:00",
+    "category": 12,
+    "muscles": [
+      1,
+      12
+    ],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Machine Lat Pulldown"
+  },
+  {
+    "id": 2632,
+    "uuid": "fe0c2a17-fad9-4235-8786-84bb1de93530",
+    "created": "2026-09-16T01:47:48.070430+02:00",
+    "last_update": "2026-09-16T01:47:48.070447+02:00",
+    "category": 11,
+    "muscles": [
+      2,
+      4
+    ],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Machine Incline Chest Press"
+  },
+  {
+    "id": 2633,
+    "uuid": "7eb52939-0e33-4319-829d-d8e142fc74d9",
+    "created": "2026-09-16T01:47:50.827146+02:00",
+    "last_update": "2026-09-16T01:47:50.827160+02:00",
+    "category": 8,
+    "muscles": [
+      1
+    ],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Preacher Curl Machine"
+  },
+  {
+    "id": 2634,
+    "uuid": "b1eed626-112f-401c-a61d-bfe168fdedc7",
+    "created": "2026-09-16T01:47:55.463796+02:00",
+    "last_update": "2026-09-16T01:47:55.463809+02:00",
+    "category": 8,
+    "muscles": [
+      5
+    ],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Machine Dip or Triceps Extension"
+  },
+  {
+    "id": 2635,
+    "uuid": "6b6bd3ce-c40d-486c-9c47-21a3c639626d",
+    "created": "2026-09-16T03:24:40.202161+02:00",
+    "last_update": "2026-09-16T03:24:40.343859+02:00",
+    "category": 12,
+    "muscles": [
+      12
+    ],
+    "muscles_secondary": [
+      1,
+      13,
+      9
+    ],
+    "equipment": [
+      11
+    ],
+    "variation_group": "6a8f9718-0447-47be-a2eb-6d052cf608af",
+    "license_author": "trs1800",
+    "_en_name": "Seated Band Row"
+  },
+  {
+    "id": 2636,
+    "uuid": "365e9101-f972-4040-9f37-26f72109fac5",
+    "created": "2026-09-16T03:24:40.865364+02:00",
+    "last_update": "2026-09-16T03:24:40.865382+02:00",
+    "category": 8,
+    "muscles": [],
+    "muscles_secondary": [
+      13
+    ],
+    "equipment": [
+      7
+    ],
+    "variation_group": null,
+    "license_author": "trs1800",
+    "_en_name": "FlexBar Wrist Extension"
+  },
+  {
+    "id": 2637,
+    "uuid": "2b4dd42b-1b52-46ba-8953-82c34b309ac5",
+    "created": "2026-09-16T03:24:41.407714+02:00",
+    "last_update": "2026-09-16T03:24:41.407748+02:00",
+    "category": 8,
+    "muscles": [],
+    "muscles_secondary": [
+      13
+    ],
+    "equipment": [
+      7
+    ],
+    "variation_group": null,
+    "license_author": "trs1800",
+    "_en_name": "FlexBar Wrist Flexion"
+  },
+  {
+    "id": 2638,
+    "uuid": "32aae5db-c992-4c18-96a1-35ed03aab9a3",
+    "created": "2026-09-16T03:24:41.949139+02:00",
+    "last_update": "2026-09-16T03:24:41.949161+02:00",
+    "category": 8,
+    "muscles": [],
+    "muscles_secondary": [
+      13
+    ],
+    "equipment": [
+      7
+    ],
+    "variation_group": null,
+    "license_author": "trs1800",
+    "_en_name": "FlexBar Tyler Twist"
+  },
+  {
+    "id": 2639,
+    "uuid": "12a80404-8684-4ff0-a473-d80b4ad8cd5e",
+    "created": "2026-09-16T06:52:15.552683+02:00",
+    "last_update": "2026-09-16T06:52:15.552706+02:00",
+    "category": 9,
+    "muscles": [
+      11,
+      8
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      3
+    ],
+    "variation_group": null,
+    "license_author": "kbk",
+    "_en_name": ""
+  },
+  {
+    "id": 2640,
+    "uuid": "ed4c132b-1955-49f8-9be3-29e6ffb8eba1",
+    "created": "2026-09-16T18:20:32.327735+02:00",
+    "last_update": "2026-09-16T18:20:32.327749+02:00",
+    "category": 10,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Quick Kegels"
+  },
+  {
+    "id": 2641,
+    "uuid": "8c5a72c7-97e3-4993-9d5f-dd920bde597e",
+    "created": "2026-09-16T18:20:34.468641+02:00",
+    "last_update": "2026-09-16T18:20:34.468653+02:00",
+    "category": 10,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Pelvic Wave"
+  },
+  {
+    "id": 2642,
+    "uuid": "1d907070-306e-49a3-b7c7-0d492b2632f0",
+    "created": "2026-09-16T18:20:38.386373+02:00",
+    "last_update": "2026-09-16T18:20:38.386386+02:00",
+    "category": 12,
+    "muscles": [
+      1,
+      12,
+      9
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      3
+    ],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "One-Arm Dumbbell Row"
+  },
+  {
+    "id": 2643,
+    "uuid": "0f648dbf-9ddc-44d9-a10c-1aa97537ea91",
+    "created": "2026-09-16T18:20:43.462267+02:00",
+    "last_update": "2026-09-16T18:20:43.462281+02:00",
+    "category": 13,
+    "muscles": [
+      9
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      3
+    ],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Dumbbell Bent-Over Reverse Fly"
+  },
+  {
+    "id": 2644,
+    "uuid": "f4fbc177-afa9-402c-a7e0-dc40b5de9829",
+    "created": "2026-09-16T18:20:45.498793+02:00",
+    "last_update": "2026-09-16T18:20:45.498812+02:00",
+    "category": 14,
+    "muscles": [
+      7
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      3
+    ],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Dumbbell or Machine Calf Raise"
+  },
+  {
+    "id": 2645,
+    "uuid": "4b220e25-1a42-4457-9652-274183c6d839",
+    "created": "2026-09-16T18:20:48.803782+02:00",
+    "last_update": "2026-09-16T18:20:48.803801+02:00",
+    "category": 9,
+    "muscles": [
+      8,
+      10
+    ],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Squat -> Stand Coordination"
+  },
+  {
+    "id": 2646,
+    "uuid": "1195230d-9d0e-4d90-b32a-5951fcc6ba09",
+    "created": "2026-09-16T18:20:51.089940+02:00",
+    "last_update": "2026-09-16T18:20:51.089957+02:00",
+    "category": 9,
+    "muscles": [
+      8,
+      10
+    ],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Supported Deep Squat Breathing"
+  },
+  {
+    "id": 2647,
+    "uuid": "6c8cd086-1cd0-4979-8d01-7df72b1e839b",
+    "created": "2026-09-16T18:20:52.779934+02:00",
+    "last_update": "2026-09-16T18:20:52.779947+02:00",
+    "category": 10,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Pelvic Tilts"
+  },
+  {
+    "id": 2648,
+    "uuid": "972e92bd-d432-4914-a577-0156d16afe48",
+    "created": "2026-09-16T18:20:55.927707+02:00",
+    "last_update": "2026-09-16T18:20:55.927719+02:00",
+    "category": 9,
+    "muscles": [
+      11
+    ],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "90/90 Hamstring / Barre-Style Stretch"
+  },
+  {
+    "id": 2649,
+    "uuid": "d2cca57c-48e1-4a61-b756-c5baedf7a184",
+    "created": "2026-09-16T18:20:58.281908+02:00",
+    "last_update": "2026-09-16T18:20:58.281920+02:00",
+    "category": 9,
+    "muscles": [
+      8
+    ],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Glute Stretch"
+  },
+  {
+    "id": 2650,
+    "uuid": "14cea0e7-2e7c-4d35-bfec-2f2f90209e02",
+    "created": "2026-09-16T20:51:02.897592+02:00",
+    "last_update": "2026-09-16T20:51:02.897645+02:00",
+    "category": 14,
+    "muscles": [
+      15
+    ],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Soleus / Achilles Stretch"
+  },
+  {
+    "id": 2651,
+    "uuid": "7ce123b1-b1fd-438d-8840-c7c9a0639e54",
+    "created": "2026-09-16T20:51:06.403228+02:00",
+    "last_update": "2026-09-16T20:51:06.403240+02:00",
+    "category": 14,
+    "muscles": [
+      7
+    ],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": ""
+  },
+  {
+    "id": 2652,
+    "uuid": "abbf941e-e145-4492-aa96-fbbcd955e970",
+    "created": "2026-09-16T20:51:09.646288+02:00",
+    "last_update": "2026-09-16T20:51:09.646301+02:00",
+    "category": 12,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Extended Arm Child's Pose"
+  },
+  {
+    "id": 2653,
+    "uuid": "54bf28e0-3709-49fd-b1b4-c99144e6a880",
+    "created": "2026-09-16T20:51:12.890339+02:00",
+    "last_update": "2026-09-16T20:51:12.890351+02:00",
+    "category": 12,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Gentle Thoracic Rotation"
+  },
+  {
+    "id": 2654,
+    "uuid": "8c23116c-b640-4f80-a309-235cc12d83d8",
+    "created": "2026-09-16T20:51:16.291009+02:00",
+    "last_update": "2026-09-16T20:51:16.291024+02:00",
+    "category": 12,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Gentle Upward-Facing Dog / Cobra"
+  },
+  {
+    "id": 2655,
+    "uuid": "9e3c665d-ac4e-456b-b1cd-0c209ce8090a",
+    "created": "2026-09-16T20:51:19.358186+02:00",
+    "last_update": "2026-09-16T20:51:19.358201+02:00",
+    "category": 10,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Gentle Reverse Kegels"
+  },
+  {
+    "id": 2656,
+    "uuid": "903bd749-3b91-4812-acd0-be7e8a012d2c",
+    "created": "2026-09-16T20:51:22.484408+02:00",
+    "last_update": "2026-09-16T20:51:22.484420+02:00",
+    "category": 9,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Happy Baby"
+  },
+  {
+    "id": 2657,
+    "uuid": "728b00ba-f9cb-4f04-915a-ccd5cd0b86bf",
+    "created": "2026-09-16T20:51:25.625770+02:00",
+    "last_update": "2026-09-16T20:51:25.625789+02:00",
+    "category": 10,
+    "muscles": [],
+    "muscles_secondary": [],
+    "equipment": [],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Relaxed Diaphragmatic Breathing"
+  },
+  {
+    "id": 2658,
+    "uuid": "c8b182c3-9dfd-40ca-87b2-ef25f19aa181",
+    "created": "2026-09-16T20:51:29.534619+02:00",
+    "last_update": "2026-09-16T20:51:29.534632+02:00",
+    "category": 13,
+    "muscles": [
+      2
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      3
+    ],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Dumbbell Lateral Raise"
+  },
+  {
+    "id": 2659,
+    "uuid": "6e2cf9bb-838d-4ad3-bc1e-db152293d16e",
+    "created": "2026-09-16T20:51:32.972434+02:00",
+    "last_update": "2026-09-16T20:51:32.972448+02:00",
+    "category": 8,
+    "muscles": [
+      1
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      3
+    ],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Alternating Dumbbell Curl"
+  },
+  {
+    "id": 2660,
+    "uuid": "563203ce-1867-4376-aa7f-a0356808c0ae",
+    "created": "2026-09-16T21:57:09.612264+02:00",
+    "last_update": "2026-09-16T21:57:09.612277+02:00",
+    "category": 8,
+    "muscles": [
+      5
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      3
+    ],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Bent-Over Dumbbell Triceps Extension"
+  },
+  {
+    "id": 2661,
+    "uuid": "456f0781-30c6-4f58-a5b4-3da8f4878065",
+    "created": "2026-09-16T21:57:13.241442+02:00",
+    "last_update": "2026-09-16T21:57:13.241456+02:00",
+    "category": 14,
+    "muscles": [
+      7
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      3
+    ],
+    "variation_group": null,
+    "license_author": "",
+    "_en_name": "Dumbbell Calf Raise"
+  },
+  {
+    "id": 2662,
+    "uuid": "a4c97a23-f044-4095-a041-94d92ffe44bd",
+    "created": "2026-09-18T13:01:26.289589+02:00",
+    "last_update": "2026-09-18T13:01:26.457048+02:00",
+    "category": 9,
+    "muscles": [
+      10
+    ],
+    "muscles_secondary": [
+      11,
+      8
+    ],
+    "equipment": [
+      1
+    ],
+    "variation_group": "d219c31d-97fb-452e-8547-be92090d774e",
+    "license_author": "bbk",
+    "_en_name": "Paused Squats"
+  },
+  {
+    "id": 2663,
+    "uuid": "0cb0c5aa-f3dc-4883-b181-0b5efda1bc4f",
+    "created": "2026-09-20T14:04:31.394147+02:00",
+    "last_update": "2026-09-20T14:04:31.512437+02:00",
+    "category": 12,
+    "muscles": [
+      12
+    ],
+    "muscles_secondary": [
+      9
+    ],
+    "equipment": [
+      12
+    ],
+    "variation_group": "bf93e7a9-c81c-4af4-892d-d40d6913c896",
+    "license_author": "bbk",
+    "_en_name": "Single-Arm Cable Row /w Rotation (floor)"
+  },
+  {
+    "id": 2664,
+    "uuid": "a3afaf43-b087-4f65-9e62-d038ab09ce90",
+    "created": "2026-09-21T00:54:08.248643+02:00",
+    "last_update": "2026-09-21T00:54:08.248661+02:00",
+    "category": 9,
+    "muscles": [
+      11
+    ],
+    "muscles_secondary": [
+      10
+    ],
+    "equipment": [
+      7
+    ],
+    "variation_group": null,
+    "license_author": "trs1800",
+    "_en_name": "Seated Knee Extension with Overpressure"
+  },
+  {
+    "id": 2665,
+    "uuid": "f47c4ad6-fe45-4409-93dd-e889d6a1aa89",
+    "created": "2026-09-21T00:54:11.209933+02:00",
+    "last_update": "2026-09-21T00:54:11.256045+02:00",
+    "category": 9,
+    "muscles": [
+      8
+    ],
+    "muscles_secondary": [
+      10
+    ],
+    "equipment": [
+      11
+    ],
+    "variation_group": "544fef63-bc00-44a3-aeb7-aedbba526ba5",
+    "license_author": "trs1800",
+    "_en_name": "Banded Monster Walk"
+  },
+  {
+    "id": 2666,
+    "uuid": "09235a96-9834-4fad-ba9a-88ace035e80a",
+    "created": "2026-09-21T00:54:13.974942+02:00",
+    "last_update": "2026-09-21T00:54:14.027756+02:00",
+    "category": 14,
+    "muscles": [
+      7
+    ],
+    "muscles_secondary": [
+      15
+    ],
+    "equipment": [
+      7
+    ],
+    "variation_group": "0def44de-f872-4fd3-9c69-56d41df33d19",
+    "license_author": "trs1800",
+    "_en_name": "Step Calf Stretch"
+  },
+  {
+    "id": 2667,
+    "uuid": "f9880802-e5bd-4143-97f6-d0ee82ba9dd2",
+    "created": "2026-09-21T00:54:16.774889+02:00",
+    "last_update": "2026-09-21T00:54:16.823515+02:00",
+    "category": 9,
+    "muscles": [],
+    "muscles_secondary": [
+      7,
+      8
+    ],
+    "equipment": [
+      7
+    ],
+    "variation_group": "d509070f-bc9d-4ab6-9355-533d2f169c5a",
+    "license_author": "trs1800",
+    "_en_name": "Single-Leg Balance with Eyes Closed"
+  },
+  {
+    "id": 2668,
+    "uuid": "d229de41-3533-489f-8460-08a6e3daa25a",
+    "created": "2026-09-21T00:54:19.574875+02:00",
+    "last_update": "2026-09-21T00:54:19.574899+02:00",
+    "category": 9,
+    "muscles": [
+      8
+    ],
+    "muscles_secondary": [
+      2,
+      6
+    ],
+    "equipment": [
+      10
+    ],
+    "variation_group": null,
+    "license_author": "trs1800",
+    "_en_name": "Single-Leg Balance with Kettlebell Circles"
+  },
+  {
+    "id": 2669,
+    "uuid": "3642933c-d078-4fb6-a544-d1772fa0cc9d",
+    "created": "2026-09-21T20:27:48.017150+02:00",
+    "last_update": "2026-09-21T20:27:48.017164+02:00",
+    "category": 12,
+    "muscles": [
+      12,
+      9
+    ],
+    "muscles_secondary": [
+      1,
+      13
+    ],
+    "equipment": [
+      3
+    ],
+    "variation_group": "e87bd3db-75b1-44ec-8962-df2f97274109",
+    "license_author": "karthikrrk",
+    "_en_name": "Bent Over Dumbbell Rows (Two Arms)"
+  },
+  {
+    "id": 2670,
+    "uuid": "6c34000f-5d0b-43a9-b16e-00fd00c6db78",
+    "created": "2026-09-24T22:47:27.361958+02:00",
+    "last_update": "2026-09-24T22:47:27.463773+02:00",
+    "category": 15,
+    "muscles": [
+      7,
+      10
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      7
+    ],
+    "variation_group": "d47fc5dd-7d8f-4e95-a0d0-101dfd38ad99",
+    "license_author": "Mamo2604",
+    "_en_name": "Alternate Walking"
+  },
+  {
+    "id": 2671,
+    "uuid": "046b1e8f-4a11-4579-84d1-ac2833b8ed83",
+    "created": "2026-09-24T23:24:17.033706+02:00",
+    "last_update": "2026-09-24T23:24:17.033720+02:00",
+    "category": 15,
+    "muscles": [
+      2,
+      12,
+      10,
+      6
+    ],
+    "muscles_secondary": [
+      8,
+      14,
+      4
+    ],
+    "equipment": [
+      7
+    ],
+    "variation_group": null,
+    "license_author": "Mamo2604",
+    "_en_name": "Radio Taiso"
+  },
+  {
+    "id": 2672,
+    "uuid": "11914fdd-02d9-4aa6-88be-0c10cd54c609",
+    "created": "2026-09-30T13:21:31.682647+02:00",
+    "last_update": "2026-09-30T13:21:31.682662+02:00",
+    "category": 12,
+    "muscles": [
+      9
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      1,
+      8
+    ],
+    "variation_group": null,
+    "license_author": "Friend7857",
+    "_en_name": ""
+  },
+  {
+    "id": 2673,
+    "uuid": "9776bcb9-90a8-4f20-898f-652f82cabd5f",
+    "created": "2026-10-01T22:09:39.463284+02:00",
+    "last_update": "2026-10-01T22:09:39.463300+02:00",
+    "category": 10,
+    "muscles": [
+      6
+    ],
+    "muscles_secondary": [
+      14
+    ],
+    "equipment": [
+      7
+    ],
+    "variation_group": null,
+    "license_author": "TimoteoG",
+    "_en_name": "Stomach Vacuum"
+  },
+  {
+    "id": 2674,
+    "uuid": "60ecc95f-2179-46e0-8875-d05f70da6ff0",
+    "created": "2026-10-02T10:43:26.093721+02:00",
+    "last_update": "2026-10-02T10:46:10.587265+02:00",
+    "category": 10,
+    "muscles": [
+      6
+    ],
+    "muscles_secondary": [
+      3
+    ],
+    "equipment": [
+      7
+    ],
+    "variation_group": "dfca3142-0dc9-4be2-a4b8-f4cfa370df0e",
+    "license_author": "fen",
+    "_en_name": "Knieheben Beinhebemaschine"
+  },
+  {
+    "id": 2675,
+    "uuid": "92d0533f-3deb-40e6-89d2-7563dd6b9c38",
+    "created": "2026-10-02T10:46:10.533285+02:00",
+    "last_update": "2026-10-02T10:46:10.591676+02:00",
+    "category": 10,
+    "muscles": [
+      14
+    ],
+    "muscles_secondary": [
+      6,
+      3
+    ],
+    "equipment": [
+      7
+    ],
+    "variation_group": "dfca3142-0dc9-4be2-a4b8-f4cfa370df0e",
+    "license_author": "fen",
+    "_en_name": "Knieheben Beinhebemaschine seitlich"
+  },
+  {
+    "id": 2676,
+    "uuid": "0d245efd-7d9a-4518-be17-cce14adae88a",
+    "created": "2026-10-03T17:46:57.863263+02:00",
+    "last_update": "2026-10-03T17:46:57.863277+02:00",
+    "category": 12,
+    "muscles": [
+      9
+    ],
+    "muscles_secondary": [],
+    "equipment": [
+      8
+    ],
+    "variation_group": null,
+    "license_author": "qoxivi",
+    "_en_name": ""
   }
 ]

@@ -36,6 +36,25 @@ def _next_set_index(session: Session, session_id: str, exercise_id: str) -> int:
     return (current_max if current_max is not None else -1) + 1
 
 
+def _require_editable_session(db_session: Session, session_id: str, user_id: str) -> WorkoutSession:
+    """Fetch the parent session and enforce the write-eligibility rule
+    for its sets: a set may be logged, edited, or deleted against a
+    session that is `active` OR `completed` (editing history in place
+    is allowed post-finish — see the 2026-08-22 "no more templates"
+    rework). An `abandoned` session is a discarded workout and stays
+    locked.
+    """
+    ws = db_session.get(WorkoutSession, session_id)
+    if ws is None or ws.user_id != user_id:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Session not found")
+    if ws.status not in ("active", "completed"):
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=f"Session is {ws.status}; sets cannot be modified",
+        )
+    return ws
+
+
 def _renumber_set_index(session: Session, session_id: str, exercise_id: str) -> None:
     """Rewrite every remaining set's `set_index` to 0..N-1, in current
     order. Stages only — caller commits."""
@@ -57,11 +76,7 @@ def log_set(
     user: User = Depends(get_current_user),
     session: Session = Depends(get_session),
 ) -> SetLogCreatedResponse:
-    ws = session.get(WorkoutSession, body.session_id)
-    if ws is None or ws.user_id != user.id:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Session not found")
-    if ws.status != "active":
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Session is not active")
+    ws = _require_editable_session(session, body.session_id, user.id)
 
     ex = session.get(Exercise, body.exercise_id)
     if ex is None:
@@ -110,6 +125,7 @@ def update_set(
     target = session.get(HistoricalSet, set_id)
     if target is None or target.user_id != user.id:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Set not found")
+    _require_editable_session(session, target.session_id, user.id)
 
     if body.weight is not None:
         target.weight = body.weight
@@ -157,6 +173,7 @@ def delete_set(
     target = session.get(HistoricalSet, set_id)
     if target is None or target.user_id != user.id:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Set not found")
+    _require_editable_session(session, target.session_id, user.id)
 
     session_id = target.session_id
     exercise_id = target.exercise_id

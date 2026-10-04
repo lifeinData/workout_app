@@ -1,6 +1,7 @@
 import { View, Text, Pressable } from 'react-native';
 import { Flame } from 'lucide-react-native';
 import type { SessionDetailResponse } from '@/lib/api';
+import { colors, radius } from '@/lib/theme';
 
 interface Props {
   session: SessionDetailResponse;
@@ -24,18 +25,23 @@ export function ActiveSessionBar({ session, onPress }: Props) {
   return (
     <Pressable
       onPress={onPress}
-      className="flex-row items-center gap-3 px-4 py-3 rounded-2xl bg-accent mb-4"
+      className="flex-row items-center gap-3 px-4 py-3 bg-accent mb-4"
+      style={{ borderRadius: radius.lg }}
     >
-      <View className="w-8 h-8 rounded-full bg-primary items-center justify-center">
-        <Flame size={14} color="#ffffff" />
+      <View className="w-8 h-8 items-center justify-center" style={{ borderRadius: radius.full, backgroundColor: colors.primary }}>
+        <Flame size={14} color={colors.primaryForeground} />
       </View>
       <View className="flex-1">
-        <Text className="text-sm font-semibold text-accent-foreground">{session.name}</Text>
-        <Text className="text-xs text-accent-foreground/70">
+        <Text maxFontSizeMultiplier={1.3} className="text-heading font-semibold text-accent-foreground">
+          {session.name}
+        </Text>
+        <Text maxFontSizeMultiplier={1.3} className="text-caption text-accent-foreground/70">
           {session.total_sets} sets logged · tap to resume
         </Text>
       </View>
-      <Text className="text-xs text-primary font-semibold">Resume</Text>
+      <Text maxFontSizeMultiplier={1.3} className="text-caption text-primary font-semibold">
+        Resume
+      </Text>
     </Pressable>
   );
 }

@@ -19,7 +19,6 @@ from app.db import get_session
 from app.deps import get_current_user
 from app.models import Exercise, HistoricalSet, User, Workout, WorkoutExerciseLink, WorkoutSession
 from app.prs import recompute_pr
-from app.routers._helpers import build_workout_detail
 from app.schemas import (
     ExerciseResponse,
     HistoricalSetResponse,
@@ -28,9 +27,6 @@ from app.schemas import (
     SessionExerciseBlock,
     SessionPatch,
     SessionSummaryResponse,
-    TemplateFromSessionCreate,
-    WorkoutDetailResponse,
-    WorkoutSummaryResponse,
 )
 from app.timefmt import utc_now_iso
 
@@ -45,9 +41,9 @@ STALE_SESSION_HOURS = 24
 # get these defaults, matching `WorkoutExerciseLink`'s own schema
 # defaults so the two paths render consistently.
 _ADHOC_TARGET_SETS = 3
-_ADHOC_TARGET_REPS_LOW = 8
-_ADHOC_TARGET_REPS_HIGH = 12
-_ADHOC_TARGET_REST_SEC = 90
+_ADHOC_TARGET_REPS = 10
+_ADHOC_TARGET_WEIGHT_KG = None
+_ADHOC_TARGET_REST_SEC = 60
 
 
 # ---------------------------------------------------------------------------
@@ -97,21 +93,23 @@ def _make_block(
     ex: Exercise,
     order_index: int,
     target_sets: int,
-    target_reps_low: int,
-    target_reps_high: int | None,
+    target_reps: int,
+    target_weight_kg: float | None,
     target_rest_sec: int,
     prescription_notes: str | None,
     sets: list[HistoricalSet],
+    is_prescribed: bool = False,
 ) -> SessionExerciseBlock:
     last_time = _last_time_sets(db, ws.user_id, ex.id, ws.id)
     return SessionExerciseBlock(
         exercise=ExerciseResponse.model_validate(ex),
         order_index=order_index,
         target_sets=target_sets,
-        target_reps_low=target_reps_low,
-        target_reps_high=target_reps_high,
+        target_reps=target_reps,
+        target_weight_kg=target_weight_kg,
         target_rest_sec=target_rest_sec,
         prescription_notes=prescription_notes,
+        is_prescribed=is_prescribed,
         sets=[HistoricalSetResponse.model_validate(s) for s in sets],
         last_time=[HistoricalSetResponse.model_validate(s) for s in last_time],
     )
@@ -174,11 +172,12 @@ def _build_blocks(db: Session, ws: WorkoutSession) -> list[SessionExerciseBlock]
                     ex,
                     link.order_index,
                     link.target_sets,
-                    link.target_reps_low,
-                    link.target_reps_high,
+                    link.target_reps,
+                    link.target_weight_kg,
                     link.target_rest_sec,
                     link.prescription_notes,
                     sets_by_exercise.get(link.exercise_id, []),
+                    is_prescribed=True,
                 )
             )
 
@@ -197,8 +196,8 @@ def _build_blocks(db: Session, ws: WorkoutSession) -> list[SessionExerciseBlock]
                     ex,
                     len(blocks),
                     _ADHOC_TARGET_SETS,
-                    _ADHOC_TARGET_REPS_LOW,
-                    _ADHOC_TARGET_REPS_HIGH,
+                    _ADHOC_TARGET_REPS,
+                    _ADHOC_TARGET_WEIGHT_KG,
                     _ADHOC_TARGET_REST_SEC,
                     None,
                     sets_by_exercise[eid],
@@ -299,10 +298,12 @@ def create_session(
     name = body.name
     if body.workout_id is not None:
         w = db.get(Workout, body.workout_id)
-        # A workout is startable only if it's the coach catalog
-        # (owner_id is None) or the caller's own personal template.
-        # Someone else's private template 404s — same as "not found",
-        # so we don't leak its existence.
+        # Personal (owner_id is not None) `Workout` rows no longer exist
+        # (see "no more templates" rework) — a workout is startable only
+        # if it's in the coach catalog (owner_id is None). The
+        # owner_id-mismatch branch is kept defensively rather than
+        # simplified to `w.owner_id is not None`, in case old rows
+        # linger in an unmigrated dev DB.
         if w is None or (w.owner_id is not None and w.owner_id != user.id):
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Workout not found")
         if name is None:
@@ -425,117 +426,39 @@ def delete_session(
 
 
 # ---------------------------------------------------------------------------
-# Personal templates ("My Workouts")
+# "My Workouts" — the caller's own past sessions
 # ---------------------------------------------------------------------------
+#
+# Personal `Workout` templates (owner_id = the user) no longer exist —
+# see the 2026-08-22 "no more templates" rework. "My Workouts" is now a
+# read of the user's own COMPLETED WorkoutSessions; tapping one re-opens
+# that past session for in-place editing rather than starting a fresh
+# copy from a saved template. `owner_id` stays on the `Workout` model
+# (Coach's Playbook depends on `owner_id IS NULL`), but nothing writes
+# it anymore.
 
 
-@router.get("/workouts", response_model=list[WorkoutSummaryResponse])
+@router.get("/workouts", response_model=list[SessionSummaryResponse])
 def list_my_workouts(
     user: User = Depends(get_current_user),
     db: Session = Depends(get_session),
-) -> list[WorkoutSummaryResponse]:
-    """The caller's own saved templates — the "My Workouts" tab.
+    limit: int = Query(default=50, ge=1, le=200),
+    offset: int = Query(default=0, ge=0),
+) -> list[SessionSummaryResponse]:
+    """The caller's own past workouts — the "My Workouts" tab.
 
-    Coach-catalog templates (owner_id is None) live at the public
-    GET /workouts; this endpoint returns only rows the caller owns.
+    Returns completed `WorkoutSession`s (not `Workout` templates —
+    those no longer exist for personal use), most recent first. Coach
+    catalog templates (`Workout.owner_id IS NULL`) live at the public
+    `GET /workouts`.
     """
-    from sqlalchemy import func as _func
-
-    rows = db.exec(select(Workout).where(Workout.owner_id == user.id)).all()
-    if not rows:
-        return []
-
-    counts = dict(
-        db.exec(
-            select(
-                WorkoutExerciseLink.workout_id,
-                _func.count(WorkoutExerciseLink.exercise_id),
-            )
-            .where(WorkoutExerciseLink.workout_id.in_([w.id for w in rows]))
-            .group_by(WorkoutExerciseLink.workout_id)
-        ).all()  # type: ignore[arg-type]
+    stmt = (
+        select(WorkoutSession)
+        .where(WorkoutSession.user_id == user.id)
+        .where(WorkoutSession.status == "completed")
+        .order_by(WorkoutSession.local_date.desc(), WorkoutSession.started_at.desc())
+        .limit(limit)
+        .offset(offset)
     )
-    return [
-        WorkoutSummaryResponse(
-            id=w.id,
-            name=w.name,
-            tag=w.tag,
-            location=w.location,
-            equipment=w.equipment,
-            duration_min=w.duration_min,
-            exercise_count=counts.get(w.id, 0),
-            owner_id=w.owner_id,
-        )
-        for w in rows
-    ]
-
-
-@router.post(
-    "/workouts/from-session/{session_id}",
-    response_model=WorkoutDetailResponse,
-    status_code=status.HTTP_201_CREATED,
-)
-def save_session_as_template(
-    session_id: str,
-    body: TemplateFromSessionCreate,
-    user: User = Depends(get_current_user),
-    db: Session = Depends(get_session),
-) -> WorkoutDetailResponse:
-    """Fork a session into a reusable personal template ("Save as
-    template"). Snapshots the session's WORKING sets (warmups excluded)
-    into per-exercise prescriptions the user can start again later.
-    """
-    ws = _get_owned_session_or_404(db, session_id, user.id)
-
-    # Working sets only, in first-logged order (same ordering rule as
-    # _build_blocks — by autoincrement id, not second-resolution ts).
-    set_rows = db.exec(
-        select(HistoricalSet)
-        .where(HistoricalSet.session_id == session_id)
-        .where(HistoricalSet.kind == "working")
-        .order_by(HistoricalSet.id)
-    ).all()
-
-    sets_by_exercise: dict[str, list[HistoricalSet]] = {}
-    order: list[str] = []
-    for s in set_rows:
-        if s.exercise_id not in sets_by_exercise:
-            sets_by_exercise[s.exercise_id] = []
-            order.append(s.exercise_id)
-        sets_by_exercise[s.exercise_id].append(s)
-
-    if not order:
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-            detail="Log at least one working set before saving as a template",
-        )
-
-    workout = Workout(
-        id=f"w-usr-{uuid.uuid4().hex[:12]}",
-        name=body.name or ws.name,
-        tag="Custom",
-        location="either",
-        equipment=[],
-        duration_min=45,
-        owner_id=user.id,
-    )
-    db.add(workout)
-
-    for idx, exercise_id in enumerate(order):
-        sets = sets_by_exercise[exercise_id]
-        reps = [s.reps for s in sets]
-        db.add(
-            WorkoutExerciseLink(
-                workout_id=workout.id,
-                exercise_id=exercise_id,
-                order_index=idx,
-                target_sets=len(sets),
-                target_reps_low=min(reps),
-                target_reps_high=max(reps),
-                target_rest_sec=_ADHOC_TARGET_REST_SEC,
-            )
-        )
-
-    db.commit()
-    db.refresh(workout)
-    return build_workout_detail(db, workout)
+    rows = db.exec(stmt).all()
+    return [_build_summary(db, ws) for ws in rows]

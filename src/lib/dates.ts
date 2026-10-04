@@ -51,18 +51,17 @@ const MONTHS_SHORT = [
 
 /**
  * Default title for a self-started (empty) workout, e.g.
- * `workout_2026_Aug_2_5:23PM`. Built manually (like `localDateKey`)
+ * `Aug 21 · 11:11 PM`. Built manually (like `localDateKey`)
  * so the exact format is controlled and locale-independent. Purely a
  * client-side display default — the user can rename it, and the value
  * is just sent as the session `name`.
  */
 export function fmtSessionDefaultName(d: Date): string {
-  const y = d.getFullYear();
   const mon = MONTHS_SHORT[d.getMonth()];
   const day = d.getDate();
   const h24 = d.getHours();
   const ampm = h24 >= 12 ? "PM" : "AM";
   const h12 = h24 % 12 === 0 ? 12 : h24 % 12;
   const mm = String(d.getMinutes()).padStart(2, "0");
-  return `workout_${y}_${mon}_${day}_${h12}:${mm}${ampm}`;
+  return `${mon} ${day} · ${h12}:${mm} ${ampm}`;
 }

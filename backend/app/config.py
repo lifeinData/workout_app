@@ -67,9 +67,31 @@ class SeedUser(BaseSettings):
     initials: str | None = None
 
 
+class SeedCoachLink(BaseSettings):
+    coach: str  # username
+    athlete: str  # username
+
+
+class SeedWelcomeMessage(BaseSettings):
+    # `from` is a Python keyword, so accept it via the alias.
+    model_config = SettingsConfigDict(populate_by_name=True)
+
+    from_user: str = Field(alias="from")
+    to: str
+    body: str
+
+
+class SeedCoaching(BaseSettings):
+    default_workout_creator: str | None = None  # username
+    links: list[SeedCoachLink] = Field(default_factory=list)  # seeded as accepted
+    assign_all_seed_workouts: bool = False
+    welcome_messages: list[SeedWelcomeMessage] = Field(default_factory=list)
+
+
 class SeedConfig(BaseSettings):
     default_workout_ids: list[str] = Field(default_factory=list)
     initial_users: list[SeedUser] = Field(default_factory=list)
+    coaching: SeedCoaching = Field(default_factory=SeedCoaching)
 
 
 class Settings(BaseSettings):
